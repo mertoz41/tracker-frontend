@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
+import pageStyles from './page.module.css'
+import Intro from '../components/intro'
 
 export class Login extends Component {
     componentDidMount(){
         console.log("why isnt this being mounted")
     }
+    
     render() {
         return (
-            <div>
-                LOGIN PAGE EXPERIMENTING ONLY
-                <button onClick={this.props.experiment}>
-                    click here 
-                </button>
+            <div className={pageStyles.wrapper}>
+                <Intro/>
+                
+                
             </div>
         )
     }

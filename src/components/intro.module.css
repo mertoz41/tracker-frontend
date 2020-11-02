@@ -1,0 +1,32 @@
+.container{
+    position: relative;
+
+    width: 70%;
+    height: 90%;
+    background-color: white;
+    margin: auto;
+    border: 4px solid blue;
+    text-align: center;
+}
+
+
+
+.choice{
+    position: relative;
+    top: 40%;
+    display: flex;
+    width: 70%;
+    height: 300px;
+    background-color: pink;
+    margin: auto;
+}
+.side{
+    width: 50%;
+    float: left;
+    padding: 20px;
+}
+
+.side:hover {
+    background-color: purple;
+
+}
