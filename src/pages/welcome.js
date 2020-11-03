@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import pageStyles from './page.module.css'
 import Intro from '../components/intro'
 
-export class Login extends Component {
+export class Welcome extends Component {
     componentDidMount(){
         console.log("why isnt this being mounted")
     }
@@ -10,6 +10,7 @@ export class Login extends Component {
     render() {
         return (
             <div className={pageStyles.wrapper}>
+                
                 <Intro/>
                 
                 
@@ -18,4 +19,4 @@ export class Login extends Component {
     }
 }
 
-export default Login
+export default Welcome

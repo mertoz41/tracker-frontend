@@ -30,8 +30,9 @@ class Intro extends Component {
     
     return (
         <div className={introStyles.container}>
+            <h1>Project Tracker</h1>
             {this.state.picked ? 
-            <div>experiment</div>
+            null
             :
             <div className={introStyles.choice}>
                 <div className={introStyles.side} onClick={() => this.register()}>

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import './App.css';
 import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
-import Login from './pages/login'
+import Welcome from './pages/welcome'
 import Homepage from './pages/homepage'
 import store from './redux/store'
 
@@ -32,22 +32,22 @@ class App extends Component {
         this.state.loggedIn ?
         <Homepage />
         :
-        <Redirect to="/login" />
+        <Redirect to="/welcome" />
         }/>
 
       
-        <Route exact path="/login" render={() =>
+        <Route exact path="/welcome" render={() =>
         this.state.loggedIn ? 
         <Redirect to="/homepage" />
         :
-        <Login experiment={this.experiment}/>
+        <Welcome experiment={this.experiment}/>
         }/>
 
         <Route exact path="/homepage" render={() =>
         this.state.loggedIn ?
         <Homepage />
         :
-        <Redirect to="/login" />
+        <Redirect to="/welcome" />
         }/>
         </Switch>
       </BrowserRouter>
