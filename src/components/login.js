@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import loginStyles from './login.module.css'
+import store from '../redux/store'
 
 export class Login extends Component {
     state ={
@@ -28,7 +29,15 @@ export class Login extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            debugger 
+            if (resp.message){
+                alert(resp.message)
+                this.setState({
+                    username: "",
+                    password: ""
+                })
+            } else {
+                store.dispatch({ type: "LOG_USER_IN", currentUser: resp.user })
+            } 
 
         })
     }

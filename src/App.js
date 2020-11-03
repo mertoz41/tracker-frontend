@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import Welcome from './pages/welcome'
 import Homepage from './pages/homepage'
 import store from './redux/store'
+import {connect} from 'react-redux'
 
 
 
@@ -29,7 +30,7 @@ class App extends Component {
       <BrowserRouter>
       <Switch>
         <Route exact path="/" render={() =>
-        this.state.loggedIn ?
+        this.props.currentUser ?
         <Homepage />
         :
         <Redirect to="/welcome" />
@@ -37,18 +38,12 @@ class App extends Component {
 
       
         <Route exact path="/welcome" render={() =>
-        this.state.loggedIn ? 
-        <Redirect to="/homepage" />
+        this.props.currentUser ? 
+        <Redirect to="/" />
         :
         <Welcome experiment={this.experiment}/>
         }/>
 
-        <Route exact path="/homepage" render={() =>
-        this.state.loggedIn ?
-        <Homepage />
-        :
-        <Redirect to="/welcome" />
-        }/>
         </Switch>
       </BrowserRouter>
     );
@@ -56,5 +51,10 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return{
+    currentUser: state.currentUser
+  }
+}
 
-export default App;
+export default connect(mapStateToProps)(App);
