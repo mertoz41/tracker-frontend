@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import loginStyles from './login.module.css'
+import formStyles from './form.module.css'
 import store from '../redux/store'
 
 export class Login extends Component {
@@ -45,9 +45,9 @@ export class Login extends Component {
 
     render() {
         return (
-            <div className={loginStyles.container}>
+            <div className={formStyles.container}>
                 LOGIN EXPERIMENT
-                <div className={loginStyles.form}>
+                <div className={formStyles.form}>
                     <form onSubmit={e => this.fetchUser(e)}>
                         <label>Username</label>
                         <input placeholder="here.." name="username" value={this.state.username} onChange={(e) => this.fixState(e)}/>

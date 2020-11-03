@@ -12,19 +12,21 @@ class Intro extends Component {
     }
 
     register = () =>{
-        console.log("attempt to register")
         this.setState({
             picked: true,
             showing: 'registration'
         })
     }
     login = () => {
-        console.log("attempt to login")
         this.setState({
             picked: true,
             showing: 'login'
         })
     }
+    toLogin = () =>{
+        this.setState({picked: true, showing: 'login'})
+    }
+
     render(){
 
     
@@ -49,7 +51,7 @@ class Intro extends Component {
             </div>
             }
             {this.state.showing == "registration" ?
-            <Register />
+            <Register toLogin={this.toLogin}/>
             : 
             null
             }
