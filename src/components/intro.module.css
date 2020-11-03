@@ -1,32 +1,51 @@
 .container{
     position: relative;
 
-    width: 70%;
-    height: 90%;
+    width: 60%;
+    height: 1000px;
+
     background-color: white;
     margin: auto;
-    border: 4px solid blue;
+    /* border: 1px solid black; */
     text-align: center;
+    padding: 0px;
 }
 
 
 
 .choice{
     position: relative;
-    top: 40%;
     display: flex;
     width: 70%;
-    height: 300px;
-    background-color: pink;
+    height: 500px;
+    top: 200px;
     margin: auto;
+}
+.tab{
+    background-color: #87CEEB;
+    padding: 5px;
+}
+.active{
+    background-color: #E6E6FA;
+    padding: 5px;
+
+}
+.tab:hover{
+    background-color: #E6E6FA;
+
+
 }
 .side{
     width: 50%;
     float: left;
-    padding: 20px;
+    /* padding: 20px; */
+    color: white;
 }
 
-.side:hover {
-    background-color: purple;
+/* .side:hover {
+    background-color: #E6E6FA;
 
-}
+} */
+/* .side:hover h1{
+    color: black;
+} */

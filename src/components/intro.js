@@ -33,33 +33,40 @@ class Intro extends Component {
     return (
         <div className={introStyles.container}>
             <h1>Project Tracker</h1>
-            {this.state.picked ? 
-            null
-            :
             <div className={introStyles.choice}>
-                <div className={introStyles.side} onClick={() => this.register()}>
+                <div className={introStyles.side} >
+                    <div className={this.state.showing == "registration" ? introStyles.active : introStyles.tab} onClick={() => this.register()}>
                     <h1>REGISTER</h1>
+                    </div>
+                    {this.state.showing == "registration" ? 
+                    <Register toLogin={this.toLogin}/>
+                    :
+                    null
+                    }
 
                 </div>
 
-                <div className={introStyles.side} onClick={() => this.login()}>
+                <div className={introStyles.side} >
+                    <div className={this.state.showing == "login" ? introStyles.active : introStyles.tab} onClick={() => this.login()}>
                     <h1>LOGIN</h1>
+                    </div>
+                    {this.state.showing == "login" ?
+                    <Login />
+                    :
+                    null
+                    }
                             
                 </div>
 
                     
             </div>
-            }
-            {this.state.showing == "registration" ?
+            
+            {/* {this.state.showing == "registration" ?
             <Register toLogin={this.toLogin}/>
             : 
             null
-            }
-            {this.state.showing == "login" ?
-            <Login />
-            :
-            null
-            }
+            } */}
+            
 
         </div>
     )
