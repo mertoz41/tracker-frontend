@@ -16,7 +16,23 @@ class App extends Component {
 
   componentDidMount(){
     console.log("what is going on")
+    this.checkJwt()
      
+  }
+
+  checkJwt = () =>{
+    if(localStorage.getItem('jwt')){
+      fetch('http://localhost:3000/check', {
+        method: 'GET',
+        headers: {
+          'Authentication': localStorage.getItem('jwt')
+        }
+      })
+      .then(resp => resp.json())
+      .then(resp => { 
+        store.dispatch({type: "LOG_USER_IN", currentUser: resp.user})
+      })
+    }
   }
 
   experiment = () =>{

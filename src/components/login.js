@@ -36,6 +36,7 @@ export class Login extends Component {
                     password: ""
                 })
             } else {
+                localStorage.setItem('jwt', resp.token)
                 store.dispatch({ type: "LOG_USER_IN", currentUser: resp.user })
             } 
 
