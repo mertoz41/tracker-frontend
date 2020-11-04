@@ -1,0 +1,14 @@
+.container{
+    position: relative;
+    left: 100px;
+    display: inline-block;
+    /* top: 50px; */
+    width: 300px;
+    height: 700px;
+    background-color: rebeccapurple;
+    text-align: center;
+}
+.container h1{
+    border-bottom-style: solid;
+    border-bottom-color: red;
+}

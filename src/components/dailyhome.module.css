@@ -1,0 +1,14 @@
+.container{
+    position: absolute;
+    display: inline-block;
+    left: 550px;
+    width: 1000px;
+    height: 300px;
+    background-color: royalblue;
+    text-align: center;
+}
+
+.container h1{
+    border-bottom-style: solid;
+    border-bottom-color: red;
+}

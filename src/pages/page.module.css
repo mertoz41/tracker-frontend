@@ -3,3 +3,11 @@
     max-width: 100%;
     background-color: whitesmoke;
 }
+
+.content{
+    position: relative;
+    width: 100%;
+    height: auto;
+    float: left;
+    background-color: salmon;
+}
