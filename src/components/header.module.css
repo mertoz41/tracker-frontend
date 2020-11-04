@@ -1,0 +1,21 @@
+.header{
+    position: relative;
+    width: 100%;
+    background-color: cadetblue;
+    height: 100px;
+    padding: 10px;
+    text-align: center;
+}
+/* .app{
+    position: relative;
+} */
+
+.buttons{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 300px;
+    height: 100px;
+    background-color: thistle;
+    padding: 10px;
+}
