@@ -1,14 +1,29 @@
 .container{
     position: relative;
     left: 100px;
-    display: inline-block;
+    /* display: inline-block; */
     /* top: 50px; */
     width: 300px;
-    height: 700px;
-    background-color: rebeccapurple;
-    text-align: center;
+    height: auto;
+    background-color: white;
+    text-align: left;
+    padding-left: 20px;
+    float: left;
+    border: 2px solid black
+}
+.container:hover{
+    background-color: whitesmoke;
 }
 .container h1{
     border-bottom-style: solid;
-    border-bottom-color: red;
+    border-bottom-color: cadetblue;
+}
+
+
+.container button{
+    border-bottom-style: solid;
+    border-bottom-color: cadetblue;
+}
+.container h3:hover {
+  color: cadetblue
 }

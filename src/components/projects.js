@@ -18,14 +18,9 @@ class Projects extends Component {
         <div className={projectStyles.container}>
             <h1>All Projects</h1>
             <button onClick={() => this.nuProject()}>New Project</button>
-            <ul>
-                <li>Hooper app</li>
-                <li>Beatbox Bubble app</li>
-                <li>Porfolio</li>
-            </ul>
-           
-
-            
+                <h3>Hooper App</h3>
+                <h3>Beatbox Bubble App</h3>
+                <h3>Portfolio</h3>
         </div>
     )
 }
