@@ -1,0 +1,15 @@
+.container{
+    position: relative;
+    margin: auto;
+    width: 70%;
+    height: 500px;
+    background-color: sandybrown;
+    text-align: center;
+}
+.questions{
+    position: relative;
+    margin: auto;
+    width: 50%;
+    height: 300px;
+    background-color: sienna;
+}

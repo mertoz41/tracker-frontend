@@ -5,6 +5,7 @@ import Welcome from './pages/welcome'
 import Homepage from './pages/homepage'
 import store from './redux/store'
 import {connect} from 'react-redux'
+import Newprojectpage from './pages/newprojectpage'
 
 
 
@@ -59,6 +60,7 @@ class App extends Component {
         :
         <Welcome experiment={this.experiment}/>
         }/>
+        <Route exact path="/newproject" render={() => <Newprojectpage /> } />
 
         </Switch>
       </BrowserRouter>
