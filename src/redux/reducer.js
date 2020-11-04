@@ -1,7 +1,5 @@
 const initialState = {
-    currentUser: null,
-    userProjects: []
-}
+    currentUser: null}
 
 function reducer(state = initialState, action ){
     switch(action.type){
@@ -10,7 +8,7 @@ function reducer(state = initialState, action ){
         case "LOG_USER_OUT":
             return {...state, currentUser: null};
         case "ADD_NEW_PROJECT":
-            return {...state, userProjects: action.userProjects};
+            return {...state, currentUser: action.currentUser};
         default: 
             return state
     }

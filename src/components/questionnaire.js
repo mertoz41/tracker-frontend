@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import questionStyles from './questionnaire.module.css'
 import store from '../redux/store'
+import {withRouter} from 'react-router'
+
 
 export class Questionnaire extends Component {
     state = {
@@ -31,10 +33,13 @@ export class Questionnaire extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            let updatedProjects = store.getState().projects
+            let updatedProjects = store.getState().currentUser.projects
+            let updatedCurrentUser = store.getState().currentUser
             updatedProjects.push(resp.project)
-            store.dispatch({type: "ADD_NEW_PROJECT", projects: updatedProjects})
+            updatedCurrentUser.projects = updatedProjects
+            store.dispatch({type: "ADD_NEW_PROJECT", currentUser: updatedCurrentUser})
         })
+        this.props.history.push(`/projects/${obj.projectName}`)
     }
 
 
@@ -65,4 +70,4 @@ export class Questionnaire extends Component {
     }
 }
 
-export default Questionnaire
+export default withRouter(Questionnaire)

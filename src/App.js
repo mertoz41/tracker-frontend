@@ -29,7 +29,6 @@ class App extends Component {
       })
       .then(resp => resp.json())
       .then(resp => { 
-        debugger
         store.dispatch({type: "LOG_USER_IN", currentUser: resp.user})
       })
     }
