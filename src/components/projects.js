@@ -7,8 +7,8 @@ import {withRouter} from 'react-router'
 class Projects extends Component {
 
     nuProject = () =>{
-        this.props.history.push('/newproject')
-         console.log("to new project page")
+        this.props.history.push('/new-project')
+
      }
 
     toProject = (project) =>{

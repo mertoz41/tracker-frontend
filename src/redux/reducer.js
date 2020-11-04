@@ -1,5 +1,6 @@
 const initialState = {
-    currentUser: null 
+    currentUser: null,
+    userProjects: []
 }
 
 function reducer(state = initialState, action ){
@@ -7,7 +8,9 @@ function reducer(state = initialState, action ){
         case "LOG_USER_IN":
             return {currentUser: action.currentUser};
         case "LOG_USER_OUT":
-            return {...state, currentUser: null}
+            return {...state, currentUser: null};
+        case "ADD_NEW_PROJECT":
+            return {...state, userProjects: action.userProjects};
         default: 
             return state
     }

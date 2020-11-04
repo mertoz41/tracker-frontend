@@ -12,12 +12,9 @@ import Projectpage from './pages/projectpage'
 
 
 class App extends Component {
-  state ={
-    loggedIn: false
-  }
+ 
 
   componentDidMount(){
-    console.log("what is going on")
     this.checkJwt()
      
   }
@@ -32,16 +29,13 @@ class App extends Component {
       })
       .then(resp => resp.json())
       .then(resp => { 
+        debugger
         store.dispatch({type: "LOG_USER_IN", currentUser: resp.user})
       })
     }
   }
 
-  experiment = () =>{
-    this.setState({
-      loggedIn: !this.state.loggedIn
-    })
-  }
+
 
   render(){
     return (
@@ -59,9 +53,10 @@ class App extends Component {
         this.props.currentUser ? 
         <Redirect to="/" />
         :
-        <Welcome experiment={this.experiment}/>
+        <Welcome/>
         }/>
-        <Route exact path="/newproject" render={() => <Newprojectpage /> } />
+        <Route exact path="/new-project" render={() => <Newprojectpage />}/>
+
         <Route exact path="/projects/:name" render={() => <Projectpage />}/>
 
         </Switch>
@@ -73,7 +68,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return{
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    newProject: state.newProject
   }
 }
 

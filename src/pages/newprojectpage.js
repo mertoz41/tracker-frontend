@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from '../components/header'
 import Questionnaire from '../components/questionnaire'
 
-export class Newprojectpage extends Component {
+class Newprojectpage extends Component {
     render() {
         return (
             <div>
