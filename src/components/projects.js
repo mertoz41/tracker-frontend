@@ -10,6 +10,10 @@ class Projects extends Component {
         this.props.history.push('/newproject')
          console.log("to new project page")
      }
+
+    toProject = (project) =>{
+        this.props.history.push(`/projects/${project}`)
+    }
     
     render() {
 
@@ -18,9 +22,9 @@ class Projects extends Component {
         <div className={projectStyles.container}>
             <h1>All Projects</h1>
             <button onClick={() => this.nuProject()}>New Project</button>
-                <h3>Hooper App</h3>
-                <h3>Beatbox Bubble App</h3>
-                <h3>Portfolio</h3>
+                <h3 onClick={() => this.toProject('hooper-app')}>Hooper App</h3>
+                <h3 onClick={() => this.toProject('beatbox-bubble-app')}>Beatbox Bubble App</h3>
+                <h3 onClick={() => this.toProject('portfolio')}>Portfolio</h3>
         </div>
     )
 }
