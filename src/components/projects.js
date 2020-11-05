@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import projectStyles from './projects.module.css'
 import {withRouter} from 'react-router'
 import { connect } from 'react-redux'
+import store from '../redux/store'
 
 
 
@@ -13,6 +14,9 @@ class Projects extends Component {
      }
 
     toProject = (project) =>{
+        let projects = store.getState().currentUser.projects
+        let foundProject = projects.find(proj => proj.title == project)
+        store.dispatch({type: "SHOW_PROJECT", shownProject: foundProject})
         this.props.history.push(`/projects/${project}`)
     }
     

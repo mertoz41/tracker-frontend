@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
+import Header from '../components/header'
+import Objectives from '../components/objectives'
+import Progress from '../components/progress'
+import Dailyproject from '../components/dailyproject'
 
-export default function Projectpage() {
+class Projectpage extends Component {
+    render(){
+
+    
     return (
         <div>
-            project page experimenting
+            <Header />
+            <Objectives />
+            <Progress />
+            <Dailyproject />
             
         </div>
     )
+    }
 }
+
+export default Projectpage

@@ -4,7 +4,10 @@
     background-color: cadetblue;
     height: 100px;
     padding: 10px;
-    text-align: center;
+}
+.header h2{
+    position: relative;
+    left: 0px;
 }
 /* .app{
     position: relative;
@@ -18,4 +21,10 @@
     height: 100px;
     background-color: thistle;
     padding: 10px;
+    text-align: center;
+}
+
+.location{
+    position: relative;
+    left: 840px;
 }

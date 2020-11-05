@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import headerStyles from './header.module.css'
 import store from '../redux/store'
+import {withRouter} from 'react-router'
 
 
 
@@ -13,6 +14,10 @@ export class Header extends Component {
         localStorage.clear()
         alert("logged out")
     }
+    toProjects = () =>{
+        store.dispatch({type: "CLEAN_PROJECT"})
+        this.props.history.push('/')
+    }
 
    
     render(){
@@ -20,7 +25,22 @@ export class Header extends Component {
     
     return (
         <div className={headerStyles.header}>
-                <h1>project tracker</h1>
+                <h2>project tracker</h2>
+                {store.getState().shownProject ?
+                <div>
+                    <button onClick={() => this.toProjects()}>Projects</button>
+                </div>
+                :
+                null 
+                }
+            <div className={headerStyles.location}>
+                {store.getState().shownProject ?
+                <h1>{store.getState().shownProject.title}</h1>
+                :
+                <h1>HOMME</h1>
+                }
+
+            </div>
             <div className={headerStyles.buttons}>
                 <h4>Hi, {store.getState().currentUser.username}!</h4>
                 <button onClick={() => this.logOut()}>logout</button>
@@ -31,4 +51,4 @@ export class Header extends Component {
     }
 }
 
-export default Header
+export default withRouter(Header)
