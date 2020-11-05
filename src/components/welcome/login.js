@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import formStyles from './form.module.css'
-import store from '../redux/store'
+import store from '../../redux/store'
 
 export class Login extends Component {
     state ={

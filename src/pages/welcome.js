@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import pageStyles from './page.module.css'
-import Intro from '../components/intro'
+import Intro from '../components/welcome/intro'
 
 export class Welcome extends Component {
     componentDidMount(){

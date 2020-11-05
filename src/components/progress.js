@@ -4,8 +4,8 @@ import progressStyles from './progress.module.css'
 export default function Progress() {
     return (
         <div className={progressStyles.container}>
-            progress section 
-            
+            <h1>progress section</h1>
+
         </div>
     )
 }

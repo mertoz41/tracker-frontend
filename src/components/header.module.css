@@ -25,6 +25,7 @@
 }
 
 .location{
-    position: relative;
+    position: absolute;
+    top: 0px;
     left: 840px;
 }

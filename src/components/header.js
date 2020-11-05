@@ -12,6 +12,7 @@ export class Header extends Component {
     logOut = () =>{
         store.dispatch({type: "LOG_USER_OUT"})
         localStorage.clear()
+        this.props.history.push('/welcome')
         alert("logged out")
     }
     toProjects = () =>{

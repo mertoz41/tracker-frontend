@@ -11,3 +11,21 @@
     float: left;
     background-color: salmon;
 }
+
+
+.upper{
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: seagreen;
+    display: flex;
+
+}
+
+.lower{
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: slateblue;
+    display: flex;
+}
