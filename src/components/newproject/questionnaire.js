@@ -42,6 +42,7 @@ export class Questionnaire extends Component {
             updatedProjects.push(resp.project)
             updatedCurrentUser.projects = updatedProjects
             store.dispatch({type: "ADD_NEW_PROJECT", currentUser: updatedCurrentUser})
+            store.dispatch({type: "SHOW_PROJECT", shownProject: resp.project})
             this.props.history.push(`/projects/${obj.projectName}`)
             }
         })

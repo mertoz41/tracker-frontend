@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Header from '../components/header'
-import Objectives from '../components/objectives'
-import Progress from '../components/progress'
-import Agenda from '../components/agenda'
+import Objectives from '../components/projectpage/objectives'
+import Progress from '../components/projectpage/progress'
+import Agenda from '../components/projectpage/agenda'
 import pageStyles from './page.module.css'
-import Projectinfo from '../components/projectinfo'
+import Projectinfo from '../components/projectpage/projectinfo'
 
 
 class Projectpage extends Component {
