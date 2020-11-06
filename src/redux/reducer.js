@@ -11,7 +11,7 @@ function reducer(state = initialState, action ){
         case "LOG_USER_OUT":
             return {...state, currentUser: null};
         case "ADD_NEW_PROJECT":
-            return {...state, currentUser: action.currentUser};
+            return {...state, userProjects: action.userProjects};
         case "SHOW_PROJECT":
             return {...state, shownProject: action.shownProject};
         case "CLEAN_PROJECT":

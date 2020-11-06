@@ -29,15 +29,17 @@ class Objectives extends Component {
         .then(resp => resp.json())
         .then(resp => {
             let updatedShownProject = this.props.shownProject
-            updatedShownProject.objectives.push(resp.objective)
+            let objectives = updatedShownProject.objectives
+            objectives.push(resp.objective)
+         
+            updatedShownProject.objectives = objectives 
             store.dispatch({type: "ADD_OBJECTIVE", shownProject: updatedShownProject})
 
         })
-        this.setState({adding: false, description: ''})
+        this.setState({adding: !this.state.adding, description: ''})
     }
 
     render(){
-        // let filteredObjectives = this.props.currentUser.objectives.filter(obj => obj.project_id == this.props.shownProject.id)    
     return (
         <div className={objectiveStyles.container}>
             <button onClick={() => this.setState({adding: !this.state.adding})}>Add new Objective</button>

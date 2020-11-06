@@ -32,8 +32,9 @@ class Projectinfo extends Component {
             // current user no longer has projects
             // user projects is on its own
             // update shown project plus the copy that is inside user projects
-             
-            let updatedShownProject =this.props.shownProject
+            
+            let updatedShownProject = this.props.shownProject
+            debugger 
             updatedShownProject.description = resp.project.description
             let userProjects = this.props.userProjects
             let filteredUserProjects = userProjects.filter(proj => proj == resp.project)

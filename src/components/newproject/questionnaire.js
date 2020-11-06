@@ -4,6 +4,7 @@ import store from '../../redux/store'
 import {withRouter} from 'react-router'
 
 
+
 export class Questionnaire extends Component {
     state = {
         projectName: '',
@@ -37,11 +38,10 @@ export class Questionnaire extends Component {
                 alert(resp.message)
                 this.setState({projectName: '', duration: 0})
             } else {
-            let updatedProjects = store.getState().currentUser.projects
-            let updatedCurrentUser = store.getState().currentUser
-            updatedProjects.push(resp.project)
-            updatedCurrentUser.projects = updatedProjects
-            store.dispatch({type: "ADD_NEW_PROJECT", currentUser: updatedCurrentUser})
+            
+            let userProjects = store.getState().userProjects
+            userProjects.push(resp.project)
+            store.dispatch({type: "ADD_NEW_PROJECT", userProjects: userProjects})
             store.dispatch({type: "SHOW_PROJECT", shownProject: resp.project})
             this.props.history.push(`/projects/${obj.projectName}`)
             }
