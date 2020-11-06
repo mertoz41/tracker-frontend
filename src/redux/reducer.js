@@ -19,7 +19,9 @@ function reducer(state = initialState, action ){
         case "ADD_DESCRIPTION":
             return {...state, shownProject: action.shownProject};
         case "UPDATE_ALL_PROJECTS":
-            return {...state, currentUser: action.currentUser};
+            return {...state, userProjects: action.userProjects};
+        case "ADD_OBJECTIVE":
+            return {...state, shownProject: action.shownProject};
         default: 
             return state
     }

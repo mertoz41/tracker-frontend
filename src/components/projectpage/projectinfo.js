@@ -14,29 +14,6 @@ class Projectinfo extends Component {
         this.setState({description: e.target.value})
     }
 
-    // addDesc = (e) =>{
-    //     // e.preventDefault()
-    //     // fetch(`http://localhost:3000/projects/${this.props.shownProject.id}`,{
-    //     //     method: "PATCH",
-    //     //     headers: {
-    //     //         "Content-Type": "application/json"
-    //     //     },
-    //     //     body: JSON.stringify(this.state)
-    //     // })
-    //     // .then(resp => resp.json())
-    //     // .then(resp => {
-    //     //     let updatedProject = resp.project
-    //     //     let userProjects = store.getState().currentUser.projects
-    //     //     let updatedUser = store.getState().currentUser
-    //     //     let filtered = userProjects.filter(project => project.id !== resp.project.id)
-    //     //     filtered.push(updatedProject)
-    //     //     updatedUser.projects = filtered 
-    //     //     store.dispatch({type: "ADD_DESCRIPTION", shownProject: updatedProject})
-    //     //     store.dispatch({type: "UPDATE_ALL_PROJECTS", currentUser: updatedUser})
-    //     // })
-        
-
-    // }
     edit = (e, desc) =>{
         e.preventDefault()
         let obj ={
@@ -52,14 +29,18 @@ class Projectinfo extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            let updatedProject = resp.project
-            let userProjects = store.getState().currentUser.projects
-            let updatedUser = store.getState().currentUser
-            let filtered = userProjects.filter(project => project.id !== resp.project.id)
-            filtered.push(updatedProject)
-            updatedUser.projects = filtered 
-            store.dispatch({type: "ADD_DESCRIPTION", shownProject: updatedProject})
-            store.dispatch({type: "UPDATE_ALL_PROJECTS", currentUser: updatedUser})
+            // current user no longer has projects
+            // user projects is on its own
+            // update shown project plus the copy that is inside user projects
+             
+            let updatedShownProject =this.props.shownProject
+            updatedShownProject.description = resp.project.description
+            let userProjects = this.props.userProjects
+            let filteredUserProjects = userProjects.filter(proj => proj == resp.project)
+            filteredUserProjects.push(resp.project)
+
+            store.dispatch({type: "ADD_DESCRIPTION", shownProject: updatedShownProject})
+            store.dispatch({type: "UPDATE_ALL_PROJECTS", userProjects: filteredUserProjects})
         })
         if (this.state.edit){
             this.setState({edit: false})
@@ -106,7 +87,8 @@ class Projectinfo extends Component {
 
 const mapStateToProps = (state) =>{
     return{
-        shownProject: state.shownProject
+        shownProject: state.shownProject,
+        userProjects: state.userProjects
     }
 }
 export default connect(mapStateToProps)(Projectinfo)

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import objectiveStyles from './objectives.module.css'
 import {connect} from 'react-redux'
+import store from '../../redux/store'
 
 class Objectives extends Component {
     
@@ -27,16 +28,19 @@ class Objectives extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            // location to add shownProjectObjectives
-            debugger
+            let updatedShownProject = this.props.shownProject
+            updatedShownProject.objectives.push(resp.objective)
+            store.dispatch({type: "ADD_OBJECTIVE", shownProject: updatedShownProject})
+
         })
+        this.setState({adding: false, description: ''})
     }
 
     render(){
         // let filteredObjectives = this.props.currentUser.objectives.filter(obj => obj.project_id == this.props.shownProject.id)    
     return (
         <div className={objectiveStyles.container}>
-            <button onClick={() => this.setState({adding: true})}>Add new Objective</button>
+            <button onClick={() => this.setState({adding: !this.state.adding})}>Add new Objective</button>
             {this.state.adding ?
             <div>
             <textarea placeholder="objective description goes here" onChange={(e) => this.fixDesc(e)} value={this.state.description} />
