@@ -30,7 +30,6 @@ class Projectinfo extends Component {
         .then(resp => resp.json())
         .then(resp => {
             //   update list: project description inside userProjects, shownProject 
-            let shownProject = this.props.shownProject
             let userProjects = this.props.userProjects
             let updatedUserProjects = userProjects.filter(proj => proj.title !== resp.project.title)
             updatedUserProjects.push(resp.project)

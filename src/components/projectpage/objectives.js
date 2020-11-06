@@ -28,12 +28,15 @@ class Objectives extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            let updatedShownProject = this.props.shownProject
-            let objectives = updatedShownProject.objectives
-            objectives.push(resp.objective)
-         
-            updatedShownProject.objectives = objectives 
-            store.dispatch({type: "ADD_OBJECTIVE", shownProject: updatedShownProject})
+            // when adding an objective, update shownproject objectives as well as the project inside userProjects
+            let shownProject = this.props.shownProject
+            shownProject.objectives.push(resp.objective)
+
+            let userProjects = this.props.userProjects
+            let filteredProjects = userProjects.filter(proj => proj.title !== shownProject.title)
+            filteredProjects.push(shownProject)
+
+            store.dispatch({type: "ADD_OBJECTIVE", shownProject: shownProject, userProjects: filteredProjects})
 
         })
         this.setState({adding: !this.state.adding, description: ''})
@@ -67,7 +70,8 @@ class Objectives extends Component {
 
 const mapStateToProps = (state) =>{
     return{
-        shownProject: state.shownProject
+        shownProject: state.shownProject,
+        userProjects: state.userProjects
     }
 }
 export default connect(mapStateToProps)(Objectives)
