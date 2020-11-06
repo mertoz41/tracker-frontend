@@ -29,19 +29,12 @@ class Projectinfo extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            // current user no longer has projects
-            // user projects is on its own
-            // update shown project plus the copy that is inside user projects
-            
-            let updatedShownProject = this.props.shownProject
-            debugger 
-            updatedShownProject.description = resp.project.description
+            //   update list: project description inside userProjects, shownProject 
+            let shownProject = this.props.shownProject
             let userProjects = this.props.userProjects
-            let filteredUserProjects = userProjects.filter(proj => proj == resp.project)
-            filteredUserProjects.push(resp.project)
-
-            store.dispatch({type: "ADD_DESCRIPTION", shownProject: updatedShownProject})
-            store.dispatch({type: "UPDATE_ALL_PROJECTS", userProjects: filteredUserProjects})
+            let updatedUserProjects = userProjects.filter(proj => proj.title !== resp.project.title)
+            updatedUserProjects.push(resp.project)
+            store.dispatch({type: "UPDATED_PROJECT_DESCRIPTION", shownProject: resp.project, userProjects: updatedUserProjects})
         })
         if (this.state.edit){
             this.setState({edit: false})
@@ -64,7 +57,7 @@ class Projectinfo extends Component {
                     <p>{this.props.shownProject.description}</p>
                     {this.state.edit ?
                     <div>
-                    <textarea onChange={(e) => this.fixEdit(e)} value={this.state.editing}/>
+                    <textarea onChange={(e) => this.fixEdit(e)} value={this.state.editing} placeholder={this.props.shownProject.description}/>
                     <button onClick={(e) => this.edit(e, this.state.editing)}>Submit</button>
                     </div>
                     :
