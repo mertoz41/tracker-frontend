@@ -37,7 +37,7 @@ export class Login extends Component {
                 })
             } else {
                 localStorage.setItem('jwt', resp.token)
-                store.dispatch({ type: "LOG_USER_IN", currentUser: resp.user })
+                store.dispatch({ type: "LOG_USER_IN", currentUser: resp.user, userProjects: resp.projects })
             } 
 
         })
