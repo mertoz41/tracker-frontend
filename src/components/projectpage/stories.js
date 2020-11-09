@@ -11,7 +11,7 @@ export class Stories extends Component {
 
     createStory = (e) => {
         e.preventDefault()
-        let projectID = store.getState().shownProject.id
+        let projectID = this.props.shownProject.id
         fetch('http://localhost:3000/stories', {
             method: "POST",
             headers: {

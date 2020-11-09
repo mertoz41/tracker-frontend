@@ -29,11 +29,14 @@ class Projectinfo extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
+             
             //   update list: project description inside userProjects, shownProject 
             let userProjects = this.props.userProjects
+            let shownProject = this.props.shownProject
+            shownProject.description = resp.project.description
             let updatedUserProjects = userProjects.filter(proj => proj.title !== resp.project.title)
             updatedUserProjects.push(resp.project)
-            store.dispatch({type: "UPDATED_PROJECT_DESCRIPTION", shownProject: resp.project, userProjects: updatedUserProjects})
+            store.dispatch({type: "UPDATED_PROJECT_DESCRIPTION", shownProject: shownProject, userProjects: updatedUserProjects})
         })
         if (this.state.edit){
             this.setState({edit: false})
