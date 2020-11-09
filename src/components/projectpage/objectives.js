@@ -17,7 +17,7 @@ class Objectives extends Component {
         e.preventDefault()
         let obj = {
             description: this.state.description,
-            project_id: this.props.shownProject.id
+            story_id: this.props.shownStory.id
         }
         fetch('http://localhost:3000/objectives', {
             method: "POST",
@@ -28,15 +28,11 @@ class Objectives extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            // when adding an objective, update shownproject objectives as well as the project inside userProjects
-            let shownProject = this.props.shownProject
-            shownProject.objectives.push(resp.objective)
-
-            let userProjects = this.props.userProjects
-            let filteredProjects = userProjects.filter(proj => proj.title !== shownProject.title)
-            filteredProjects.push(shownProject)
-
-            store.dispatch({type: "ADD_OBJECTIVE", shownProject: shownProject, userProjects: filteredProjects})
+            // shownStory adjustment
+            let shownStory = this.props.shownStory
+            shownStory.objectives.push(resp.objective)
+             
+            store.dispatch({type: "ADD_OBJECTIVE", shownStory: shownStory})
 
         })
         this.setState({adding: !this.state.adding, description: ''})
@@ -46,6 +42,11 @@ class Objectives extends Component {
     return (
         <div className={objectiveStyles.container}>
             <h1>OBJECTIVES</h1>
+            {this.props.shownStory ?
+            <h5>{this.props.shownStory.description}</h5>
+            :
+            null 
+            }
             <button onClick={() => this.setState({adding: !this.state.adding})}>Add new Objective</button>
             {this.state.adding ?
             <div>
@@ -55,15 +56,17 @@ class Objectives extends Component {
             :
             null
             }
-            {/* <div>
-                {this.props.shownProject.objectives.map(obj => {
+            {this.props.shownStory ? 
+            <div>
+                {this.props.shownStory.objectives.map(obj => {
                     return(
                     <p>{obj.description}</p>
                     )
                 })}
-                
-                
-            </div> */}
+            </div>
+            :
+            <p>No objectives for this story</p>  
+            }
         </div>
     )
     }
@@ -72,7 +75,8 @@ class Objectives extends Component {
 const mapStateToProps = (state) =>{
     return{
         shownProject: state.shownProject,
-        userProjects: state.userProjects
+        userProjects: state.userProjects,
+        shownStory: state.shownStory
     }
 }
 export default connect(mapStateToProps)(Objectives)

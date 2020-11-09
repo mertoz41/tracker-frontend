@@ -1,7 +1,8 @@
 const initialState = {
     currentUser: null,
     shownProject: null,
-    userProjects: []
+    userProjects: [],
+    shownStory: null
 }
 
 function reducer(state = initialState, action ){
@@ -21,11 +22,13 @@ function reducer(state = initialState, action ){
         case "UPDATE_ALL_PROJECTS":
             return {...state, userProjects: action.userProjects};
         case "ADD_OBJECTIVE":
-            return {...state, shownProject: action.shownProject, userProjects: action.userProjects};
+            return {...state, shownStory: action.shownStory};
         case "ADD_STORY":
             return {...state, shownProject: action.shownProject};
         case "UPDATED_PROJECT_DESCRIPTION":
             return {...state, shownProject: action.shownProject, userProjects: action.userProjects};
+        case "SHOW_STORY":
+            return {...state, shownStory: action.shownStory}
         default: 
             return state
     }

@@ -22,7 +22,9 @@ export class Stories extends Component {
         .then(resp => resp.json())
         .then(resp => {
             let updatedShownProject = this.props.shownProject
-            updatedShownProject.stories.push(resp.new_story)
+            let stories = updatedShownProject.stories
+            stories.push(resp.new_story)
+            updatedShownProject.stories = stories
 
 
             // let updatedUserProjects = this.props.userProjects
@@ -31,6 +33,10 @@ export class Stories extends Component {
             store.dispatch({type: "ADD_STORY", shownProject: updatedShownProject})
         })
         this.setState({description: "", newStory: false})
+    }
+
+    displayStory = (story) =>{
+        store.dispatch({type: "SHOW_STORY", shownStory: story}) 
     }
 
     render() {
@@ -48,7 +54,7 @@ export class Stories extends Component {
                 <div>
                     {this.props.shownProject.stories.map(story => {
                         return(
-                            <p>{story.description}</p>
+                            <p onClick={() => this.displayStory(story)}>{story.description}</p>
                             )
                         })}
                 </div>
