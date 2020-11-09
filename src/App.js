@@ -29,7 +29,7 @@ class App extends Component {
       })
       .then(resp => resp.json())
       .then(resp => { 
-        store.dispatch({type: "LOG_USER_IN", currentUser: resp.user, userProjects: resp.projects})
+        store.dispatch({type: "LOG_USER_IN", currentUser: resp.user, userProjects: resp.user.projects})
       })
     }
   }

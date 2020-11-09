@@ -45,6 +45,7 @@ class Objectives extends Component {
     render(){
     return (
         <div className={objectiveStyles.container}>
+            <h1>OBJECTIVES</h1>
             <button onClick={() => this.setState({adding: !this.state.adding})}>Add new Objective</button>
             {this.state.adding ?
             <div>
@@ -54,7 +55,7 @@ class Objectives extends Component {
             :
             null
             }
-            <div>
+            {/* <div>
                 {this.props.shownProject.objectives.map(obj => {
                     return(
                     <p>{obj.description}</p>
@@ -62,7 +63,7 @@ class Objectives extends Component {
                 })}
                 
                 
-            </div>
+            </div> */}
         </div>
     )
     }

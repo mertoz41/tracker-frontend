@@ -9,23 +9,24 @@
     width: 100%;
     height: auto;
     float: left;
-    background-color: salmon;
+    display: flex;
 }
 
 
-.upper{
+.left{
     position: relative;
     width: 100%;
-    height: auto;
+    height: 800px;
     background-color: seagreen;
     display: flex;
-
+    float: left;
 }
 
-.lower{
+.right{
     position: relative;
-    width: 100%;
-    height: auto;
+    width: 50%;
+    height: 800px;
     background-color: slateblue;
     display: flex;
+    flex-direction: column;
 }

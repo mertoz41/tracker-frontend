@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Header from '../components/header'
 import Objectives from '../components/projectpage/objectives'
 import Progress from '../components/projectpage/progress'
-import Agenda from '../components/projectpage/agenda'
 import pageStyles from './page.module.css'
 import Projectinfo from '../components/projectpage/projectinfo'
+import Stories from '../components/projectpage/stories'
 
 
 class Projectpage extends Component {
@@ -16,14 +16,19 @@ class Projectpage extends Component {
     return (
         <div className={pageStyles.wrapper}>
             <Header />
-            <div className={pageStyles.upper}>
+            <div className={pageStyles.content}>
+
+            
+            <div className={pageStyles.left}>
+                <Stories />
+                <Objectives />
+            </div>
+            <div className={pageStyles.right}>
+
                 <Progress />
                 <Projectinfo />
-            </div>
-            <div className={pageStyles.lower}>
-                <Objectives />
-                <Agenda />
 
+            </div>
             </div>
             
         </div>
