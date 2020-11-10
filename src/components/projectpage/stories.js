@@ -58,12 +58,12 @@ export class Stories extends Component {
 
             // update userProjects
             let userProjects = this.props.userProjects
-            let found = userProjects.find(project => project == shownProject)
+            let found = userProjects.find(project => project.title == shownProject.title)
             let index = userProjects.indexOf(found)
             found.stories = filteredStories
             userProjects.splice(index, 1, found)
 
-            let updatedUserProjects = {...userProjects}
+            let updatedUserProjects = [...userProjects]
 
         
             store.dispatch({type: "DELETE_STORY", shownProject: updatedProject, userProjects: updatedUserProjects})
