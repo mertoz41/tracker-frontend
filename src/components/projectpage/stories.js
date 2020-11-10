@@ -75,15 +75,17 @@ export class Stories extends Component {
             <div className={storyStyles.container}>
                 <div className={storyStyles.header}>
                     <h1>STORIES</h1>
+                    <h1 className={this.state.newStory ? storyStyles.adding : storyStyles.add}onClick={() => this.setState({newStory: true})}>Add</h1>
+                </div>
                     {this.state.newStory ?
-                        <div>
+                        <div className={storyStyles.new}>
                             <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new story goes here..."/>
                             <button onClick={(e) => this.createStory(e)}>Create</button>
                         </div>
                     :
-                    <button onClick={() => this.setState({newStory: true})}>Add</button>
+                    null
                     }
-                </div>
+                
                 <div className={storyStyles.stories}>
                     {this.props.shownProject.stories.map(story => {
                         return(

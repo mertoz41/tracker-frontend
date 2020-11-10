@@ -10,8 +10,9 @@
 .header{
     position: relative;
     border: 2px solid red;
+    height: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .stories{
     position: relative;
@@ -24,7 +25,27 @@
     border: 2px solid salmon;
     display: flex;
 }
+.add{
+    border-bottom-style: solid;
+    border-bottom-color: springgreen;
+}
 
 .story h4:hover{
     color: springgreen;
+}
+
+.add:hover{
+    color: springgreen;
+}
+.adding{
+    color: springgreen;
+    border-bottom-style: solid;
+    border-bottom-color: springgreen;
+
+}
+
+
+.new{
+    position: relative;
+    background-color: springgreen;
 }
