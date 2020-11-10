@@ -28,11 +28,6 @@ export class Stories extends Component {
 
             let updatedShownProject = {...shownProject}
 
-
-            // let updatedUserProjects = this.props.userProjects
-            // let updatingProject = updatedUserProjects.find(project => project.id == resp.new_story.project_id)
-            // updatingProject.stories.push(resp.new_story)
-
             store.dispatch({type: "ADD_STORY", shownProject: updatedShownProject})
         })
         this.setState({description: "", newStory: false})
@@ -42,22 +37,62 @@ export class Stories extends Component {
         store.dispatch({type: "SHOW_STORY", shownStory: story}) 
     }
 
+    deleteStory = (story) => {
+        // fetch to erase story
+        // if shownStory is the deleted one, clear objectives section 
+
+        if (story == this.props.shownStory) {
+            store.dispatch({type: "CLEAR_STORY"})
+        }
+
+        fetch(`http://localhost:3000/stories/${story.id}`,{
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            // update shown project
+            let shownProject = this.props.shownProject
+            let filteredStories = shownProject.stories.filter(story => story.id !== resp.deleted_story.id)
+            shownProject.stories = filteredStories
+            let updatedProject = {...shownProject}
+
+            // update userProjects
+            let userProjects = this.props.userProjects
+            let found = userProjects.find(project => project == shownProject)
+            let index = userProjects.indexOf(found)
+            found.stories = filteredStories
+            userProjects.splice(index, 1, found)
+
+            let updatedUserProjects = {...userProjects}
+
+        
+            store.dispatch({type: "DELETE_STORY", shownProject: updatedProject, userProjects: updatedUserProjects})
+        })
+    }
+
     render() {
         return (
             <div className={storyStyles.container}>
-                <h1>STORIES</h1>
-                {this.state.newStory ?
-                    <div>
-                        <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new story goes here..."/>
-                        <button onClick={(e) => this.createStory(e)}>Create</button>
-                    </div>
-                :
-                <button onClick={() => this.setState({newStory: true})}>Add a new story</button>
-                }
-                <div>
+                <div className={storyStyles.header}>
+                    <h1>STORIES</h1>
+                    {this.state.newStory ?
+                        <div>
+                            <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new story goes here..."/>
+                            <button onClick={(e) => this.createStory(e)}>Create</button>
+                        </div>
+                    :
+                    <button onClick={() => this.setState({newStory: true})}>Add</button>
+                    }
+                </div>
+                <div className={storyStyles.stories}>
                     {this.props.shownProject.stories.map(story => {
                         return(
-                            <p onClick={() => this.displayStory(story)}>{story.description}</p>
+                            <div className={storyStyles.story}>
+                            <h4 onClick={() => this.displayStory(story)}>{story.description}</h4>
+                            <div>
+                            <button onClick={() => this.deleteStory(story)}>erase</button>
+                            </div>
+                            </div>
                             )
                         })}
                 </div>
@@ -68,7 +103,8 @@ export class Stories extends Component {
 const mapStateToProps = (state) =>{
     return{
         shownProject: state.shownProject,
-        userProjects: state.userProjects
+        userProjects: state.userProjects,
+        shownStory: state.shownStory
     }
 }
 

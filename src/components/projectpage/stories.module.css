@@ -6,3 +6,25 @@
     text-align: center;
     border: 2px solid black
 }
+
+.header{
+    position: relative;
+    border: 2px solid red;
+    display: flex;
+    justify-content: space-between;
+}
+.stories{
+    position: relative;
+    border: 2px solid blue;
+    text-align: left;
+    padding-left: 50px;
+}
+
+.story{
+    border: 2px solid salmon;
+    display: flex;
+}
+
+.story h4:hover{
+    color: springgreen;
+}
