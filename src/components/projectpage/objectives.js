@@ -31,8 +31,9 @@ class Objectives extends Component {
             // shownStory adjustment
             let shownStory = this.props.shownStory
             shownStory.objectives.push(resp.objective)
+            let updatedShownStory = {...shownStory}
              
-            store.dispatch({type: "ADD_OBJECTIVE", shownStory: shownStory})
+            store.dispatch({type: "ADD_OBJECTIVE", shownStory: updatedShownStory})
 
         })
         this.setState({adding: !this.state.adding, description: ''})

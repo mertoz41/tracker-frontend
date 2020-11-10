@@ -21,15 +21,18 @@ export class Stories extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            let updatedShownProject = this.props.shownProject
-            let stories = updatedShownProject.stories
+            let shownProject = this.props.shownProject
+            let stories = shownProject.stories
             stories.push(resp.new_story)
-            updatedShownProject.stories = stories
+            shownProject.stories = stories
+
+            let updatedShownProject = {...shownProject}
 
 
             // let updatedUserProjects = this.props.userProjects
             // let updatingProject = updatedUserProjects.find(project => project.id == resp.new_story.project_id)
             // updatingProject.stories.push(resp.new_story)
+
             store.dispatch({type: "ADD_STORY", shownProject: updatedShownProject})
         })
         this.setState({description: "", newStory: false})
