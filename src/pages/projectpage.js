@@ -5,6 +5,7 @@ import Progress from '../components/projectpage/progress'
 import pageStyles from './page.module.css'
 import Projectinfo from '../components/projectpage/projectinfo'
 import Stories from '../components/projectpage/stories'
+import {connect} from 'react-redux'
 
 
 class Projectpage extends Component {
@@ -36,4 +37,10 @@ class Projectpage extends Component {
     }
 }
 
-export default Projectpage
+const mapStateToProps = (state) => {
+    return{
+        shownStory: state.shownStory
+    }
+}
+
+export default connect(mapStateToProps)(Projectpage)

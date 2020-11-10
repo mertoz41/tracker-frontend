@@ -71,14 +71,11 @@ class Objectives extends Component {
     return (
         <div className={objectiveStyles.container}>
             <div className={objectiveStyles.header}>
-
+                <h1>OBJECTIVES</h1>
+                <h2>{this.props.shownStory ? this.props.shownStory.description : "PICK A STORY"}</h2>
+                <h1 className={this.state.adding ? objectiveStyles.adding : objectiveStyles.add } onClick={() => this.setState({adding: !this.state.adding})}>Add</h1>
+            </div>
             
-            <h1>OBJECTIVES</h1>
-            {this.props.shownStory ?
-            <h5>{this.props.shownStory.description}</h5>
-            :
-            null 
-            }
 
             {this.props.shownStory ?
             
@@ -90,7 +87,7 @@ class Objectives extends Component {
             <button onClick={(e) => this.addObjective(e)}>add</button>
             </div>
             :
-            <button onClick={() => this.setState({adding: !this.state.adding})}>Add</button>
+            null
             }
             </div>
             :
@@ -98,7 +95,7 @@ class Objectives extends Component {
             }   
 
 
-            </div>
+            
             {this.props.shownStory ? 
             <div className={objectiveStyles.objectives}>
                 {this.props.shownStory.objectives.map(obj => {

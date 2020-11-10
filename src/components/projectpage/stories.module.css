@@ -24,6 +24,10 @@
 .story{
     border: 2px solid salmon;
     display: flex;
+    justify-content: space-between;
+}
+.showing{
+    background-color: springgreen;
 }
 .add{
     border-bottom-style: solid;

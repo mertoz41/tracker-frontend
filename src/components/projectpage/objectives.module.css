@@ -13,8 +13,9 @@
 .header{
     position: relative;
     border: 2px solid red;
+    height: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .objectives{
@@ -27,4 +28,19 @@
 .objective{
     border: 2px solid salmon;
     display: flex;
+}
+
+.adding{
+    color: springgreen;
+    border-bottom-style: solid;
+    border-bottom-color: springgreen;
+
+} 
+.add{
+    border-bottom-style: solid;
+    border-bottom-color: springgreen;
+}
+
+.add:hover{
+    color: springgreen;
 }

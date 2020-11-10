@@ -90,10 +90,10 @@ export class Stories extends Component {
                     {this.props.shownProject.stories.map(story => {
                         return(
                             <div className={storyStyles.story}>
-                            <h4 onClick={() => this.displayStory(story)}>{story.description}</h4>
-                            <div>
-                            <button onClick={() => this.deleteStory(story)}>erase</button>
-                            </div>
+                            <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length})</h4>
+                            {/* where the ui button will come */}
+                            <h5 onClick={() => this.deleteStory(story)}>erase</h5>
+                            
                             </div>
                             )
                         })}
