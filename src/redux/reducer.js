@@ -33,6 +33,8 @@ function reducer(state = initialState, action ){
             return {...state, shownStory: null}
         case "DELETE_STORY":
             return {...state, shownProject: action.shownProject, userProjects: action.userProjects};
+        case "DELETE_OBJECTIVE":
+            return {...state, shownProject: action.shownProject, shownStory: action.shownStory};
         default: 
             return state
     }

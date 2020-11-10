@@ -39,29 +39,63 @@ class Objectives extends Component {
         this.setState({adding: !this.state.adding, description: ''})
     }
 
+    deleteObjective = (obj) =>{
+        // delete fetch
+        fetch(`http://localhost:3000/objectives/${obj.id}`, {
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            // update shown story
+            let shownStory = this.props.shownStory
+            let filteredObjectives = shownStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
+            shownStory.objectives = filteredObjectives
+            let updatedShownStory = {...shownStory}
+            // update shown project
+            let shownProject = this.props.shownProject
+            let foundStory = shownProject.stories.find(story => story.id == shownStory.id)
+            let index = shownProject.stories.indexOf(foundStory)
+            let filteredStoryObjectives = foundStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
+            foundStory.objectives = filteredStoryObjectives
+            shownProject.stories.splice(index,1, foundStory)
+            let updatedShownProject = {...shownProject}
+            
+
+            store.dispatch({type: "DELETE_OBJECTIVE", shownStory: updatedShownStory, shownProject: updatedShownProject})
+             
+        })
+        // update userProjects
+    }
+
     render(){
     return (
         <div className={objectiveStyles.container}>
+            <div className={objectiveStyles.header}>
+
+            
             <h1>OBJECTIVES</h1>
             {this.props.shownStory ?
             <h5>{this.props.shownStory.description}</h5>
             :
             null 
             }
-            <button onClick={() => this.setState({adding: !this.state.adding})}>Add new Objective</button>
             {this.state.adding ?
             <div>
             <textarea placeholder="objective description goes here" onChange={(e) => this.fixDesc(e)} value={this.state.description} />
             <button onClick={(e) => this.addObjective(e)}>add</button>
             </div>
             :
-            null
+            <button onClick={() => this.setState({adding: !this.state.adding})}>Add</button>
             }
+            </div>
             {this.props.shownStory ? 
-            <div>
+            <div className={objectiveStyles.objectives}>
                 {this.props.shownStory.objectives.map(obj => {
                     return(
-                    <p>{obj.description}</p>
+                        <div className={objectiveStyles.objective}>
+                            <p>{obj.description}</p>
+                            <button onClick={() => this.deleteObjective(obj)}>erase</button>
+                        </div>
                     )
                 })}
             </div>

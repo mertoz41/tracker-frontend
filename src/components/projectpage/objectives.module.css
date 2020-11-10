@@ -9,3 +9,22 @@
     padding-left: 20px;
     border: 2px solid black
 }
+
+.header{
+    position: relative;
+    border: 2px solid red;
+    display: flex;
+    justify-content: space-between;
+}
+
+.objectives{
+    position: relative;
+    border: 2px solid blue;
+    text-align: left;
+    padding-left: 50px;
+}
+
+.objective{
+    border: 2px solid salmon;
+    display: flex;
+}
