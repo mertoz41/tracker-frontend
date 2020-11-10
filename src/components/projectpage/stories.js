@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import storyStyles from './stories.module.css'
 import store from '../../redux/store'
 import {connect} from 'react-redux'
+import {Button} from 'semantic-ui-react'
 
 export class Stories extends Component {
     state = {
@@ -77,27 +78,30 @@ export class Stories extends Component {
                     <h1>STORIES</h1>
                     <h1 className={this.state.newStory ? storyStyles.adding : storyStyles.add}onClick={() => this.setState({newStory: true})}>Add</h1>
                 </div>
-                    {this.state.newStory ?
+                    {/* {this.state.newStory ?
                         <div className={storyStyles.new}>
                             <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new story goes here..."/>
                             <button onClick={(e) => this.createStory(e)}>Create</button>
                         </div>
                     :
                     null
-                    }
+                    } */}
                 
-                <div className={storyStyles.stories}>
+                {/* <div className={storyStyles.stories}>
                     {this.props.shownProject.stories.map(story => {
                         return(
+                           
                             <div className={storyStyles.story}>
                             <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length})</h4>
-                            {/* where the ui button will come */}
-                            <h5 onClick={() => this.deleteStory(story)}>erase</h5>
-                            
+                            {this.props.shownStory ? 
+                            <Button onClick={() => this.deleteStory(story)} className={storyStyles.button} circular icon="trash" />
+                            :
+                            null
+                            }
                             </div>
                             )
                         })}
-                </div>
+                </div> */}
             </div>
         )
     }
