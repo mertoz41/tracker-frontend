@@ -40,8 +40,8 @@ export class Stories extends Component {
     deleteStory = (story) => {
         // fetch to erase story
         // if shownStory is the deleted one, clear objectives section 
-
-        if (story == this.props.shownStory) {
+        
+        if (story.id == this.props.shownStory.id) {
             store.dispatch({type: "CLEAR_STORY"})
         }
 

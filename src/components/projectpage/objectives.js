@@ -79,6 +79,11 @@ class Objectives extends Component {
             :
             null 
             }
+
+            {this.props.shownStory ?
+            
+
+            <div>
             {this.state.adding ?
             <div>
             <textarea placeholder="objective description goes here" onChange={(e) => this.fixDesc(e)} value={this.state.description} />
@@ -87,6 +92,12 @@ class Objectives extends Component {
             :
             <button onClick={() => this.setState({adding: !this.state.adding})}>Add</button>
             }
+            </div>
+            :
+            null
+            }   
+
+
             </div>
             {this.props.shownStory ? 
             <div className={objectiveStyles.objectives}>
