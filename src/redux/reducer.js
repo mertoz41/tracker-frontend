@@ -2,7 +2,7 @@ const initialState = {
     currentUser: null,
     shownProject: null,
     userProjects: [],
-    shownStory: null
+    shownStory: {id: 1}
 }
 
 function reducer(state = initialState, action ){
@@ -35,6 +35,8 @@ function reducer(state = initialState, action ){
             return {...state, shownProject: action.shownProject, userProjects: action.userProjects};
         case "DELETE_OBJECTIVE":
             return {...state, shownProject: action.shownProject, shownStory: action.shownStory};
+        case "UPDATE_OBJ_COMPLETED":
+            return {...state, shownStory: action.shownStory};
         default: 
             return state
     }

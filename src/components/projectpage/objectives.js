@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import objectiveStyles from './objectives.module.css'
 import {connect} from 'react-redux'
 import store from '../../redux/store'
+import {Button} from 'semantic-ui-react'
+
 
 class Objectives extends Component {
     
@@ -67,6 +69,33 @@ class Objectives extends Component {
         // update userProjects
     }
 
+    checkComplete = (obj) => {
+        obj.completed = !obj.completed 
+        let updatedObj = {...obj}
+        fetch(`http://localhost:3000/objectives/${updatedObj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedObj)
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            // completed is being changed
+            debugger 
+            let shownStory = this.props.shownStory
+            let objIndex = shownStory.objectives.indexOf(shownStory.objectives.find(obj => obj.id == resp.updated_objective.id))
+            shownStory.objectives.splice(objIndex, 1, resp.updated_objective)
+            let updatedShownStory = {...shownStory}
+            store.dispatch({type: "UPDATE_OBJ_COMPLETED", shownStory: updatedShownStory})
+             
+            // update shownStory.objectives array
+
+        })
+        
+        debugger
+    }
+
     render(){
     return (
         <div className={objectiveStyles.container}>
@@ -100,10 +129,12 @@ class Objectives extends Component {
             <div className={objectiveStyles.objectives}>
                 {this.props.shownStory.objectives.map(obj => {
                     return(
-                        <div className={objectiveStyles.objective}>
-                            <p>{obj.description}</p>
-                            <button onClick={() => this.deleteObjective(obj)}>erase</button>
-                        </div>
+                        
+                            <div className={objectiveStyles.objective}>
+                                <p>{obj.description}</p>
+                                <div onClick={() => this.checkComplete(obj)} className={ obj.completed ? objectiveStyles.status : objectiveStyles.notcomp}/>
+                                <Button onClick={() => this.deleteObjective(obj)} circular icon="trash"/>
+                            </div>
                     )
                 })}
             </div>

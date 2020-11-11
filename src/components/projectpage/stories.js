@@ -78,30 +78,34 @@ export class Stories extends Component {
                     <h1>STORIES</h1>
                     <h1 className={this.state.newStory ? storyStyles.adding : storyStyles.add}onClick={() => this.setState({newStory: true})}>Add</h1>
                 </div>
-                    {/* {this.state.newStory ?
+                    {this.state.newStory ?
                         <div className={storyStyles.new}>
                             <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new story goes here..."/>
                             <button onClick={(e) => this.createStory(e)}>Create</button>
                         </div>
                     :
                     null
-                    } */}
+                    }
                 
-                {/* <div className={storyStyles.stories}>
-                    {this.props.shownProject.stories.map(story => {
-                        return(
-                           
-                            <div className={storyStyles.story}>
-                            <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length})</h4>
-                            {this.props.shownStory ? 
-                            <Button onClick={() => this.deleteStory(story)} className={storyStyles.button} circular icon="trash" />
-                            :
-                            null
-                            }
-                            </div>
-                            )
-                        })}
-                </div> */}
+                <div className={storyStyles.stories}>
+                    {this.props.shownProject.stories ? 
+                    
+                        this.props.shownProject.stories.map(story => {
+                            return(
+                                <div className={this.props.shownStory ? storyStyles.active : storyStyles.story}>
+                                    <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length})</h4>
+                                    {this.props.shownStory? 
+                                    <Button onClick={() => this.deleteStory(story)} className={storyStyles.button} circular icon="trash" />
+                                    :
+                                    null
+                                    }
+                                </div>
+                                )
+                                })
+                        :
+                        null
+                    }
+                </div>
             </div>
         )
     }

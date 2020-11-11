@@ -28,7 +28,24 @@
 .objective{
     border: 2px solid salmon;
     display: flex;
+    justify-content: space-between;
 }
+.status {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    background-color: springgreen;
+}
+.notcomp {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    background-color: red;
+}
+.notcomp:hover {
+    background-color: springgreen;
+}
+
 
 .adding{
     color: springgreen;

@@ -22,8 +22,14 @@
 }
 
 .story{
+    background-color: steelblue;
     display: flex;
     justify-content: space-between;
+}
+.active{
+    display: flex;
+    justify-content: space-between;
+    background-color: springgreen;
 }
 .showing{
     background-color: springgreen;
