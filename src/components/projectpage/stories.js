@@ -73,7 +73,7 @@ export class Stories extends Component {
     getPercentage = (story) => {
         if (story.objectives.length > 0){
             let completedObjs = story.objectives.filter(obj => obj.completed)
-            return completedObjs.length / story.objectives.length * 100 + "%"
+            return Math.trunc(completedObjs.length / story.objectives.length * 100 ) + "%"
         } else {
             return "0%"
         }

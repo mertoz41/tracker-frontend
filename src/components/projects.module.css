@@ -1,15 +1,14 @@
 .container{
     position: relative;
-    left: 100px;
+  
     /* display: inline-block; */
     /* top: 50px; */
-    width: 300px;
+    width: 60%;
     height: auto;
     background-color: white;
-    text-align: left;
-    padding-left: 20px;
-    float: left;
-    border: 2px solid black
+    text-align: center;
+    border: 2px solid black;
+    margin: 0 auto;
 }
 .container:hover{
     background-color: whitesmoke;
