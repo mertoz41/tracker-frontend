@@ -70,6 +70,15 @@ export class Stories extends Component {
             store.dispatch({type: "DELETE_STORY", shownProject: updatedProject, userProjects: updatedUserProjects})
         })
     }
+    getPercentage = (story) => {
+        if (story.objectives.length > 0){
+            let completedObjs = story.objectives.filter(obj => obj.completed)
+            return completedObjs.length / story.objectives.length * 100 + "%"
+        } else {
+            return "0%"
+        }
+         
+    }
 
     render() {
         return (
@@ -93,7 +102,7 @@ export class Stories extends Component {
                         this.props.shownProject.stories.map(story => {
                             return(
                                 <div className={this.props.shownStory ? storyStyles.active : storyStyles.story}>
-                                    <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length})</h4>
+                                    <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length}) ({this.getPercentage(story)})</h4>
                                     {this.props.shownStory? 
                                     <Button onClick={() => this.deleteStory(story)} className={storyStyles.button} circular icon="trash" />
                                     :
