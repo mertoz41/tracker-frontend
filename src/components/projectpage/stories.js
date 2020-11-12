@@ -3,6 +3,7 @@ import storyStyles from './stories.module.css'
 import store from '../../redux/store'
 import {connect} from 'react-redux'
 import {Button} from 'semantic-ui-react'
+import Story from './story'
 
 export class Stories extends Component {
     state = {
@@ -101,14 +102,15 @@ export class Stories extends Component {
                     
                         this.props.shownProject.stories.map(story => {
                             return(
-                                <div className={this.props.shownStory ? storyStyles.active : storyStyles.story}>
-                                    <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length}) ({this.getPercentage(story)})</h4>
-                                    {this.props.shownStory? 
-                                    <Button onClick={() => this.deleteStory(story)} className={storyStyles.button} circular icon="trash" />
-                                    :
-                                    null
-                                    }
-                                </div>
+                                <Story id={story.id} story={story}/>
+                                // <div className={this.props.shownStory ? storyStyles.active : storyStyles.story} id={story.id}>
+                                //     <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length}) ({this.getPercentage(story)})</h4>
+                                //     {this.props.shownStory? 
+                                //     <Button onClick={() => this.deleteStory(story)} className={storyStyles.button} circular icon="trash" />
+                                //     :
+                                //     null
+                                //     }
+                                // </div>
                                 )
                                 })
                         :
