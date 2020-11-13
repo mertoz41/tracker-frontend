@@ -116,6 +116,7 @@ class Objectives extends Component {
     }
 
     render(){
+         
     return (
         <div className={objectiveStyles.container}>
             <div className={objectiveStyles.header}>
@@ -148,7 +149,9 @@ class Objectives extends Component {
             <div className={objectiveStyles.objectives}>
                 {this.props.shownStory.objectives.map(obj => {
                     return(
-                        
+                            obj.in_progress?
+                            null
+                            :
                             <div className={objectiveStyles.objective}>
                                 <p>{obj.description}</p>
                                 <p onClick={() => this.addToProgress(obj)}>{obj.in_progress ? "in progress" : "not in progress"}</p>
