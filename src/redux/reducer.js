@@ -41,6 +41,8 @@ function reducer(state = initialState, action ){
             shownStory.objectives.splice(objIndex, 1, action.shownStory)
             let updatedShownStory = {...shownStory}
             return {...state, shownStory: updatedShownStory};
+        case "UPDATE_STORY":
+            return {...state, shownProject: action.shownProject};
         case "UPDATE_OBJ_PROGRESS":
             return {...state, shownStory: action.shownStory};
         default: 

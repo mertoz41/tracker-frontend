@@ -95,7 +95,8 @@ class Completed extends Component {
 }
 const mapStateToProps = (state) => {
     return{
-        shownStory: state.shownStory
+        shownStory: state.shownStory,
+        shownProject: state.shownProject
     }
 }
 export default connect(mapStateToProps)(Completed)
