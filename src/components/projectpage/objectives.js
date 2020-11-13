@@ -9,7 +9,10 @@ class Objectives extends Component {
     
     state = {
         description: '',
-        adding: false
+        adding: false,
+        editing: false,
+        textarea: ''
+        
     }
     fixDesc = (e) => {
         this.setState({description: e.target.value})
@@ -81,12 +84,8 @@ class Objectives extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            // completed is being changed
-            let shownStory = this.props.shownStory
-            let objIndex = shownStory.objectives.indexOf(shownStory.objectives.find(obj => obj.id == resp.updated_objective.id))
-            shownStory.objectives.splice(objIndex, 1, resp.updated_objective)
-            let updatedShownStory = {...shownStory}
-            store.dispatch({type: "UPDATE_OBJ_COMPLETED", shownStory: updatedShownStory})
+     
+            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
              
             // update shownStory.objectives array
 
@@ -107,12 +106,28 @@ class Objectives extends Component {
         })
         .then(resp => resp.json())
         .then(resp => {
-            let shownStory = this.props.shownStory
-            let objIndex = shownStory.objectives.indexOf(shownStory.objectives.find(obj => obj.id == resp.updated_objective.id))
-            shownStory.objectives.splice(objIndex, 1, resp.updated_objective)
-            let updatedShownStory = {...shownStory}
-            store.dispatch({type: "UPDATE_OBJ_PROGRESS", shownStory: updatedShownStory})
+     
+            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
         })
+    }
+
+    editObjective = (e, obj) =>{
+        e.preventDefault()
+        obj.description = this.state.textarea
+        let updatedObj = {...obj}
+        fetch(`http://localhost:3000/edittododesc/${updatedObj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedObj)
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
+        })
+        this.setState({editing: false, textarea: ''})
+
     }
 
     render(){
@@ -157,9 +172,21 @@ class Objectives extends Component {
                                 <p>{obj.description}</p>
                                 <p onClick={() => this.addToProgress(obj)}>{obj.in_progress ? "in progress" : "not in progress"}</p>
                                 <div onClick={() => this.checkComplete(obj)} className={ obj.completed ? objectiveStyles.status : objectiveStyles.notcomp}/>
-                                <Button onClick={() => this.deleteObjective(obj)} circular icon="trash"/>
+                                <div>
+                                    <Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/>
+                                    <Button onClick={() => this.deleteObjective(obj)} circular icon="trash"/>
+                                </div>
+                                
+                                
                             </div>
                             }
+                            {this.state.editing? 
+                                <div>
+                                    <textarea placeholder={obj.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
+                                    <button onClick={(e) => this.editObjective(e, obj)}>edit</button>
+                                </div>
+                                    :
+                                    null}
                         </div>
                     )
                 })}

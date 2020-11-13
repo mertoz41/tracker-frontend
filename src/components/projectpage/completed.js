@@ -20,11 +20,11 @@ class Completed extends Component {
         .then(resp => resp.json())
         .then(resp => {
             // completed is being changed
-            let shownStory = this.props.shownStory
-            let objIndex = shownStory.objectives.indexOf(shownStory.objectives.find(obj => obj.id == resp.updated_objective.id))
-            shownStory.objectives.splice(objIndex, 1, resp.updated_objective)
-            let updatedShownStory = {...shownStory}
-            store.dispatch({type: "UPDATE_OBJ_COMPLETED", shownStory: updatedShownStory})
+            // let shownStory = this.props.shownStory
+            // let objIndex = shownStory.objectives.indexOf(shownStory.objectives.find(obj => obj.id == resp.updated_objective.id))
+            // shownStory.objectives.splice(objIndex, 1, resp.updated_objective)
+            // let updatedShownStory = {...shownStory}
+            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
              
             // update shownStory.objectives array
 

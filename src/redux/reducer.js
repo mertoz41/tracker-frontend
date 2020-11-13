@@ -35,8 +35,12 @@ function reducer(state = initialState, action ){
             return {...state, shownProject: action.shownProject, userProjects: action.userProjects};
         case "DELETE_OBJECTIVE":
             return {...state, shownProject: action.shownProject, shownStory: action.shownStory};
-        case "UPDATE_OBJ_COMPLETED":
-            return {...state, shownStory: action.shownStory};
+        case "UPDATE_OBJ":
+            let shownStory = state.shownStory
+            let objIndex = shownStory.objectives.indexOf(shownStory.objectives.find(obj => obj.id == action.shownStory.id))
+            shownStory.objectives.splice(objIndex, 1, action.shownStory)
+            let updatedShownStory = {...shownStory}
+            return {...state, shownStory: updatedShownStory};
         case "UPDATE_OBJ_PROGRESS":
             return {...state, shownStory: action.shownStory};
         default: 
