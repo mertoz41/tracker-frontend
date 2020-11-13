@@ -35,9 +35,6 @@ export class Stories extends Component {
         this.setState({description: "", newStory: false})
     }
 
-    displayStory = (story) =>{
-        store.dispatch({type: "SHOW_STORY", shownStory: story}) 
-    }
 
     deleteStory = (story) => {
         // fetch to erase story
@@ -71,15 +68,7 @@ export class Stories extends Component {
             store.dispatch({type: "DELETE_STORY", shownProject: updatedProject, userProjects: updatedUserProjects})
         })
     }
-    getPercentage = (story) => {
-        if (story.objectives.length > 0){
-            let completedObjs = story.objectives.filter(obj => obj.completed)
-            return Math.trunc(completedObjs.length / story.objectives.length * 100 ) + "%"
-        } else {
-            return "0%"
-        }
-         
-    }
+ 
 
     render() {
         return (
@@ -103,14 +92,6 @@ export class Stories extends Component {
                         this.props.shownProject.stories.map(story => {
                             return(
                                 <Story id={story.id} story={story}/>
-                                // <div className={this.props.shownStory ? storyStyles.active : storyStyles.story} id={story.id}>
-                                //     <h4 onClick={() => this.displayStory(story)}>{story.description} ({story.objectives.length}) ({this.getPercentage(story)})</h4>
-                                //     {this.props.shownStory? 
-                                //     <Button onClick={() => this.deleteStory(story)} className={storyStyles.button} circular icon="trash" />
-                                //     :
-                                //     null
-                                //     }
-                                // </div>
                                 )
                                 })
                         :

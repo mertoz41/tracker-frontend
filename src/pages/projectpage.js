@@ -6,6 +6,7 @@ import pageStyles from './page.module.css'
 import Projectinfo from '../components/projectpage/projectinfo'
 import Stories from '../components/projectpage/stories'
 import {connect} from 'react-redux'
+import Completed from '../components/projectpage/completed'
 
 
 class Projectpage extends Component {
@@ -21,13 +22,17 @@ class Projectpage extends Component {
 
             
             <div className={pageStyles.left}>
-                <Stories />
+                <div className={pageStyles.first}>
+                    <Stories />
+                    <Projectinfo />
+                </div>
                 <Objectives />
             </div>
             <div className={pageStyles.right}>
 
                 <Progress />
-                <Projectinfo />
+                <Completed />
+                
 
             </div>
             </div>
