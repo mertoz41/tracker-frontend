@@ -1,8 +1,8 @@
 .container{
     position: relative;
     margin: auto;
-    width: 70%;
-    height: 500px;
+    width: 100%;
+    height: auto;
     background-color: sandybrown;
     text-align: center;
 }
@@ -10,6 +10,6 @@
     position: relative;
     margin: auto;
     width: 50%;
-    height: 300px;
+    height: auto;
     background-color: sienna;
 }

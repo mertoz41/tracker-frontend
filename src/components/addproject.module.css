@@ -2,12 +2,32 @@
     position: relative;
     width: 60%;
     height: 300px;
-    background-color: royalblue;
+    background-color: whitesmoke;
     text-align: center;
     margin: 0 auto;
+    border: 20px solid black;
+    display: flex;
+    
 }
 
-.container h1{
-    border-bottom-style: solid;
-    border-bottom-color: red;
+.plus{
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: white;
 }
+.plus:hover{
+    background-color: grey;
+}
+.add{
+    font-size: 180px;
+}
+.word{
+    font-size: 100px;
+}
+.words{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
