@@ -14,6 +14,13 @@ export class Homepage extends Component {
                 <div className={pageStyles.homepage}>
                     <AddProject />
                     <Projects />
+                    {/* <div className={pageStyles.colors}>
+                        <div className={pageStyles.colorone}/>
+                        <div className={pageStyles.colortwo}/>
+                        <div className={pageStyles.colorthree}/>
+                        {/* <div className={pageStyles.colorfour}/> */}
+                        {/* <div className={pageStyles.colorfive}/> */}
+                    {/* </div>  */}
                 </div>
             </div>
         )

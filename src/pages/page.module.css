@@ -40,3 +40,38 @@
 .first{
     width: 100%;
 }
+
+.colors{
+    position: relative;
+    width: 70%;
+    height: 500px;
+    border: 20px solid black;
+    margin: 0 auto;
+    display: flex;
+}
+
+.colorone{
+    width: 100%;
+    background-color: #BC8F8F;
+}
+.colortwo{
+    width: 100%;
+    background-color: white;
+}
+
+.colorthree{
+    width: 100%;
+    background-color: #A9A9A9;
+}
+
+.colorfour{
+    width: 100%;
+    background-color: #E9967A;
+}
+
+.colorfive{
+    width: 100%;
+    background-color: purple;
+}
+
+

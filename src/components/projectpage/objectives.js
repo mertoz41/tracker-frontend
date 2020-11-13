@@ -149,7 +149,8 @@ class Objectives extends Component {
             <div className={objectiveStyles.objectives}>
                 {this.props.shownStory.objectives.map(obj => {
                     return(
-                            obj.in_progress?
+                        <div>
+                            {obj.in_progress?
                             null
                             :
                             <div className={objectiveStyles.objective}>
@@ -158,6 +159,8 @@ class Objectives extends Component {
                                 <div onClick={() => this.checkComplete(obj)} className={ obj.completed ? objectiveStyles.status : objectiveStyles.notcomp}/>
                                 <Button onClick={() => this.deleteObjective(obj)} circular icon="trash"/>
                             </div>
+                            }
+                        </div>
                     )
                 })}
             </div>

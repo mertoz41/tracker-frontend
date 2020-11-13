@@ -91,7 +91,7 @@ class Progress extends Component {
                 
                 return(
                     <div>
-                        {obj.in_progress ? 
+                        {obj.in_progress && obj.completed == false ? 
                         <div className={objectiveStyles.objective}>
                             <p>{obj.description}</p>
                             <p onClick={() => this.addToProgress(obj)}>{obj.in_progress ? "in progress" : "not in progress"}</p>
