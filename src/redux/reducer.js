@@ -37,6 +37,8 @@ function reducer(state = initialState, action ){
             return {...state, shownProject: action.shownProject, shownStory: action.shownStory};
         case "UPDATE_OBJ_COMPLETED":
             return {...state, shownStory: action.shownStory};
+        case "UPDATE_OBJ_PROGRESS":
+            return {...state, shownStory: action.shownStory};
         default: 
             return state
     }

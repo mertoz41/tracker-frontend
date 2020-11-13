@@ -94,6 +94,27 @@ class Objectives extends Component {
         
     }
 
+    addToProgress = (obj) => {
+        obj.in_progress = !obj.in_progress
+        let updatedObj = {...obj}
+         
+        fetch(`http://localhost:3000/progress/${obj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedObj)
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            let shownStory = this.props.shownStory
+            let objIndex = shownStory.objectives.indexOf(shownStory.objectives.find(obj => obj.id == resp.updated_objective.id))
+            shownStory.objectives.splice(objIndex, 1, resp.updated_objective)
+            let updatedShownStory = {...shownStory}
+            store.dispatch({type: "UPDATE_OBJ_PROGRESS", shownStory: updatedShownStory})
+        })
+    }
+
     render(){
     return (
         <div className={objectiveStyles.container}>
@@ -130,6 +151,7 @@ class Objectives extends Component {
                         
                             <div className={objectiveStyles.objective}>
                                 <p>{obj.description}</p>
+                                <p onClick={() => this.addToProgress(obj)}>{obj.in_progress ? "in progress" : "not in progress"}</p>
                                 <div onClick={() => this.checkComplete(obj)} className={ obj.completed ? objectiveStyles.status : objectiveStyles.notcomp}/>
                                 <Button onClick={() => this.deleteObjective(obj)} circular icon="trash"/>
                             </div>
