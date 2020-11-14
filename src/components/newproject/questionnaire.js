@@ -8,7 +8,9 @@ import {withRouter} from 'react-router'
 export class Questionnaire extends Component {
     state = {
         projectName: '',
-        duration: 0
+        duration: 0,
+        description: '',
+        count: 140
     }
 
     fixState = (e) => {
@@ -17,7 +19,21 @@ export class Questionnaire extends Component {
         this.setState({
             [name]:value
         })
+       
     }
+
+    descState = (e) => {
+        
+        let newCount = this.state.count - this.state.description.length
+      
+        this.setState({
+            description: e.target.value,
+            count: newCount
+        })
+    
+
+    }
+    
 
     createProject = (e) =>{
         e.preventDefault()
@@ -59,8 +75,11 @@ export class Questionnaire extends Component {
                     
                     <p>What is the name of the project?</p>
                     <input name="projectName"  value={this.state.projectName} placeholder="type here" onChange={(e) => this.fixState(e) }/>
-                    <p>What is the amount of days you are expecting to execute this project in days?</p>
-                    <input name="duration" type="number" value={this.state.duration} placeholder="type here" onChange={(e) => this.fixState(e) }/>
+                    {/* <p>What is the amount of days you are expecting to execute this project in days?</p> */}
+                    {/* <input name="duration" type="number" value={this.state.duration} placeholder="type here" onChange={(e) => this.fixState(e) }/> */}
+                    <p>In 140 characters, describe this project</p>
+                    <textarea placeholder="project description goes here" name="description" value={this.state.description} onChange={(e) => this.descState(e)}/>
+                    <p>{this.state.count}</p>
                     <br/>
                     <br/>
 
