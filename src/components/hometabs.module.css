@@ -1,0 +1,33 @@
+.container{
+    position: relative;
+    width: 30%;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    /* border: 4px solid red; */
+    padding: 40px;
+}
+.tabs{
+    display: flex;
+    justify-content: space-around;
+    font-size: 40px;
+    /* margin: 0 auto; */
+    
+    /* justify-content: space-around; */
+}
+
+.tabs div{
+    
+}
+
+.active{
+    border-bottom-style: solid;
+    border-bottom-color: red;
+    border-bottom-width: 5px;
+}
+.tab{
+    
+}
+
+
+

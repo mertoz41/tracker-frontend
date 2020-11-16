@@ -3,6 +3,7 @@ import Header from '../components/header'
 import Projects from '../components/projects'
 import pageStyles from './page.module.css'
 import AddProject from '../components/addproject'
+import Hometabs from '../components/hometabs'
 
 
 
@@ -12,8 +13,9 @@ export class Homepage extends Component {
             <div className={pageStyles.wrapper}>
                 <Header />
                 <div className={pageStyles.homepage}>
-                    <AddProject />
-                    <Projects />
+                    <Hometabs />
+                    {/* <AddProject />
+                    <Projects /> */}
                     {/* <div className={pageStyles.colors}>
                         <div className={pageStyles.colorone}/>
                         <div className={pageStyles.colortwo}/>
