@@ -10,7 +10,13 @@ export class Questionnaire extends Component {
         projectName: '',
         duration: 0,
         description: '',
-        count: 140
+        count: 140,
+        firstPage: true,
+        one: "",
+        two: "",
+        three: "",
+        four: "",
+        createdProject: {}
     }
 
     fixState = (e) => {
@@ -23,68 +29,109 @@ export class Questionnaire extends Component {
     }
 
     descState = (e) => {
-        
-        let newCount = this.state.count - this.state.description.length
-      
+        let newCount = this.state.count - e.target.textLength
+        // if(e.target.textLength > 0){
+        //     newCount = this.state.count - 1
+        // } else {
+        //     newCount = this.state.count +1
+        // }
         this.setState({
-            description: e.target.value,
-            count: newCount
+            // count: newCount,
+            description: e.target.value
         })
     
-
     }
-    
+
+   
 
     createProject = (e) =>{
         e.preventDefault()
-        let obj = this.state
-        obj.duration = parseInt(this.state.duration)
-        obj["user_id"] = store.getState().currentUser.id
-
+        let obj = {projectName: this.state.projectName, description: this.state.description, user_id: store.getState().currentUser.id }
+         
         fetch('http://localhost:3000/projects', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(obj)
         })
         .then(resp => resp.json())
         .then(resp => {
             if(resp.message){
                 alert(resp.message)
-                this.setState({projectName: '', duration: 0})
+                this.setState({projectName: '', description: ''})
             } else {
             
             let userProjects = store.getState().userProjects
             userProjects.push(resp.project)
             store.dispatch({type: "ADD_NEW_PROJECT", userProjects: userProjects})
-            store.dispatch({type: "SHOW_PROJECT", shownProject: resp.project})
-            this.props.history.push(`/projects/${obj.projectName}`)
+            this.setState({firstPage: false, createdProject: resp.project})
+            // this.props.history.push(`/projects/${obj.projectName}`)
             }
         })
+    }
+
+    addTodos = (e) =>{
+        e.preventDefault()
+        
+      
+        let obj = {stories: [this.state.one, this.state.two, this.state.three, this.state.four]}
+        fetch(`http://localhost:3000/addstories/${this.state.createdProject.id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(obj)
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            debugger 
+            store.dispatch({type: "SHOW_PROJECT", shownProject: resp.project})
+            this.props.history.push(`/projects/${resp.project.title}`)
+
+        })
+
     }
 
 
     render() {
         return (
             <div className={questionStyles.container}>
-                <h1>NEW PROJECT</h1>
                 <div className={questionStyles.questions}>
-                    <form onSubmit={(e) => this.createProject(e)}>
+                    {this.state.firstPage ? 
+                    <div>
+                        <form onSubmit={(e) => this.createProject(e)}>
 
-                    
-                    <p>What is the name of the project?</p>
-                    <input name="projectName"  value={this.state.projectName} placeholder="type here" onChange={(e) => this.fixState(e) }/>
-                    {/* <p>What is the amount of days you are expecting to execute this project in days?</p> */}
-                    {/* <input name="duration" type="number" value={this.state.duration} placeholder="type here" onChange={(e) => this.fixState(e) }/> */}
-                    <p>In 140 characters, describe this project</p>
-                    <textarea placeholder="project description goes here" name="description" value={this.state.description} onChange={(e) => this.descState(e)}/>
-                    <p>{this.state.count}</p>
-                    <br/>
-                    <br/>
+                        
+                        <p>What is the name of the project?</p>
+                        <input name="projectName"  value={this.state.projectName} placeholder="type here" onChange={(e) => this.fixState(e) }/>
+                        <p>In 140 characters, describe this project</p>
+                        <textarea placeholder="project description goes here" name="description" value={this.state.description} onChange={(e) => this.descState(e)}/>
+                        <p>{this.state.count}</p>
+                        <br/>
+                        <br/>
 
-                    <button type="submit">Create</button>
-                    </form>
+                        <button type="submit">Next</button>
+                        </form>
+                    </div>
+                    :
+                    <div>
+                        <form onSubmit={(e) => this.addTodos(e)}>
+                            <p>Create backlogs of user stories for this project. Remember to prioritize your backlogs based on the value it brings! You will always be able to edit, delete, and add new backlogs!</p>
+                            <textarea onChange={(e) => this.setState({one: e.target.value})} placeholder="backlog #1 goes here" value={this.state.one}/>
+                            <textarea onChange={(e) => this.setState({two: e.target.value})} placeholder="backlog #2 goes here" value={this.state.two}/>
+                            <textarea onChange={(e) => this.setState({three: e.target.value})} placeholder="backlog #3 goes here" value={this.state.three}/>
+                            <textarea onChange={(e) => this.setState({four: e.target.value})} placeholder="backlog #4 goes here" value={this.state.four}/>
+                            {this.state.one || this.state.two || this.state.three || this.state.four ? 
+                            <button type="submit">Create</button>
+                            :
+                            null
+                            }
+                            <button onClick={() => this.props.history.push(`/projects/${store.getState().shownProject.title}`)}>Skip</button>
+                            
+                        </form>
+                    </div>
+                    }
 
 
 
