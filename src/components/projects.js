@@ -8,10 +8,6 @@ import store from '../redux/store'
 
 class Projects extends Component {
 
-    nuProject = () =>{
-        this.props.history.push('/new-project')
-
-     }
 
     toProject = (project) =>{
         let projects = store.getState().userProjects
@@ -26,7 +22,6 @@ class Projects extends Component {
     return (
         <div className={projectStyles.container}>
             <h1>All Projects</h1>
-            <button onClick={() => this.nuProject()}>New Project</button>
             {this.props.userProjects.map(project => {
                 return (
                 <h3 onClick={() => this.toProject(`${project.title}`)}>{project.title}</h3>

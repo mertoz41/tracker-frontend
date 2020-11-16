@@ -8,9 +8,11 @@ class Hometabs extends Component {
     fixState = (e, word) =>{
         if (word == "new"){
             this.setState({newProject: true})
+            this.props.pageDisplay(word)
             // function to display questionnaire
         } else {
             this.setState({newProject: false})
+            this.props.pageDisplay(word)
             // same function to display all projects
         }
     }
@@ -18,8 +20,8 @@ class Hometabs extends Component {
         return (
             <div className={tabStyles.container}>
                 <div className={tabStyles.tabs}>
-                    <div className={this.state.newProject ? tabStyles.tab : tabStyles.active} onClick={(e) => this.fixState(e, "all")}><h1>All Projects</h1></div>
-                    <div className={this.state.newProject ? tabStyles.active : tabStyles.tab} onClick={(e) => this.fixState(e, "new")}><h1>New Project</h1></div>
+                    <div className={this.props.newProject ? tabStyles.tab : tabStyles.active} onClick={() => this.props.pageDisplay("all")}><h1>All Projects</h1></div>
+                    <div className={this.props.newProject ? tabStyles.active : tabStyles.tab} onClick={() => this.props.pageDisplay("new")}><h1>New Project</h1></div>
                 </div>                
             </div>
         )
