@@ -13,7 +13,7 @@ export class Projectcard extends Component {
         let projects = store.getState().userProjects
         let foundProject = projects.find(proj => proj.title == project.title)
         store.dispatch({type: "SHOW_PROJECT", shownProject: foundProject})
-        this.props.history.push(`/projects/${project}`)
+        this.props.history.push(`/projects/${project.title}`)
     }
 
     deleteProject = (project) => {

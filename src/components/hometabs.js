@@ -20,8 +20,8 @@ class Hometabs extends Component {
         return (
             <div className={tabStyles.container}>
                 <div className={tabStyles.tabs}>
-                    <div className={this.props.newProject ? tabStyles.tab : tabStyles.active} onClick={() => this.props.pageDisplay("all")}><h1>All Projects</h1></div>
-                    <div className={this.props.newProject ? tabStyles.active : tabStyles.tab} onClick={() => this.props.pageDisplay("new")}><h1>New Project</h1></div>
+                    <div className={this.props.newProject ? tabStyles.tab : tabStyles.active} onClick={() => this.props.pageDisplay("all")}><h2>All Projects</h2></div>
+                    <div className={this.props.newProject ? tabStyles.active : tabStyles.tab} onClick={() => this.props.pageDisplay("new")}><h2>New Project</h2></div>
                 </div>                
             </div>
         )

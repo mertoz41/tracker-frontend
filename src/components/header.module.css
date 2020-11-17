@@ -1,9 +1,20 @@
+.container{
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+
+    background-color: salmon;
+
+}
 .header{
     position: relative;
     width: 100%;
     background-color: cadetblue;
-    height: 100px;
-    padding: 10px;
+    height: 120px;
+    /* padding-bottom: 40px; */
+    text-align: center;
+    
 }
 .header h2{
     position: relative;
@@ -15,17 +26,18 @@
 
 .buttons{
     position: absolute;
-    top: 0px;
     right: 0px;
-    width: 300px;
-    height: 100px;
+    width: 20%;
+    height: 120px;
     background-color: thistle;
-    padding: 10px;
+    /* padding-bottom: 40px; */
     text-align: center;
 }
 
-.location{
-    position: absolute;
-    top: 0px;
-    left: 840px;
+.locations{
+    position: relative;
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+    font-size: 40px;
 }

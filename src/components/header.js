@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import headerStyles from './header.module.css'
 import store from '../redux/store'
 import {withRouter} from 'react-router'
+import {connect} from 'react-redux'
+import tabStyles from './hometabs.module.css'
+
 
 
 
@@ -9,6 +12,7 @@ import {withRouter} from 'react-router'
 
 
 export class Header extends Component {
+    
     logOut = () =>{
         store.dispatch({type: "LOG_USER_OUT"})
         localStorage.clear()
@@ -25,25 +29,34 @@ export class Header extends Component {
 
     
     return (
-        <div className={headerStyles.header}>
-                <h2>project tracker</h2>
-                {store.getState().shownProject ?
-                <div>
-                    <button onClick={() => this.toProjects()}>Projects</button>
+        <div className={headerStyles.container}>
+                <div className={headerStyles.header}>
+                    
+                    {this.props.shownProject ? 
+                    <div className={tabStyles.container}>
+                        <h1>{this.props.shownProject.title}</h1>
+                        <h3 onClick={() => this.toProjects()}>Back to Projects</h3>
+                    {/* <div className={tabStyles.tabs}>
+                        <div className={this.props.newProject ? tabStyles.tab : tabStyles.active} onClick={() => this.props.pageDisplay("all")}><h2>{this.props.shownProject.title}</h2></div>
+                        <div className={this.props.newProject ? tabStyles.active : tabStyles.tab} onClick={() => this.props.pageDisplay("new")}><h2>New Project</h2></div>
+                    </div> */}
                 </div>
-                :
-                null 
-                }
-            <div className={headerStyles.location}>
-                {store.getState().shownProject ?
-                <h1>{store.getState().shownProject.title}</h1>
-                :
-                <h1>HOMME</h1>
-                }
+                    :
+                    <div className={tabStyles.container}>
+                        <h1>Project Tracker</h1>
+                        <div className={tabStyles.tabs}>
+                            <div className={this.props.newProject ? tabStyles.tab : tabStyles.active} onClick={() => this.props.pageDisplay("all")}><h2>All Projects</h2></div>
+                            <div className={this.props.newProject ? tabStyles.active : tabStyles.tab} onClick={() => this.props.pageDisplay("new")}><h2>New Project</h2></div>
+                        </div>
+                    </div>
+                    }
+                    
 
-            </div>
+                </div>
+         
+            
             <div className={headerStyles.buttons}>
-                <h4>Hi, {store.getState().currentUser.username}!</h4>
+                <h4>Hi, {this.props.currentUser.username}!</h4>
                 <button onClick={() => this.logOut()}>logout</button>
             </div>
             
@@ -52,4 +65,11 @@ export class Header extends Component {
     }
 }
 
-export default withRouter(Header)
+const mapStateToProps = (state) => {
+    return{
+        shownProject: state.shownProject,
+        currentUser: state.currentUser
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(Header))
