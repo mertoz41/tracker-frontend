@@ -24,7 +24,11 @@ class Projects extends Component {
             <h1>All Projects</h1>
             {this.props.userProjects.map(project => {
                 return (
-                <h3 onClick={() => this.toProject(`${project.title}`)}>{project.title}</h3>
+                    <div className={projectStyles.card} onClick={() => this.toProject(`${project.title}`)}>
+                        <h3>{project.title}</h3>
+                        <p>{project.description}</p>
+                        <p>overall percentage</p>
+                    </div>
                 )
             })}
                
