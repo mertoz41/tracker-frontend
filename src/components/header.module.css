@@ -10,7 +10,7 @@
 .header{
     position: relative;
     width: 100%;
-    background-color: cadetblue;
+    background-image: linear-gradient(#DDA0DD,#B0C4DE);
     height: 120px;
     /* padding-bottom: 40px; */
     text-align: center;
@@ -29,10 +29,11 @@
     right: 0px;
     width: 20%;
     height: 120px;
-    background-color: thistle;
+    background-image: linear-gradient(#DDA0DD,#B0C4DE);
     /* padding-bottom: 40px; */
     text-align: center;
 }
+
 
 .locations{
     position: relative;

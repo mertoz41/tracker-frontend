@@ -18,7 +18,7 @@ class Projects extends Component {
     
     return (
         <div className={projectStyles.container}>
-            <h1>All Projects</h1>
+           
             {this.props.userProjects.map(project => {
                 return (
                     <ProjectCard id={project.id} project={project} />

@@ -34,13 +34,13 @@ export class Projectcard extends Component {
         return (
             <div className={projectStyles.card}  onMouseEnter={() => this.setState({isHovering: true})} onMouseLeave={() => this.setState({isHovering: false})}>
                         <h3 onClick={() => this.toProject(this.props.project)}>{this.props.project.title} </h3>
+                        <p>{this.props.project.description}</p>
+                        <p>overall percentage</p>
                         {this.state.isHovering ?
                         <button onClick={() => this.deleteProject(this.props.project)}>erase</button>
                         :
                         null   
                         }
-                        <p>{this.props.project.description}</p>
-                        <p>overall percentage</p>
             </div>
         )
     }
