@@ -86,15 +86,30 @@ export class Story extends Component {
         return (
             <div>
                 <div className={this.props.shownStory == this.props.story ? storyStyles.active : storyStyles.story} id={this.props.story.id}>
-                                    <h3 onClick={() => this.displayStory(this.props.story)}>{this.props.story.description} ({this.props.story.objectives.length}) ({this.getPercentage(this.props.story)})</h3>
-                                    {this.props.shownStory == this.props.story ? 
-                                    <div>
-                                        <Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/>
-                                        <Button onClick={() => this.deleteStory(this.props.story)} className={storyStyles.button} circular icon="trash" />
+                                    <div className={storyStyles.words}>
+                                    <h3 onClick={() => this.displayStory(this.props.story)}>{this.props.story.description}  </h3>
                                     </div>
+                                    <div className={storyStyles.bottom}>
+
+                                    
+                                    <div className={storyStyles.left}>
+                                    <div><h3>({this.props.story.objectives.length})</h3></div>
+                                    <div><h3>({this.getPercentage(this.props.story)})</h3></div>
+                                    </div>
+                                    <div className={storyStyles.right}>
+
+                                    
+                                    {this.props.shownStory == this.props.story ? 
+                                    <div className={storyStyles.buttons}>
+                                        <div><Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/></div>
+                                        <div><Button onClick={() => this.deleteStory(this.props.story)} className={storyStyles.button} circular icon="trash" /></div>
+                                    </div>
+
                                     :
                                     null
                                     }
+                                    </div>
+                                    </div>
                                   
                                 </div>
                                 {this.state.editing ?

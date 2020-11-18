@@ -9,11 +9,14 @@ export class Projectcard extends Component {
         isHovering: false
     }
     toProject = (project) =>{
-         
+        
+        // eliminate spaces
+        let name = project.title.split('').filter(letter => letter !== " ").join('')
+        // "ProjectTracker"
         let projects = store.getState().userProjects
         let foundProject = projects.find(proj => proj.title == project.title)
         store.dispatch({type: "SHOW_PROJECT", shownProject: foundProject})
-        this.props.history.push(`/projects/${project.title}`)
+        this.props.history.push(`/projects/${name}`)
     }
 
     deleteProject = (project) => {

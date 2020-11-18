@@ -24,7 +24,7 @@ class Projectpage extends Component {
             <div className={pageStyles.left}>
                 <div className={pageStyles.first}>
                     <Stories />
-                    <Projectinfo />
+                    {/* <Projectinfo /> */}
                 </div>
                 <Objectives />
             </div>
