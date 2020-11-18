@@ -8,6 +8,8 @@
     border-radius: 20px;
     padding: 10px;
     top: 100px;
+    overflow: scroll;
+
 }
 
 .header{

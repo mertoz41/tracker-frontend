@@ -4,6 +4,7 @@ import completedStyles from './completed.module.css'
 import objectiveStyles from './objectives.module.css'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
+import Item from './item'
 
 
 class Completed extends Component {
@@ -73,11 +74,7 @@ class Completed extends Component {
                 return(
                     <div>
                         {obj.completed ? 
-                        <div className={objectiveStyles.objective}>
-                            <p>{obj.description}</p>
-                            <div onClick={() => this.checkComplete(obj)} className={ obj.completed ? objectiveStyles.status : objectiveStyles.notcomp}/>
-                            <Button onClick={() => this.deleteObjective(obj)} circular icon="trash"/>
-                        </div>
+                        <Item obj={obj} id={obj.id} />
                         : 
                         null}
                         </div>

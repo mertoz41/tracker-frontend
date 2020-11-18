@@ -3,15 +3,13 @@ import objectiveStyles from './objectives.module.css'
 import {connect} from 'react-redux'
 import store from '../../redux/store'
 import {Button} from 'semantic-ui-react'
-
+import Item from './item'
 
 class Objectives extends Component {
     
     state = {
         description: '',
-        adding: false,
-        editing: false,
-        textarea: ''
+        adding: false
         
     }
     fixDesc = (e) => {
@@ -44,91 +42,10 @@ class Objectives extends Component {
         this.setState({adding: !this.state.adding, description: ''})
     }
 
-    deleteObjective = (obj) =>{
-        // delete fetch
-        fetch(`http://localhost:3000/objectives/${obj.id}`, {
-            method: "DELETE"
-        })
-        .then(resp => resp.json())
-        .then(resp => {
-            // update shown story
-            let shownStory = this.props.shownStory
-            let filteredObjectives = shownStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
-            shownStory.objectives = filteredObjectives
-            let updatedShownStory = {...shownStory}
-            // update shown project
-            let shownProject = this.props.shownProject
-            let foundStory = shownProject.stories.find(story => story.id == shownStory.id)
-            let index = shownProject.stories.indexOf(foundStory)
-            let filteredStoryObjectives = foundStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
-            foundStory.objectives = filteredStoryObjectives
-            shownProject.stories.splice(index,1, foundStory)
-            let updatedShownProject = {...shownProject}
-            
+  
 
-            store.dispatch({type: "DELETE_OBJECTIVE", shownStory: updatedShownStory, shownProject: updatedShownProject})
-             
-        })
-        // update userProjects
-    }
 
-    checkComplete = (obj) => {
-        obj.completed = !obj.completed 
-        let updatedObj = {...obj}
-        fetch(`http://localhost:3000/objectives/${updatedObj.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedObj)
-        })
-        .then(resp => resp.json())
-        .then(resp => {
-     
-            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
-             
-            // update shownStory.objectives array
-
-        })
-        
-    }
-
-    addToProgress = (obj) => {
-        obj.in_progress = !obj.in_progress
-        let updatedObj = {...obj}
-         
-        fetch(`http://localhost:3000/progress/${obj.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedObj)
-        })
-        .then(resp => resp.json())
-        .then(resp => {
-     
-            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
-        })
-    }
-
-    editObjective = (e, obj) =>{
-        e.preventDefault()
-        obj.description = this.state.textarea
-        let updatedObj = {...obj}
-        fetch(`http://localhost:3000/edittododesc/${updatedObj.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedObj)
-        })
-        .then(resp => resp.json())
-        .then(resp => {
-            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
-        })
-        this.setState({editing: false, textarea: ''})
-
-    }
+    
 
     render(){
          
@@ -168,25 +85,9 @@ class Objectives extends Component {
                             {obj.in_progress?
                             null
                             :
-                            <div className={objectiveStyles.objective}>
-                                <p>{obj.description}</p>
-                                <p onClick={() => this.addToProgress(obj)}>{obj.in_progress ? "in progress" : "not in progress"}</p>
-                                <div onClick={() => this.checkComplete(obj)} className={ obj.completed ? objectiveStyles.status : objectiveStyles.notcomp}/>
-                                <div>
-                                    <Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/>
-                                    <Button onClick={() => this.deleteObjective(obj)} circular icon="trash"/>
-                                </div>
-                                
-                                
-                            </div>
+                            <Item obj={obj} id={obj.id} />
                             }
-                            {this.state.editing? 
-                                <div>
-                                    <textarea placeholder={obj.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
-                                    <button onClick={(e) => this.editObjective(e, obj)}>edit</button>
-                                </div>
-                                    :
-                                    null}
+                            
                         </div>
                     )
                 })}

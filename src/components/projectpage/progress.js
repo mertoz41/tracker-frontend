@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import objectiveStyles from './objectives.module.css'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
+import Item from './item'
 
 
 class Progress extends Component {
@@ -87,12 +88,7 @@ class Progress extends Component {
                 return(
                     <div>
                         {obj.in_progress && obj.completed == false ? 
-                        <div className={objectiveStyles.objective}>
-                            <p>{obj.description}</p>
-                            <p onClick={() => this.addToProgress(obj)}>{obj.in_progress ? "in progress" : "not in progress"}</p>
-                            <div onClick={() => this.checkComplete(obj)} className={ obj.completed ? objectiveStyles.status : objectiveStyles.notcomp}/>
-                            <Button onClick={() => this.deleteObjective(obj)} circular icon="trash"/>
-                        </div>
+                        <Item obj={obj} id={obj.id}/>
                         : 
                         null}
                         </div>
