@@ -76,8 +76,10 @@ class Progress extends Component {
     
     return (
         <div className={progressStyles.container}>
+            <div className={progressStyles.header}>
 
-            <h1>progress section</h1>
+            <h1>IN PROGRESS</h1>
+            </div>
             {this.props.shownStory ? 
             <div>
             {this.props.shownStory.objectives.map(obj => { 

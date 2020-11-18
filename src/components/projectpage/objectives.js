@@ -135,9 +135,9 @@ class Objectives extends Component {
     return (
         <div className={objectiveStyles.container}>
             <div className={objectiveStyles.header}>
-                <h1>OBJECTIVES</h1>
-                <h2>{this.props.shownStory ? this.props.shownStory.description : "PICK A STORY"}</h2>
-                <h1 className={this.state.adding ? objectiveStyles.adding : objectiveStyles.add } onClick={() => this.setState({adding: !this.state.adding})}>Add</h1>
+                <div><h1>TO DOs</h1></div>
+                {/* <h2>{this.props.shownStory ? this.props.shownStory.description : "PICK A STORY"}</h2> */}
+                <div className={objectiveStyles.toadd}><h1 onClick={() => this.setState({adding: !this.state.adding})}>Add</h1></div>
             </div>
             
 

@@ -53,7 +53,9 @@ class Projectinfo extends Component {
     render() {
         return (
             <div className={infoStyles.container}>
+                <div className={infoStyles.header}>
                 <h1>project info experiment</h1>
+                </div>
                 {this.props.shownProject.description ?
                 <div>
                     <p>{this.props.shownProject.description}</p>

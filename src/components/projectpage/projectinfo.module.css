@@ -1,9 +1,18 @@
 .container{
     position: relative;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     height: 300px;
-    top: 100px;
     background-color: white;
     text-align: center;
-    border: 2px solid black
+    border-radius: 20px;
+    padding: 10px;
+    top: 100px;
+}
+.header{
+    position: relative;
+    height: auto;
+    padding-bottom: 10px;
+    border-bottom-style: solid;
+    border-bottom-color: #B0C4DE;
 }
