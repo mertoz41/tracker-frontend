@@ -22,11 +22,18 @@
   border-top: none;
   border-left: none;
   border-right: none;
+  border-bottom-style: solid;
+  border-bottom-color: #90EE90;
+  border-bottom-width: 4px;
 }
 .first textarea {
   border-top: none;
   border-left: none;
   border-right: none;
+  border-bottom-style: solid;
+  border-bottom-color: #90EE90; 
+  border-bottom-width: 4px;
+
 }
 
 .question {

@@ -33,49 +33,17 @@ export class Stories extends Component {
             store.dispatch({type: "ADD_STORY", shownProject: updatedShownProject})
         })
         this.setState({description: "", newStory: false})
+        // className={this.state.newStory ? storyStyles.adding : storyStyles.add}
     }
 
-
-    // deleteStory = (story) => {
-    //     // fetch to erase story
-    //     // if shownStory is the deleted one, clear objectives section 
-        
-    //     if (story.id == this.props.shownStory.id) {
-    //         store.dispatch({type: "CLEAR_STORY"})
-    //     }
-
-    //     fetch(`http://localhost:3000/stories/${story.id}`,{
-    //         method: "DELETE"
-    //     })
-    //     .then(resp => resp.json())
-    //     .then(resp => {
-    //         // update shown project
-    //         let shownProject = this.props.shownProject
-    //         let filteredStories = shownProject.stories.filter(story => story.id !== resp.deleted_story.id)
-    //         shownProject.stories = filteredStories
-    //         let updatedProject = {...shownProject}
-
-    //         // update userProjects
-    //         let userProjects = this.props.userProjects
-    //         let found = userProjects.find(project => project.title == shownProject.title)
-    //         let index = userProjects.indexOf(found)
-    //         found.stories = filteredStories
-    //         userProjects.splice(index, 1, found)
-
-    //         let updatedUserProjects = [...userProjects]
-
-        
-    //         store.dispatch({type: "DELETE_STORY", shownProject: updatedProject, userProjects: updatedUserProjects})
-    //     })
-    // }
  
 
     render() {
         return (
             <div className={storyStyles.container}>
                 <div className={storyStyles.header}>
-                    <h1>STORIES</h1>
-                    <h1 className={this.state.newStory ? storyStyles.adding : storyStyles.add}onClick={() => this.setState({newStory: true})}>Add</h1>
+                    <div><h1>BACKLOGS</h1></div>
+                    <div className={storyStyles.toadd}><h1 onClick={() => this.setState({newStory: !this.state.newStory})}>Add</h1></div>
                 </div>
                     {this.state.newStory ?
                         <div className={storyStyles.new}>

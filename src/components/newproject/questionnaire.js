@@ -100,7 +100,7 @@ export class Questionnaire extends Component {
         return (
             <div className={questionStyles.container}>
                 <div className={questionStyles.questions}>
-                    {!this.state.firstPage ? 
+                    {this.state.firstPage ? 
                     <div className={questionStyles.first}>
                         <form onSubmit={(e) => this.createProject(e)}>
 

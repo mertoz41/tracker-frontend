@@ -86,7 +86,7 @@ export class Story extends Component {
         return (
             <div>
                 <div className={this.props.shownStory == this.props.story ? storyStyles.active : storyStyles.story} id={this.props.story.id}>
-                                    <h4 onClick={() => this.displayStory(this.props.story)}>{this.props.story.description} ({this.props.story.objectives.length}) ({this.getPercentage(this.props.story)})</h4>
+                                    <h3 onClick={() => this.displayStory(this.props.story)}>{this.props.story.description} ({this.props.story.objectives.length}) ({this.getPercentage(this.props.story)})</h3>
                                     {this.props.shownStory == this.props.story ? 
                                     <div>
                                         <Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/>
