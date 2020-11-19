@@ -67,8 +67,10 @@ class Completed extends Component {
             <div className={completedStyles.header}>
             <h1>DONE</h1>
             </div>
-            {this.props.shownStory ?
             <div className={completedStyles.items}>
+            {this.props.shownStory ?
+            <div>
+            
             {this.props.shownStory.objectives.map(obj => { 
                 
                 return(
@@ -83,9 +85,11 @@ class Completed extends Component {
             )
             }
             </div>
+            
             :
             null
             }
+            </div>
         </div>
     )
 }

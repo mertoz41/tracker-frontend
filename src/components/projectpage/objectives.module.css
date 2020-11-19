@@ -35,9 +35,28 @@
     display: flex;
     margin-top: 10px;
     height: 100px;
+    padding-top: 35px;
+    padding-left: 20px;
+    display: flex;
     /* border-radius:  ; */
     justify-content: space-between;
 }
+
+.left{
+    position: relative;
+    /* border: 3px solid red; */
+    width: 100%;
+    /* text-align: center; */
+}
+.right{
+    position: relative;
+    /* border: 2px solid red; */
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
 .status {
     position: relative;
     width: 35px;

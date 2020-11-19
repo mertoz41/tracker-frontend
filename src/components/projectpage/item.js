@@ -105,16 +105,18 @@ export class Item extends Component {
                                     <button onClick={(e) => this.editObjective(e, this.props.obj)}>edit</button>
                                 </div>
                                     :
-                                    <p>{this.props.obj.description}</p>}
-                        
-                                <div>
-                                    <Button onClick={() => this.progressFunc(this.props.obj)} circular icon={this.props.obj.in_progress ? "undo":"plus"} />
+                                    <div className={objectiveStyles.left}>
+                                    <h3>{this.props.obj.description}</h3>
+                                    </div>
+                                }
+                                <div className={objectiveStyles.right}>
+                                    <div><Button onClick={() => this.progressFunc(this.props.obj)} circular icon={this.props.obj.in_progress ? "undo":"plus"} /></div>
                                     {this.props.obj.in_progress ?
-                                    <Button onClick={() => this.checkComplete(this.props.obj)} circular icon="checkmark" />
-                                    :
-                                    <Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/>
+                                    <div><Button onClick={() => this.checkComplete(this.props.obj)} circular icon={this.props.obj.completed ? "close": "checkmark"} /></div>
+                                    : 
+                                    <div><Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/></div>
                                     }
-                                    <Button onClick={() => this.deleteObjective(this.props.obj)} circular icon="trash alternate outline"/>
+                                    <div><Button onClick={() => this.deleteObjective(this.props.obj)} circular icon="trash alternate outline"/></div>
                                 </div>
                               
                             </div>

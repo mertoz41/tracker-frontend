@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import objectiveStyles from './objectives.module.css'
 import {connect} from 'react-redux'
 import store from '../../redux/store'
-import {Button} from 'semantic-ui-react'
 import Item from './item'
 
 class Objectives extends Component {

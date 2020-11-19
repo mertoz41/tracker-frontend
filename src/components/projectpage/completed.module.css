@@ -13,13 +13,13 @@
 .header{
     position: relative;
     height: auto;
-    padding-bottom: 10px;
+    margin-bottom: 20px;
     border-bottom-style: solid;
     border-bottom-color: #B0C4DE;
 }
 .items{
     position: relative;
-    
+    display: flex;
     overflow: auto;
     height: 200px;
     /* border: 2px solid blue; */
@@ -28,3 +28,4 @@
 
     /* padding-right: 50px; */
 }
+
