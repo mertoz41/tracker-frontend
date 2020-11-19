@@ -68,7 +68,7 @@ class Completed extends Component {
             <h1>DONE</h1>
             </div>
             {this.props.shownStory ?
-            <div>
+            <div className={completedStyles.items}>
             {this.props.shownStory.objectives.map(obj => { 
                 
                 return(

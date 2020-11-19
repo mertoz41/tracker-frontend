@@ -2,25 +2,30 @@
     position: relative;
     width: 90%;
     margin: 0 auto;
-    height: 700px;
+    height: auto;
     background-color: white;
     text-align: center;
-    border-radius: 20px;
+    /* border-radius: 20px; */
+    /* overflow: scroll; */
     padding: 10px;
-    overflow: scroll;
 }
 
 .header{
     position: relative;
     height: auto;
-    padding-bottom: 10px;
+    margin-bottom: 20px;
     border-bottom-style: solid;
     border-bottom-color: #B0C4DE;
 }
 .stories{
+    
     position: relative;
+    
+    overflow: auto;
+    height: 600px;
     /* border: 2px solid blue; */
     text-align: left;
+
     /* padding-right: 50px; */
 }
 
@@ -41,29 +46,38 @@
     border-left-color: #B0C4DE;
     border-left-width: 10px;
     background-color: whitesmoke;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 
 
 }
 .story:hover{
-    border-bottom-style: solid;
-    border-bottom-color: #DDA0DD;
+    border-left-style: solid;
+    border-left-color: #DDA0DD;
 
 
 }
 .active{
     /* display: flex;
     justify-content: space-between; */
-    border-bottom-style: solid;
-    border-bottom-color: #DDA0DD;
-    border-bottom-width: 10px;
+    border-left-style: solid;
+    border-left-color: #DDA0DD;
+    border-left-width: 10px;
+    /* border-right-style: solid;
+    border-right-color: #DDA0DD;
+    border-right-width: 10px; */
     padding-bottom: 40px;
     padding-top: 10px;
+    /* border-left-style: solid;
+    border-left-color: #DDA0DD;
+    border-left-width: 5px; */
+
+
+
 
     padding-left: 10px;
     margin-top: 10px;
     background-color: whitesmoke;
-    border-radius: 30px;
+    /* border-radius: 30px; */
 
 }
 .showing{

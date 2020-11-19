@@ -76,9 +76,9 @@ class Objectives extends Component {
             }   
 
 
-            
-            {this.props.shownStory ? 
-            <div className={objectiveStyles.objectives}>
+<div className={objectiveStyles.objectives}>
+            {this.props.shownStory && this.props.shownStory.objectives.length > 0 ? 
+            <div>
                 {this.props.shownStory.objectives.map(obj => {
                     return(
                         <div>
@@ -95,6 +95,7 @@ class Objectives extends Component {
             :
             <p>No objectives for this story</p>  
             }
+            </div>
         </div>
     )
     }
