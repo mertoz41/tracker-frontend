@@ -3,6 +3,7 @@ import objectiveStyles from './objectives.module.css'
 import {connect} from 'react-redux'
 import store from '../../redux/store'
 import Item from './item'
+import {Button} from 'semantic-ui-react'
 
 class Objectives extends Component {
     
@@ -51,9 +52,17 @@ class Objectives extends Component {
     return (
         <div className={objectiveStyles.container}>
             <div className={objectiveStyles.header}>
+                {this.props.shownStory ? 
+            <div className={objectiveStyles.toadd}><h1 onClick={() => this.setState({adding: !this.state.adding})}>{this.state.adding ? "Adding":"Add"}</h1></div>
+            :
+            null
+            }
                 <div><h1>TO DOs</h1></div>
-                {/* <h2>{this.props.shownStory ? this.props.shownStory.description : "PICK A STORY"}</h2> */}
-                <div className={objectiveStyles.toadd}><h1 onClick={() => this.setState({adding: !this.state.adding})}>Add</h1></div>
+                {this.props.shownStory && this.props.shownStory.objectives.length > 0 ?
+                <div className={objectiveStyles.clear} onClick={() => store.dispatch({type: "CLEAR_STORY"})}><h1>X</h1></div>
+                :
+                null
+                }
             </div>
             
 
@@ -62,9 +71,9 @@ class Objectives extends Component {
 
             <div>
             {this.state.adding ?
-            <div>
-            <textarea placeholder="objective description goes here" onChange={(e) => this.fixDesc(e)} value={this.state.description} />
-            <button onClick={(e) => this.addObjective(e)}>add</button>
+            <div className={objectiveStyles.new}>
+            <textarea placeholder="To-do goes here.." onChange={(e) => this.fixDesc(e)} value={this.state.description} />
+            <Button onClick={(e) => this.addObjective(e)} circular icon="plus"/>
             </div>
             :
             null
@@ -92,7 +101,7 @@ class Objectives extends Component {
                 })}
             </div>
             :
-            <p>No objectives for this story</p>  
+            null 
             }
             </div>
         </div>

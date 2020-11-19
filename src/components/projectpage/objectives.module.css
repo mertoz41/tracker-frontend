@@ -10,6 +10,24 @@
         /* overflow: scroll; */
 
 }
+.new{
+    position: relative;
+    height: 150px;
+    text-align: center;
+    border-bottom-style: solid;
+    border-bottom-color: #DDA0DD;
+    
+}
+.new textarea{
+
+    width: 100%;
+    font-size: 30px;
+    margin-bottom: 15px;
+
+}
+.new Button{
+    padding-top: 30px;
+}
 
 .header{
     position: relative;
@@ -120,6 +138,14 @@
 }
 
 .toadd{
+    position: absolute;
+    left: 15px;
+    top: 0px;
+}
+.toadd:hover{
+    color:  #DDA0DD;
+}
+.clear{
     position: absolute;
     right: 15px;
     top: 0px;

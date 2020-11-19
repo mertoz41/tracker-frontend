@@ -51,7 +51,7 @@ export class Stories extends Component {
                     {this.state.newStory ?
                         <div className={storyStyles.new}>
                             <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new backlog goes here..."/>
-                            <Button onClick={(e) => this.createStory(e)} circular icon="trash"/>
+                            <Button onClick={(e) => this.createStory(e)} circular icon="plus"/>
                         </div>
                     :
                     null
