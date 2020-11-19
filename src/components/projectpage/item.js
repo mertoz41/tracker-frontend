@@ -110,9 +110,10 @@ export class Item extends Component {
                                     </div>
                                 }
                                 <div className={objectiveStyles.right}>
-                                    <div><Button onClick={() => this.progressFunc(this.props.obj)} circular icon={this.props.obj.in_progress ? "undo":"plus"} /></div>
+                                    {/* <div><Button onClick={() => this.progressFunc(this.props.obj)} circular icon={this.props.obj.in_progress ? "undo":"plus"} /></div> */}
+                                    <div onClick={() => this.progressFunc(this.props.obj)}><h3>not in progress </h3></div>
                                     {this.props.obj.in_progress ?
-                                    <div><Button onClick={() => this.checkComplete(this.props.obj)} circular icon={this.props.obj.completed ? "close": "checkmark"} /></div>
+                                    <div><Button onClick={() => this.checkComplete(this.props.obj)} /><h3>{this.props.obj.completed ? "close": "In progress"} </h3></div>
                                     : 
                                     <div><Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/></div>
                                     }

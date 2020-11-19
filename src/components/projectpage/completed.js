@@ -65,7 +65,7 @@ class Completed extends Component {
     return (
         <div className={completedStyles.container}>
             <div className={completedStyles.header}>
-            <h1>DONE</h1>
+            <h1>COMPLETED</h1>
             </div>
             <div className={completedStyles.items}>
             {this.props.shownStory ?
@@ -76,7 +76,7 @@ class Completed extends Component {
                 return(
                     <div>
                         {obj.completed ? 
-                        <DifItem obj={obj} id={obj.id} />
+                        <DifItem obj={obj} id={obj.id} for={"completed"}/>
                         : 
                         null}
                         </div>

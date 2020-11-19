@@ -89,7 +89,7 @@ class Progress extends Component {
                 return(
                     <div>
                         {obj.in_progress && obj.completed == false ? 
-                        <DifItem obj={obj} id={obj.id}/>
+                        <DifItem obj={obj} id={obj.id} for={"progress"}/>
                         : 
                         null}
                         </div>

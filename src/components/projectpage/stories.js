@@ -42,13 +42,16 @@ export class Stories extends Component {
         return (
             <div className={storyStyles.container}>
                 <div className={storyStyles.header}>
+
+                    <div className={storyStyles.toadd}><h1 onClick={() => this.setState({newStory: !this.state.newStory})}>{this.state.newStory ? "Adding":"Add"}</h1></div>
+                    
+                    
                     <div><h1>BACKLOGS</h1></div>
-                    <div className={storyStyles.toadd}><h1 onClick={() => this.setState({newStory: !this.state.newStory})}>Add</h1></div>
                 </div>
                     {this.state.newStory ?
                         <div className={storyStyles.new}>
-                            <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new story goes here..."/>
-                            <button onClick={(e) => this.createStory(e)}>Create</button>
+                            <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new backlog goes here..."/>
+                            <Button onClick={(e) => this.createStory(e)} circular icon="trash"/>
                         </div>
                     :
                     null

@@ -110,7 +110,11 @@ export class DifItem extends Component {
                                     </div>
                                 }
                                 <div className={objectiveStyles.right}>
-                                    <div><Button onClick={() => this.progressFunc(this.props.obj)} circular icon={this.props.obj.in_progress ? "undo":"plus"} /></div>
+                                    {this.props.for == "completed" ?
+                                    null
+                                    :
+                                    <div onClick={() => this.progressFunc(this.props.obj)}><h3>in progress</h3></div>
+                                    }
                                     {this.props.obj.in_progress ?
                                     <div><Button onClick={() => this.checkComplete(this.props.obj)} circular icon={this.props.obj.completed ? "close": "checkmark"} /></div>
                                     : 
