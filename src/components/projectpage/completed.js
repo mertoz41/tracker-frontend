@@ -4,7 +4,7 @@ import completedStyles from './completed.module.css'
 import objectiveStyles from './objectives.module.css'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
-import Item from './item'
+import DifItem from './difitem'
 
 
 class Completed extends Component {
@@ -76,7 +76,7 @@ class Completed extends Component {
                 return(
                     <div>
                         {obj.completed ? 
-                        <Item obj={obj} id={obj.id} />
+                        <DifItem obj={obj} id={obj.id} />
                         : 
                         null}
                         </div>

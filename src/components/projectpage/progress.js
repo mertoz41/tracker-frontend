@@ -5,7 +5,7 @@ import objectiveStyles from './objectives.module.css'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
 import Item from './item'
-
+import DifItem from './difitem'
 
 class Progress extends Component {
     deleteObjective = (obj) =>{
@@ -89,7 +89,7 @@ class Progress extends Component {
                 return(
                     <div>
                         {obj.in_progress && obj.completed == false ? 
-                        <Item obj={obj} id={obj.id}/>
+                        <DifItem obj={obj} id={obj.id}/>
                         : 
                         null}
                         </div>

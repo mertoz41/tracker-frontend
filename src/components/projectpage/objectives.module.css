@@ -40,6 +40,36 @@
     display: flex;
     /* border-radius:  ; */
     justify-content: space-between;
+    border-bottom-style: solid;
+    border-bottom-color: red;
+}
+.working{
+    position: relative;
+    background-color: whitesmoke;
+    display: flex;
+    margin-top: 10px;
+    height: 100px;
+    padding-top: 35px;
+    padding-left: 20px;
+    display: flex;
+    /* border-radius:  ; */
+    justify-content: space-between;
+    border-bottom-style: solid;
+    border-bottom-color: orange;
+}
+.complete{
+    position: relative;
+    background-color: whitesmoke;
+    display: flex;
+    margin-top: 10px;
+    height: 100px;
+    padding-top: 35px;
+    padding-left: 20px;
+    display: flex;
+    /* border-radius:  ; */
+    justify-content: space-between;
+    border-bottom-style: solid;
+    border-bottom-color: springgreen;
 }
 
 .left{
