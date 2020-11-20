@@ -19,10 +19,9 @@
 }
 .items{
     position: relative;
-    display: flex;
     overflow: auto;
     height: 200px;
-    /* border: 2px solid blue; */
+    width: 100%;
     text-align: left;
     overflow: auto;
 

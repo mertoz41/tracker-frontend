@@ -146,7 +146,7 @@ export class Story extends Component {
                                     {this.props.shownStory == this.props.story  ? 
                                     <div className={storyStyles.buttons}>
                                         <div><Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/></div>
-                                        <div><Button onClick={() => this.deleteStory(this.props.story)} className={storyStyles.button} circular icon="trash" /></div>
+                                        <div><Button onClick={() => this.deleteStory(this.props.story)} className={storyStyles.button} circular icon="trash alternate outline" /></div>
                                     </div>
 
                                     :

@@ -55,7 +55,6 @@ export class DifItem extends Component {
     }
 
     fetchStory = (story) =>{
-        debugger 
         fetch(`http://localhost:3000/compstory/${story.id}`, {
             method: "PATCH",
             headers: {
@@ -69,7 +68,6 @@ export class DifItem extends Component {
                 let index = shownProject.stories.indexOf(shownProject.stories.find(stori => stori.id == resp.updated_story.id))
                 shownProject.stories.splice(index, 1, resp.updated_story)
                 let updatedProject = {...shownProject}
-                debugger
             store.dispatch({type: "UPDATE_STORY", shownStory: resp.updated_story})
             store.dispatch({type: "UPDATE_PROJECT", shownProject: updatedProject})
                 

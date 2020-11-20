@@ -67,9 +67,10 @@
     display: flex;
     margin-top: 10px;
     height: 100px;
+    width: 100%;
     padding-top: 35px;
     padding-left: 20px;
-    display: flex;
+    /* display: flex; */
     /* border-radius:  ; */
     justify-content: space-between;
     border-bottom-style: solid;
@@ -78,9 +79,10 @@
 .complete{
     position: relative;
     background-color: whitesmoke;
-    display: flex;
     margin-top: 10px;
     height: 100px;
+    display: flex;
+    width: 100%;
     padding-top: 35px;
     padding-left: 20px;
     display: flex;
@@ -92,13 +94,11 @@
 
 .left{
     position: relative;
-    /* border: 3px solid red; */
     width: 100%;
     /* text-align: center; */
 }
 .right{
     position: relative;
-    /* border: 2px solid red; */
     width: 100%;
     display: flex;
     justify-content: space-evenly;
