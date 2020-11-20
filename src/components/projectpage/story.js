@@ -16,11 +16,47 @@ export class Story extends Component {
     getPercentage = (story) => {
         if (story.objectives.length > 0){
             let completedObjs = story.objectives.filter(obj => obj.completed)
+            if (completedObjs.length == story.objectives.length){
+                // call this function in two cases: 1) when all todos are completed to patch story completed, 2) when theres an incomplete todo and story is completed
+                // this.completeStory(story)
+            }
+            
+            
+
             return Math.trunc(completedObjs.length / story.objectives.length * 100 ) + "%"
         } else {
             return "0%"
         }
          
+    }
+
+
+
+    completeStory = (story) =>{
+        console.log(story)
+
+        // if completed_obj.length == story.objs.length and story.completed == false
+        // fetch to update story completed to true
+
+        // if completed_obj.length !==story.objs.length and story.completed == true
+        // fetch to update story completed to false
+        // story.completed = true
+        // let updatedStory = {...story}
+        // fetch(`http://localhost:3000/compstory/${story.id}`, {
+        //     method: "PATCH",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(updatedStory)
+        // })
+        // .then(resp => resp.json())
+        // .then(resp => {
+        //     let userProjects = this.props.userProjects
+        //     debugger
+        //     // store.dispatch({type: "UPDATE_ALL_PROJECTS", userProjects: updatedUserProjects})
+        //     // update user projects
+
+        // })
     }
 
     editStory = (e, story) =>{
@@ -87,7 +123,15 @@ export class Story extends Component {
             <div>
                 <div className={this.props.shownStory && this.props.shownStory == this.props.story ? storyStyles.active : storyStyles.story} id={this.props.story.id}>
                                     <div className={storyStyles.words}>
+                                    {this.state.editing ?
+                                    <div className={storyStyles.edit}>
+                                        <textarea placeholder={this.props.story.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
+                                        <Button onClick={(e) => this.editStory(e, this.props.story)} circular icon="save"/>
+                                    </div>
+                                    :
                                     <h3 onClick={() => this.displayStory(this.props.story)}>{this.props.story.description}  </h3>
+                                    }
+                                    
                                     </div>
                                     <div className={storyStyles.bottom}>
 
@@ -112,14 +156,7 @@ export class Story extends Component {
                                     </div>
                                   
                                 </div>
-                                {this.state.editing ?
-                                    <div>
-                                        <textarea placeholder={this.props.story.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
-                                        <button onClick={(e) => this.editStory(e, this.props.story)}>edit</button>
-                                    </div>
-                                    :
-                                    null
-                                    }
+                                
             </div>
         )
     }

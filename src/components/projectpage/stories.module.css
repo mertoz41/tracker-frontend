@@ -134,11 +134,28 @@
 
 .words{
     position: relative;
-    width: 90%;
+    height: auto;
     border-bottom-style: solid;
     border-bottom-color: whitesmoke;
 
 
+}
+.edit{
+    position: relative;
+    width: 95%;
+    height: 90px;
+    text-align: center;
+
+}
+
+.edit textarea{
+    width: 100%;
+    font-size: 20px;
+    padding-bottom: 30px;
+    
+}
+.edit Button{
+    padding-top: 30px;
 }
 .left{
     position: relative;

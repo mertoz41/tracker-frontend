@@ -17,6 +17,8 @@ function reducer(state = initialState, action ){
             return {...state, shownProject: action.shownProject};
         case "CLEAN_PROJECT":
             return {...state, shownProject: null, shownStory: null};
+        case "UPDATE_PROJECT":
+            return {...state, shownProject: action.shownProject};
         case "ADD_DESCRIPTION":
             return {...state, shownProject: action.shownProject};
         case "UPDATE_ALL_PROJECTS":
@@ -42,7 +44,7 @@ function reducer(state = initialState, action ){
             let updatedShownStory = {...shownStory}
             return {...state, shownStory: updatedShownStory};
         case "UPDATE_STORY":
-            return {...state, shownProject: action.shownProject};
+            return {...state, shownStory: action.shownStory};
         case "UPDATE_OBJ_PROGRESS":
             return {...state, shownStory: action.shownStory};
         default: 

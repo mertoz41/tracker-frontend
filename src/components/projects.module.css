@@ -27,8 +27,8 @@
     position: relative;
     width: 250px;
     height: 200px;
-    background-color: white;
-    border-radius: 20px;
+    background-color: #B0C4DE;
+    border-radius: 10px;
     float: left;
     margin-left: 40px;
     margin-top: 40px;
@@ -36,7 +36,10 @@
     margin-bottom: 15px;
     box-shadow: 0px 4px 10px 10px whitesmoke;
     border: 5px solid whitesmoke;
+
 }
+
+
 
 .card:hover{
     box-shadow: 0px 4px 10px 10px #90EE90;

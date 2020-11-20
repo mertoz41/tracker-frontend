@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import objectiveStyles from './objectives.module.css'
 import store from '../../redux/store'
 import {Button} from 'semantic-ui-react'
+import {connect} from 'react-redux'
 
 
 export class DifItem extends Component {
@@ -23,12 +24,60 @@ export class DifItem extends Component {
         .then(resp => {
      
             store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
-             
+            this.checkStory()
             // update shownStory.objectives array
 
         })
         
     }
+
+    checkStory = () =>{
+        let shownStory = this.props.shownStory
+        let userProjects = this.props.userProjects
+        let completedTodos = shownStory.objectives.filter(obj => obj.completed)
+        if (completedTodos.length == shownStory.objectives.length && shownStory.completed == false){
+            shownStory.completed = true
+            let updatedStory = {...shownStory}
+            this.fetchStory(updatedStory)
+
+
+    //         // fetch to mark story complete
+
+           
+        } else if (completedTodos.length !== shownStory.objectives.length && shownStory.completed == true){
+            shownStory.completed = false
+            let updatedStory = {...shownStory}
+            this.fetchStory(updatedStory)
+
+    //         // fetch to mark story incomplete 
+        }
+        
+    }
+
+    fetchStory = (story) =>{
+        debugger 
+        fetch(`http://localhost:3000/compstory/${story.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(story)
+            })
+            .then(resp => resp.json())
+            .then(resp => {
+                let shownProject = this.props.shownProject
+                let index = shownProject.stories.indexOf(shownProject.stories.find(stori => stori.id == resp.updated_story.id))
+                shownProject.stories.splice(index, 1, resp.updated_story)
+                let updatedProject = {...shownProject}
+                debugger
+            store.dispatch({type: "UPDATE_STORY", shownStory: resp.updated_story})
+            store.dispatch({type: "UPDATE_PROJECT", shownProject: updatedProject})
+                
+
+        })
+    }
+
+
 
 
     editObjective = (e, obj) =>{
@@ -126,6 +175,14 @@ export class DifItem extends Component {
                             </div>
         )
     }
+} 
+
+const mapStateToProps = (state) =>{
+    return{
+        shownStory: state.shownStory,
+        userProjects: state.userProjects,
+        shownProject: state.shownProject
+    }
 }
 
-export default DifItem
+export default connect(mapStateToProps)(DifItem)
