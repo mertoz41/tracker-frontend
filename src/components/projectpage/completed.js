@@ -64,9 +64,9 @@ class Completed extends Component {
     
     return (
         <div className={completedStyles.container}>
-            <div className={completedStyles.header}>
+            {/* <div className={completedStyles.header}>
             <h1>COMPLETED</h1>
-            </div>
+            </div> */}
             <div className={completedStyles.items}>
             {this.props.shownStory ?
             <div>

@@ -7,9 +7,20 @@ import Projectinfo from '../components/projectpage/projectinfo'
 import Stories from '../components/projectpage/stories'
 import {connect} from 'react-redux'
 import Completed from '../components/projectpage/completed'
-
+import Tabs from '../components/projectpage/tabs'
 
 class Projectpage extends Component {
+    state = {
+        showingComp: true
+    } 
+
+    fixState = (sect) =>{
+        if (sect == "comp") {
+            this.setState({showingComp: true})
+        } else {
+            this.setState({showingComp: false})
+        }
+    }
     
 
     render(){
@@ -31,7 +42,13 @@ class Projectpage extends Component {
             <div className={pageStyles.right}>
 
                 <Progress />
+                <Tabs fixState={this.fixState}/>
+                {this.state.showingComp ? 
                 <Completed />
+                :
+                <Projectinfo/>
+        
+                }
                 
 
             </div>
