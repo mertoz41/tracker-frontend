@@ -94,6 +94,15 @@ export class Questionnaire extends Component {
         })
 
     }
+    wordCount = () =>{
+        let num = this.state.count - this.state.description.length
+        if (num == 0){
+            alert("140 characters")
+        } else {
+            return num
+        }
+
+    }
 
 
     render() {
@@ -111,7 +120,7 @@ export class Questionnaire extends Component {
                         <div className={questionStyles.question}>
 
                         <p>Describe this project.</p>
-                        <p>{this.state.count}</p>
+                        <p>{this.wordCount()}</p>
                         <textarea name="description" value={this.state.description} onChange={(e) => this.descState(e)}/>
                         </div>
                         
