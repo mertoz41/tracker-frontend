@@ -119,9 +119,11 @@ export class Story extends Component {
         })
     }
     render() {
+        let shownStory = this.props.shownStory
+        let stori = this.props.story
         return (
             <div>
-                <div className={this.props.shownStory && this.props.shownStory == this.props.story ? storyStyles.active : storyStyles.story} id={this.props.story.id}>
+                <div className={this.props.shownStory && this.props.shownStory.id == this.props.story.id ? storyStyles.active : storyStyles.story} id={this.props.story.id}>
                                     <div className={storyStyles.words}>
                                     {this.state.editing ?
                                     <div className={storyStyles.edit}>
