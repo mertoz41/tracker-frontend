@@ -31,34 +31,39 @@ export class Header extends Component {
     return (
         <div className={headerStyles.container}>
                 <div className={headerStyles.header}>
+                    <h1>Project Tracker</h1>
+                    {this.props.currentUser ? 
+                    <div>
                     
                     {this.props.shownProject ? 
                     <div className={tabStyles.container}>
                         <h1>{this.props.shownProject.title}</h1>
                         <h3 onClick={() => this.toProjects()}>Back to Projects</h3>
-                    {/* <div className={tabStyles.tabs}>
-                        <div className={this.props.newProject ? tabStyles.tab : tabStyles.active} onClick={() => this.props.pageDisplay("all")}><h2>{this.props.shownProject.title}</h2></div>
-                        <div className={this.props.newProject ? tabStyles.active : tabStyles.tab} onClick={() => this.props.pageDisplay("new")}><h2>New Project</h2></div>
-                    </div> */}
-                </div>
+                    </div>
                     :
                     <div className={tabStyles.container}>
-                        <h1>Project Tracker</h1>
                         <div className={tabStyles.tabs}>
                             <div className={this.props.newProject ? tabStyles.tab : tabStyles.active} onClick={() => this.props.pageDisplay("all")}><h2>All Projects</h2></div>
                             <div className={this.props.newProject ? tabStyles.active : tabStyles.tab} onClick={() => this.props.pageDisplay("new")}><h2>New Project</h2></div>
                         </div>
                     </div>
                     }
+                    </div>
+                    :
+                    null
+                }
                     
 
                 </div>
          
-            
+            {this.props.currentUser ? 
             <div className={headerStyles.buttons}>
                 <h4>Hi, {this.props.currentUser.username}!</h4>
                 <button onClick={() => this.logOut()}>logout</button>
             </div>
+            :
+            null
+            }
             
         </div>
     )

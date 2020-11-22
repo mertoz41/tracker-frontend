@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import formStyles from './form.module.css'
+import {Button} from 'semantic-ui-react'
 
 export class Register extends Component {
     state ={
@@ -47,18 +48,19 @@ export class Register extends Component {
     render() {
         return (
             <div className={formStyles.container}>
-                REGISTER EXPERIMENT
                 <div className={formStyles.form}>
-                    <form onSubmit={e => this.createUser(e)}>
-                        <label>Username</label>
-                        <input placeholder="here.." name="username" value={this.state.username} onChange={(e) => this.fixState(e)}/>
-                        <label>Password</label>
+                        <h4>Username</h4>
+                        <input placeholder="username here.." name="username" value={this.state.username} onChange={(e) => this.fixState(e)}/>
+                        <h4>Password</h4>
                         <input type="password" name="password" value={this.state.password} onChange={(e) => this.fixState(e)} placeholder="password goes here"/>
-                        <label>Retype Password</label>
-                        <input type="password" name="check" value={this.state.check} onChange={(e) => this.fixState(e)} placeholder="retype password goes here"/>
-                        <button type="submit" >submit</button>
-                    </form>
+                        <h4>Confirm Password</h4>
+                        <input type="password" name="check" value={this.state.check} onChange={(e) => this.fixState(e)} placeholder="confirm password"/>
+                        {/* <button type="submit" >submit</button> */}
+                        
+                    {/* <div className={formStyles.buttons}>  */}
+                    {/* </div> */}
                 </div>
+                   <Button onClick={(e) => this.createUser(e)} circular icon="save" />
             </div>
         )
     }

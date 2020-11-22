@@ -32,7 +32,6 @@ class Intro extends Component {
     
     return (
         <div className={introStyles.container}>
-            <h1>Project Tracker</h1>
             <div className={introStyles.choice}>
                 <div className={introStyles.side} >
                     <div className={this.state.showing == "registration" ? introStyles.active : introStyles.tab} onClick={() => this.register()}>
