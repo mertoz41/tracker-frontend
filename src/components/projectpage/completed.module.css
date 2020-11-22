@@ -2,11 +2,13 @@
     position: relative;
     width: 90%;
     margin: 0 auto;
-    height: auto;
+    height: 220px;
     background-color: white;
     text-align: center;
     padding: 10px;
-    top: 100px;
+    top: 30px;
+    
+
 
 }
 

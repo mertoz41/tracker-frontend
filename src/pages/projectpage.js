@@ -32,17 +32,15 @@ class Projectpage extends Component {
             <div className={pageStyles.content}>
 
             
-            <div className={pageStyles.left}>
-                <div className={pageStyles.first}>
-                    <Stories />
-                    {/* <Projectinfo /> */}
+                <div className={pageStyles.left}>
+                    <div className={pageStyles.first}>
+                        <Stories />
+                    </div>
+                    <Objectives />
                 </div>
-                <Objectives />
-            </div>
-            <div className={pageStyles.right}>
-
-                <Progress />
-                <Tabs fixState={this.fixState}/>
+                <div className={pageStyles.right}>
+                    <Progress />
+                    <Tabs fixState={this.fixState}/>
                 {this.state.showingComp ? 
                 <Completed />
                 :
