@@ -37,10 +37,11 @@ class Projectpage extends Component {
                         <Stories />
                     </div>
                     <Objectives />
+                   
                 </div>
                 <div className={pageStyles.right}>
                     <Progress />
-                    <Tabs fixState={this.fixState}/>
+                    <Tabs fixState={this.fixState} showingComp={this.state.showingComp}/>
                 {this.state.showingComp ? 
                 <Completed />
                 :

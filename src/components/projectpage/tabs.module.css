@@ -19,3 +19,16 @@
     display: flex;
     justify-content: space-around;
 }
+
+.active {
+    color: #DDA0DD;
+}
+.head {
+    color: black;
+}
+
+.head:hover{
+    color: #DDA0DD;
+
+
+}

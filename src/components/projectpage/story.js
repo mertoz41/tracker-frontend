@@ -139,13 +139,13 @@ export class Story extends Component {
 
                                     
                                     <div className={storyStyles.left}>
-                                    <div><h3>({this.props.story.objectives.length})</h3></div>
-                                    <div><h3>({this.getPercentage(this.props.story)})</h3></div>
+                                    {/* <div><h4>{this.props.story.objectives.length} </h4></div> */}
+                                    <div><h4>{this.getPercentage(this.props.story)} complete</h4></div>
                                     </div>
                                     <div className={storyStyles.right}>
 
                                     
-                                    {this.props.shownStory == this.props.story  ? 
+                                    {this.props.shownStory && this.props.shownStory.id == this.props.story.id  ? 
                                     <div className={storyStyles.buttons}>
                                         <div><Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/></div>
                                         <div><Button onClick={() => this.deleteStory(this.props.story)} className={storyStyles.button} circular icon="trash alternate outline" /></div>
