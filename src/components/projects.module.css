@@ -27,23 +27,23 @@
     position: relative;
     width: 250px;
     height: 200px;
-    background-color: #B0C4DE;
+    background-color: white;
     border-radius: 10px;
     float: left;
     margin-left: 40px;
     margin-top: 40px;
-    padding-top: 15px;
+    padding-top: 35px;
     margin-bottom: 15px;
     box-shadow: 0px 4px 10px 10px whitesmoke;
-    border: 5px solid whitesmoke;
+    border: 5px solid #B0C4DE;
 
 }
 
 
 
 .card:hover{
-    box-shadow: 0px 4px 10px 10px #90EE90;
-    border: 5px solid #90EE90;
+    box-shadow: 0px 4px 10px 10px #B0C4DE;
+    border: 5px solid #B0C4DE;
 
 
 }

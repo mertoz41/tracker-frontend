@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import projectStyles from './projects.module.css'
 import store from '../redux/store'
 import {withRouter} from 'react-router'
+import {Button} from 'semantic-ui-react'
+
 
 
 export class Projectcard extends Component {
@@ -46,11 +48,13 @@ export class Projectcard extends Component {
     render() {
         return (
             <div className={projectStyles.card}  onMouseEnter={() => this.setState({isHovering: true})} onMouseLeave={() => this.setState({isHovering: false})}>
-                        <h3 onClick={() => this.toProject(this.props.project)}>{this.props.project.title} </h3>
-                        <p>overall percentage</p>
-                        <p>{this.getPercentage(this.props.project)}</p>
+                        <h2 onClick={() => this.toProject(this.props.project)}>{this.props.project.title} </h2>
+                        <h3>{this.getPercentage(this.props.project)}</h3>
+                        {/* <h3>complete</h3> */}
                         {this.state.isHovering ?
-                        <button onClick={() => this.deleteProject(this.props.project)}>erase</button>
+                        // <button onClick={() => this.deleteProject(this.props.project)}>erase</button>
+                        <Button onClick={() => this.deleteProject(this.props.project)} circular icon="trash alternate outline" />
+
                         :
                         null   
                         }
