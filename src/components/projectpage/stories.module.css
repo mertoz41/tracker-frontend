@@ -52,7 +52,7 @@
 }
 .story:hover{
     border-left-style: solid;
-    border-left-color: #DDA0DD;
+    border-left-color: salmon;
 
 
 }
@@ -60,7 +60,7 @@
     /* display: flex;
     justify-content: space-between; */
     border-left-style: solid;
-    border-left-color: #DDA0DD;
+    border-left-color: salmon;
     border-left-width: 10px;
     /* border-right-style: solid;
     border-right-color: #DDA0DD;
@@ -107,7 +107,7 @@
     height: 150px;
     text-align: center;
     border-bottom-style: solid;
-    border-bottom-color: #DDA0DD;
+    border-bottom-color: salmon;
     
 }
 .new textarea{
@@ -129,7 +129,7 @@
 
 
 .toadd:hover{
-    color: #DDA0DD;
+    color: salmon;
 }
 
 .words{

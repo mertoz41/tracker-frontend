@@ -15,7 +15,7 @@
     height: 150px;
     text-align: center;
     border-bottom-style: solid;
-    border-bottom-color: #DDA0DD;
+    border-bottom-color: salmon;
     
 }
 .new textarea{
@@ -143,7 +143,7 @@
     top: 0px;
 }
 .toadd:hover{
-    color:  #DDA0DD;
+    color:  salmon;
 }
 .clear{
     position: absolute;

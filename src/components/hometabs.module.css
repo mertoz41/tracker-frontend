@@ -9,7 +9,7 @@
 }
 .container h3:hover{
     border-bottom-style: solid;
-    border-bottom-color: #DDA0DD;
+    border-bottom-color: salmon;
     
     border-bottom-width: 4px;
 }
@@ -29,7 +29,7 @@
 
 .active{
     border-bottom-style: solid;
-    border-bottom-color: #DDA0DD;
+    border-bottom-color: salmon;
     border-bottom-width: 4px;
 }
 .tab{
@@ -41,7 +41,7 @@
 
 .project:hover{
     border-bottom-style: solid;
-    border-bottom-color: #DDA0DD;
+    border-bottom-color: salmon;
 }
 
 

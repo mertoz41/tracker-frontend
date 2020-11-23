@@ -14,7 +14,7 @@
 .header{
     position: relative;
     width: 100%;
-    background-image: linear-gradient(#DDA0DD,#B0C4DE);
+    background-image: linear-gradient(salmon,#B0C4DE);
     height: 150px;
     /* padding-bottom: 40px; */
     text-align: center;
@@ -33,7 +33,7 @@
     right: 0px;
     width: 20%;
     height: 150px;
-    background-image: linear-gradient(#DDA0DD,#B0C4DE);
+    background-image: linear-gradient(salmon,#B0C4DE);
     /* padding-bottom: 40px; */
     text-align: center;
     padding-top: 20px;
