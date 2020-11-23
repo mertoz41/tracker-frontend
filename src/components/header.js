@@ -36,9 +36,12 @@ export class Header extends Component {
                     <div>
                     
                     {this.props.shownProject ? 
+                 
                     <div className={tabStyles.container}>
-                        <h1>{this.props.shownProject.title}</h1>
-                        <h3 onClick={() => this.toProjects()}>Back to Projects</h3>
+                        <div className={tabStyles.tabs}>
+                            <div className={tabStyles.active}><h2>{this.props.shownProject.title}</h2></div>
+                            <div className={tabStyles.project} onClick={() => this.toProjects()}><h2>All Projects</h2></div>
+                        </div>
                     </div>
                     :
                     <div className={tabStyles.container}>

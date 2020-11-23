@@ -89,8 +89,8 @@ export class Questionnaire extends Component {
         .then(resp => {
             debugger 
             store.dispatch({type: "SHOW_PROJECT", shownProject: resp.project})
-            this.props.history.push(`/projects/${resp.project.title}`)
-
+            let name = resp.project.title.split('').filter(letter => letter !== " ").join('')
+            this.props.history.push(`/projects/${name}`)
         })
 
     }

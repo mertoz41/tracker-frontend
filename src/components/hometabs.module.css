@@ -16,8 +16,10 @@
 .tabs{
     display: flex;
     justify-content: space-around;
+    width: 100%;
     font-size: 40px;
     padding-top: 40px;
+    padding-bottom: 40px;
     /* margin: 0 auto; */
     
     /* justify-content: space-around; */
@@ -35,6 +37,12 @@
 }
 
 
+
+
+.project:hover{
+    border-bottom-style: solid;
+    border-bottom-color: #DDA0DD;
+}
 
 
 
