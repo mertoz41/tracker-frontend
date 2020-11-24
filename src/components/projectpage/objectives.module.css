@@ -10,6 +10,19 @@
         /* overflow: scroll; */
 
 }
+
+.empty {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    height: 650px;
+    background-color:  #B0C4DE;
+  
+    /* border-radius: 20px; */
+    padding: 10px;
+        /* overflow: scroll; */
+
+}
 .new{
     position: relative;
     height: 150px;

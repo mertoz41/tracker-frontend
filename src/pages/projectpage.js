@@ -7,6 +7,7 @@ import Projectinfo from '../components/projectpage/projectinfo'
 import Stories from '../components/projectpage/stories'
 import {connect} from 'react-redux'
 import Completed from '../components/projectpage/completed'
+import Empty from '../components/projectpage/empty'
 import Tabs from '../components/projectpage/tabs'
 
 class Projectpage extends Component {
@@ -41,17 +42,27 @@ class Projectpage extends Component {
                     <div className={pageStyles.first}>
                         <Stories />
                     </div>
+                    {this.props.shownStory ? 
                     <Objectives />
+                    :
+                    <Empty />
+                    }
                    
                 </div>
                 <div className={pageStyles.right}>
+                    {this.props.shownStory ? 
+                    <div>
                     <Progress />
                     <Tabs fixState={this.fixState} showingComp={this.state.showingComp}/>
-                {this.state.showingComp ? 
-                <Completed />
-                :
-                <Projectinfo/>
+                    {this.state.showingComp ? 
+                    <Completed />
+                    :
+                    <Projectinfo/>
         
+                    }
+                    </div>
+                    :
+                    <Empty />
                 }
                 
 
