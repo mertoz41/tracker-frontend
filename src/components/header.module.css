@@ -34,9 +34,13 @@
     width: 20%;
     height: 150px;
     background-image: linear-gradient(#E0FFFF,#B0C4DE);
-    /* padding-bottom: 40px; */
+    /* padding-top: 30px; */
+    /* background-color: white; */
+  
     text-align: center;
-    padding-top: 20px;
+    padding-top: 40px;
+    border-bottom-style: solid;
+    border-bottom-color: #E0FFFF;
 
 }
 

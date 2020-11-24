@@ -4,6 +4,8 @@ import store from '../redux/store'
 import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 import tabStyles from './hometabs.module.css'
+import {Button} from 'semantic-ui-react'
+
 
 
 
@@ -62,7 +64,7 @@ export class Header extends Component {
             {this.props.currentUser ? 
             <div className={headerStyles.buttons}>
                 <h4>Hi, {this.props.currentUser.username}!</h4>
-                <button onClick={() => this.logOut()}>logout</button>
+                <Button onClick={() => this.logOut()} circular icon="logout"/>
             </div>
             :
             null
