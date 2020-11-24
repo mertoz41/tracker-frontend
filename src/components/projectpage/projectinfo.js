@@ -73,8 +73,10 @@ class Projectinfo extends Component {
                     {/* <button onClick={(e) => this.edit(e, this.state.editing)}>Submit</button> */}
                     </div>
                     :
+                    <div className={infoStyles.description}>
                     
-                    <p>{this.props.shownProject.description}</p>
+                        <p>{this.props.shownProject.description}</p>
+                    </div>
                     // {/* <button onClick={() => this.setState({edit: true})}>Edit</button> */}
                     
                     }

@@ -25,7 +25,7 @@
     height: 200px;
     /* width: 100%; */
     text-align: left;
-    overflow: auto;
+    
     /* border: 2px solid red; */
 
     /* padding-right: 50px; */
@@ -35,7 +35,24 @@
 }
 .buttons {
     position: relative;
-    right: 0px;
+    
+    text-align: center;
+}
+
+.description{
+    /* overflow: auto; */
+}
+.edit{
+    position: relative;
+    height: 150px;
+    text-align: center;
+    border-bottom-style: solid;
+    border-bottom-color: #B0C4DE;
+}
+.edit textarea{
+    width: 100%;
+    font-size: 30px;
+    margin-bottom: 15px;
 }
 /* .normal Button{
     position: relative;

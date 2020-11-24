@@ -10,6 +10,11 @@ import Completed from '../components/projectpage/completed'
 import Tabs from '../components/projectpage/tabs'
 
 class Projectpage extends Component {
+  
+
+    componentWillUnmount(){
+        debugger 
+    }
     state = {
         showingComp: true
     } 

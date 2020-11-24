@@ -6,6 +6,8 @@ import Questionnaire from '../components/newproject/questionnaire'
 
 
 export class Homepage extends Component {
+    componentDidMount(){
+    }
     state ={
         newProject: false
     }

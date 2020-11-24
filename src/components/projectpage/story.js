@@ -139,7 +139,7 @@ export class Story extends Component {
 
                                     
                                     <div className={storyStyles.left}>
-                                    {/* <div><h4>{this.props.story.objectives.length} </h4></div> */}
+                                    <div><h4>{this.props.story.objectives.length} items</h4></div>
                                     <div><h4>{this.getPercentage(this.props.story)} complete</h4></div>
                                     </div>
                                     <div className={storyStyles.right}>

@@ -8,21 +8,11 @@ class Intro extends Component {
     // class component because we will have state.
     state = {
         picked: false,
-        showing: 'null'
+        showingLogin: true
     }
 
-    register = () =>{
-        this.setState({
-            picked: true,
-            showing: 'registration'
-        })
-    }
-    login = () => {
-        this.setState({
-            picked: true,
-            showing: 'login'
-        })
-    }
+  
+ 
     toLogin = () =>{
         this.setState({picked: true, showing: 'login'})
     }
@@ -34,22 +24,22 @@ class Intro extends Component {
         <div className={introStyles.container}>
             <div className={introStyles.choice}>
                 <div className={introStyles.side} >
-                    <div className={this.state.showing == "registration" ? introStyles.active : introStyles.tab} onClick={() => this.register()}>
+                    <div className={this.state.showingLogin ? introStyles.tab : introStyles.active} onClick={() => this.setState({showingLogin: false})}>
                     <h1>REGISTER</h1>
                     </div>
-                    {this.state.showing == "registration" ? 
-                    <Register toLogin={this.toLogin}/>
-                    :
+                    {this.state.showingLogin ? 
                     null
+                    :
+                    <Register toLogin={this.toLogin}/>
                     }
 
                 </div>
 
                 <div className={introStyles.side} >
-                    <div className={this.state.showing == "login" ? introStyles.active : introStyles.tab} onClick={() => this.login()}>
+                    <div className={this.state.showingLogin? introStyles.active : introStyles.tab} onClick={() => this.setState({showingLogin: true})}>
                     <h1>LOGIN</h1>
                     </div>
-                    {this.state.showing == "login" ?
+                    {this.state.showingLogin ?
                     <Login />
                     :
                     null
