@@ -21,7 +21,7 @@
 }
 
 .active {
-    color: salmon;
+    color: #B0C4DE;
 }
 .head {
     color: black;
@@ -29,7 +29,7 @@
 
 .head:hover{
     
-    color: salmon;
+    color: #B0C4DE;
 
 
 }
