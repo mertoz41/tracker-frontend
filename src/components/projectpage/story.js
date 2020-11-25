@@ -18,7 +18,6 @@ export class Story extends Component {
             let completedObjs = story.objectives.filter(obj => obj.completed)
             if (completedObjs.length == story.objectives.length){
                 // call this function in two cases: 1) when all todos are completed to patch story completed, 2) when theres an incomplete todo and story is completed
-                // this.completeStory(story)
             }
             
             
@@ -30,34 +29,6 @@ export class Story extends Component {
          
     }
 
-
-
-    completeStory = (story) =>{
-        console.log(story)
-
-        // if completed_obj.length == story.objs.length and story.completed == false
-        // fetch to update story completed to true
-
-        // if completed_obj.length !==story.objs.length and story.completed == true
-        // fetch to update story completed to false
-        // story.completed = true
-        // let updatedStory = {...story}
-        // fetch(`http://localhost:3000/compstory/${story.id}`, {
-        //     method: "PATCH",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(updatedStory)
-        // })
-        // .then(resp => resp.json())
-        // .then(resp => {
-        //     let userProjects = this.props.userProjects
-        //     debugger
-        //     // store.dispatch({type: "UPDATE_ALL_PROJECTS", userProjects: updatedUserProjects})
-        //     // update user projects
-
-        // })
-    }
 
     editStory = (e, story) =>{
         e.preventDefault()
@@ -128,7 +99,7 @@ export class Story extends Component {
                                     {this.state.editing ?
                                     <div className={storyStyles.edit}>
                                         <textarea placeholder={this.props.story.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
-                                        <Button onClick={(e) => this.editStory(e, this.props.story)} circular icon="save"/>
+                                        <Button onClick={(e) => this.editStory(e, this.props.story)} circular icon="save outline"/>
                                     </div>
                                     :
                                     <h3 onClick={() => this.displayStory(this.props.story)}>{this.props.story.description}  </h3>

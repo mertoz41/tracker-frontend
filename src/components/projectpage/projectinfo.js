@@ -69,15 +69,13 @@ class Projectinfo extends Component {
                     {this.state.edit ?
                     <div className={infoStyles.edit}>
                     <textarea onChange={(e) => this.fixEdit(e)} value={this.state.editing} placeholder={this.props.shownProject.description}/>
-                    <Button onClick={(e) => this.edit(e, this.state.editing)} circular icon="save"/>
-                    {/* <button onClick={(e) => this.edit(e, this.state.editing)}>Submit</button> */}
+                    <Button onClick={(e) => this.edit(e, this.state.editing)} circular icon="save outline"/>
                     </div>
                     :
                     <div className={infoStyles.description}>
                     
                         <p>{this.props.shownProject.description}</p>
                     </div>
-                    // {/* <button onClick={() => this.setState({edit: true})}>Edit</button> */}
                     
                     }
 

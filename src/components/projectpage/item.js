@@ -100,9 +100,9 @@ export class Item extends Component {
             <div className={objectiveStyles.item}>
                                 
                                 {this.state.editing? 
-                                <div>
-                                    <textarea placeholder={this.props.obj.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
-                                    <button onClick={(e) => this.editObjective(e, this.props.obj)}>edit</button>
+                                <div className={objectiveStyles.edit}>
+                                    <div><textarea placeholder={this.props.obj.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/></div>
+                                    <div><Button onClick={(e) => this.editObjective(e, this.props.obj)} circular icon="save outline"/></div>
                                 </div>
                                     :
                                     <div className={objectiveStyles.left}>
@@ -111,7 +111,7 @@ export class Item extends Component {
                                 }
                                 <div className={objectiveStyles.right}>
                                     {/* <div><Button onClick={() => this.progressFunc(this.props.obj)} circular icon={this.props.obj.in_progress ? "undo":"plus"} /></div> */}
-                                    <div onClick={() => this.progressFunc(this.props.obj)}><h3>not in progress </h3></div>
+                                    <div onClick={() => this.progressFunc(this.props.obj)}><Button circular icon="hourglass outline"/></div>
                                     {this.props.obj.in_progress ?
                                     <div><Button onClick={() => this.checkComplete(this.props.obj)} /><h3>{this.props.obj.completed ? "close": "In progress"} </h3></div>
                                     : 

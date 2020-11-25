@@ -59,7 +59,7 @@ class Objectives extends Component {
             }
                 <div><h1> TO DOs</h1></div>
                 {this.props.shownStory && this.props.shownStory.objectives.length > 0 ?
-                <Button className={objectiveStyles.clear} onClick={() => store.dispatch({type: "CLEAR_STORY"})} circular icon="paperclip"/>
+                <Button className={objectiveStyles.clear} onClick={() => store.dispatch({type: "CLEAR_STORY"})} circular icon="window close outline"/>
                 :
                 null
                 }

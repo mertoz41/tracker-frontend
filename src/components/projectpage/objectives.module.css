@@ -163,3 +163,18 @@
     right: 15px;
     top: 0px;
 }
+.edit{
+    position: relative;
+    width: 100%;
+    height: 90px;
+    text-align: left;
+    display: flex;
+
+}
+
+.edit textarea{
+    width: 100%;
+    font-size: 20px;
+    padding-bottom: 10px;
+    
+}
