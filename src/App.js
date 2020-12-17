@@ -15,12 +15,12 @@ class App extends Component {
  
 
   componentDidMount(){
-    debugger 
     this.checkJwt()
      
   }
 
   checkJwt = () =>{
+    // fetch for user information in case there is a token stored in localStorage.
     if(localStorage.getItem('jwt')){
       fetch('http://localhost:3000/check', {
         method: 'GET',

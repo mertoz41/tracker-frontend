@@ -6,12 +6,12 @@ import Questionnaire from '../components/newproject/questionnaire'
 
 
 export class Homepage extends Component {
-    componentDidMount(){
-    }
+ 
     state ={
         newProject: false
     }
     pageDisplay = (word) => {
+        // state that displays a questionnaire when user attempts to create a new project.
 
         if(word == "new") {
             this.setState({newProject: true})
@@ -31,13 +31,6 @@ export class Homepage extends Component {
                         <Projects />
 
                     }
-                    {/* <div className={pageStyles.colors}>
-                        <div className={pageStyles.colorone}/>
-                        <div className={pageStyles.colortwo}/>
-                        <div className={pageStyles.colorthree}/>
-                        {/* <div className={pageStyles.colorfour}/> */}
-                        {/* <div className={pageStyles.colorfive}/> */}
-                    {/* </div>  */}
                 </div>
             </div>
         )

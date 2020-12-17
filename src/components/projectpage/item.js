@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import objectiveStyles from './objectives.module.css'
 import store from '../../redux/store'
 import {Button} from 'semantic-ui-react'
+import {connect} from 'react-redux'
 
 
 export class Item extends Component {
@@ -10,6 +11,7 @@ export class Item extends Component {
         textarea: ''
     }
     checkComplete = (obj) => {
+        // patch request to update objective completion prop.
         obj.completed = !obj.completed 
         let updatedObj = {...obj}
         fetch(`http://localhost:3000/objectives/${updatedObj.id}`, {
@@ -32,6 +34,7 @@ export class Item extends Component {
 
 
     editObjective = (e, obj) =>{
+        // patch request to update objectives description prop. 
         e.preventDefault()
         obj.description = this.state.textarea
         let updatedObj = {...obj}
@@ -51,6 +54,7 @@ export class Item extends Component {
     }
 
     progressFunc = (obj) => {
+        // patch request to update objectives progress prop.
         obj.in_progress = !obj.in_progress
         let updatedObj = {...obj}
          
@@ -68,7 +72,7 @@ export class Item extends Component {
         })
     }
     deleteObjective = (obj) =>{
-        // delete fetch
+        // delete request to delete objective.
         fetch(`http://localhost:3000/objectives/${obj.id}`, {
             method: "DELETE"
         })
@@ -110,7 +114,6 @@ export class Item extends Component {
                                     </div>
                                 }
                                 <div className={objectiveStyles.right}>
-                                    {/* <div><Button onClick={() => this.progressFunc(this.props.obj)} circular icon={this.props.obj.in_progress ? "undo":"plus"} /></div> */}
                                     <div onClick={() => this.progressFunc(this.props.obj)}><Button circular icon="hourglass outline"/></div>
                                     {this.props.obj.in_progress ?
                                     <div><Button onClick={() => this.checkComplete(this.props.obj)} /><h3>{this.props.obj.completed ? "close": "In progress"} </h3></div>
@@ -125,4 +128,10 @@ export class Item extends Component {
     }
 }
 
-export default Item
+const mapStateToProps = (state) => {
+    return{
+        shownStory: state.shownStory
+    }
+}
+
+export default connect(mapStateToProps)(Item)

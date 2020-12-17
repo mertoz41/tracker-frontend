@@ -4,9 +4,6 @@ import Intro from '../components/welcome/intro'
 import Header from '../components/header'
 
 export class Welcome extends Component {
-    componentDidMount(){
-        console.log("why isnt this being mounted")
-    }
     
     render() {
         return (

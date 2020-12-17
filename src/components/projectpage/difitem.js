@@ -11,6 +11,7 @@ export class DifItem extends Component {
         textarea: ''
     }
     checkComplete = (obj) => {
+        // patch request to update objectives completion prop.
         obj.completed = !obj.completed 
         let updatedObj = {...obj}
         fetch(`http://localhost:3000/objectives/${updatedObj.id}`, {
@@ -32,6 +33,7 @@ export class DifItem extends Component {
     }
 
     checkStory = () =>{
+
         let shownStory = this.props.shownStory
         let userProjects = this.props.userProjects
         let completedTodos = shownStory.objectives.filter(obj => obj.completed)
@@ -55,6 +57,7 @@ export class DifItem extends Component {
     }
 
     fetchStory = (story) =>{
+        // patch request to update objective completion prop. 
         fetch(`http://localhost:3000/compstory/${story.id}`, {
             method: "PATCH",
             headers: {
@@ -79,6 +82,7 @@ export class DifItem extends Component {
 
 
     editObjective = (e, obj) =>{
+        // patch request to update objective description prop.
         e.preventDefault()
         obj.description = this.state.textarea
         let updatedObj = {...obj}
@@ -98,6 +102,7 @@ export class DifItem extends Component {
     }
 
     progressFunc = (obj) => {
+        // patch request to update objective progress prop.
         obj.in_progress = !obj.in_progress
         let updatedObj = {...obj}
          
@@ -115,7 +120,7 @@ export class DifItem extends Component {
         })
     }
     deleteObjective = (obj) =>{
-        // delete fetch
+        // delete request to delete objective.
         fetch(`http://localhost:3000/objectives/${obj.id}`, {
             method: "DELETE"
         })
@@ -139,7 +144,6 @@ export class DifItem extends Component {
             store.dispatch({type: "DELETE_OBJECTIVE", shownStory: updatedShownStory, shownProject: updatedShownProject})
              
         })
-        // update userProjects
     }
 
     render() {

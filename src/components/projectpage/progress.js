@@ -9,7 +9,7 @@ import DifItem from './difitem'
 
 class Progress extends Component {
     deleteObjective = (obj) =>{
-        // delete fetch
+        // delete request to delete an objective.
         fetch(`http://localhost:3000/objectives/${obj.id}`, {
             method: "DELETE"
         })
@@ -36,6 +36,7 @@ class Progress extends Component {
         // update userProjects
     }
     checkComplete = (obj) => {
+        // patch request to update objective completion prop.
         obj.completed = !obj.completed 
         let updatedObj = {...obj}
         fetch(`http://localhost:3000/objectives/${updatedObj.id}`, {
@@ -56,6 +57,7 @@ class Progress extends Component {
         
     }
     addToProgress = (obj) => {
+        // patch request to update objects progress prop.
         obj.in_progress = !obj.in_progress
         let updatedObj = {...obj}
          

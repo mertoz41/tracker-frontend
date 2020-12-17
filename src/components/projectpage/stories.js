@@ -12,6 +12,7 @@ export class Stories extends Component {
     }
 
     createStory = (e) => {
+        // post request for creating a new story for a project.
         e.preventDefault()
         let projectID = this.props.shownProject.id
         fetch('http://localhost:3000/stories', {
@@ -33,7 +34,6 @@ export class Stories extends Component {
             store.dispatch({type: "ADD_STORY", shownProject: updatedShownProject})
         })
         this.setState({description: "", newStory: false})
-        // className={this.state.newStory ? storyStyles.adding : storyStyles.add}
     }
 
  

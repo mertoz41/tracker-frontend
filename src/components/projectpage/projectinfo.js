@@ -13,10 +13,12 @@ class Projectinfo extends Component {
     }
 
     fixDescription = (e) =>{
+        // controlled form to add a description to a project.
         this.setState({description: e.target.value})
     }
 
     edit = (e, desc) =>{
+        // patch request to edit project description.
         e.preventDefault()
         let obj ={
             description: desc
@@ -47,6 +49,7 @@ class Projectinfo extends Component {
     }
 
     fixEdit = (e) =>{
+        // state that updates existing project description.
         this.setState({editing: e.target.value})
     }
 
@@ -55,9 +58,7 @@ class Projectinfo extends Component {
     render() {
         return (
             <div className={infoStyles.container}>
-                {/* <div className={infoStyles.header}>
-                <h1>project info experiment</h1>
-                </div> */}
+             
                 <div className={infoStyles.content}>
                 <div className={infoStyles.buttons}><Button onClick={() => this.setState({edit: !this.state.edit})}circular icon="edit outline"/></div>
 

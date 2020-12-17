@@ -13,18 +13,17 @@ import Tabs from '../components/projectpage/tabs'
 class Projectpage extends Component {
   
 
-    componentWillUnmount(){
-        debugger 
-    }
+
     state = {
-        showingComp: true
+        showingCompleted: true
     } 
 
     fixState = (sect) =>{
+        // updating state that displays completed or project info section.
         if (sect == "comp") {
-            this.setState({showingComp: true})
+            this.setState({showingCompleted: true})
         } else {
-            this.setState({showingComp: false})
+            this.setState({showingCompleted: false})
         }
     }
     
@@ -53,8 +52,8 @@ class Projectpage extends Component {
                     {this.props.shownStory ? 
                     <div>
                     <Progress />
-                    <Tabs fixState={this.fixState} showingComp={this.state.showingComp}/>
-                    {this.state.showingComp ? 
+                    <Tabs fixState={this.fixState} showingCompleted={this.state.showingCompleted}/>
+                    {this.state.showingCompleted ? 
                     <Completed />
                     :
                     <Projectinfo/>

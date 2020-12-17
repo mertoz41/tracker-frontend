@@ -10,10 +10,14 @@ export class Story extends Component {
         editing: false,
         textarea: ''
     }
+
     displayStory = (story) =>{
+        // dispatch action to display selected story.
         store.dispatch({type: "SHOW_STORY", shownStory: story}) 
     }
+
     getPercentage = (story) => {
+        // story completion percentage calculation.
         if (story.objectives.length > 0){
             let completedObjs = story.objectives.filter(obj => obj.completed)
             if (completedObjs.length == story.objectives.length){
@@ -31,6 +35,7 @@ export class Story extends Component {
 
 
     editStory = (e, story) =>{
+        // patch request with updated story description.
         e.preventDefault()
         story.description = this.state.textarea
         let updatedStory = {...story}
@@ -90,8 +95,7 @@ export class Story extends Component {
         })
     }
     render() {
-        let shownStory = this.props.shownStory
-        let stori = this.props.story
+
         return (
             <div>
                 <div className={this.props.shownStory && this.props.shownStory.id == this.props.story.id ? storyStyles.active : storyStyles.story} id={this.props.story.id}>

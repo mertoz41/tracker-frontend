@@ -13,10 +13,12 @@ class Objectives extends Component {
         
     }
     fixDesc = (e) => {
+        // controlled form for new objective.
         this.setState({description: e.target.value})
     }
 
     addObjective = (e) =>{
+        // post request with new objective information. 
         e.preventDefault()
         let obj = {
             description: this.state.description,

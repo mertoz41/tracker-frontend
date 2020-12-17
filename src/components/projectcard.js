@@ -11,10 +11,9 @@ export class Projectcard extends Component {
         isHovering: false
     }
     toProject = (project) =>{
+        // redirected to selected projects page.
         
-        // eliminate spaces
         let name = project.title.split('').filter(letter => letter !== " ").join('')
-        // "ProjectTracker"
         let projects = store.getState().userProjects
         let foundProject = projects.find(proj => proj.title == project.title)
         store.dispatch({type: "SHOW_PROJECT", shownProject: foundProject})
@@ -22,6 +21,8 @@ export class Projectcard extends Component {
     }
 
     deleteProject = (project) => {
+        // deletes the project.
+
         fetch(`http://localhost:3000/projects/${project.id}`, {
             method: "DELETE"
         })
@@ -37,6 +38,8 @@ export class Projectcard extends Component {
     }
 
     getPercentage = (project) =>{
+        // project completion percentage calculation. 
+
         if (project.stories.length > 0){
             let completedBacklogs = project.stories.filter(stori => stori.completed)
             return Math.trunc(completedBacklogs.length / project.stories.length * 100) + "%"
@@ -50,11 +53,8 @@ export class Projectcard extends Component {
             <div className={projectStyles.card}  onMouseEnter={() => this.setState({isHovering: true})} onMouseLeave={() => this.setState({isHovering: false})}>
                         <h2 onClick={() => this.toProject(this.props.project)}>{this.props.project.title} </h2>
                         <h3>{this.getPercentage(this.props.project)}</h3>
-                        {/* <h3>complete</h3> */}
                         {this.state.isHovering ?
-                        // <button onClick={() => this.deleteProject(this.props.project)}>erase</button>
                         <Button onClick={() => this.deleteProject(this.props.project)} circular icon="trash alternate outline" />
-
                         :
                         null   
                         }

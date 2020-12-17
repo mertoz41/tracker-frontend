@@ -18,7 +18,7 @@ export class Login extends Component {
     }
 
     fetchUser = (e) =>{
-        // fetch user
+        // post request with user information to log in and get a token
 
         e.preventDefault()
 
@@ -52,9 +52,9 @@ export class Login extends Component {
             <div className={formStyles.container}>
                 <div className={formStyles.form}>
                         <h4>Username</h4>
-                        <input placeholder="here.." name="username" value={this.state.username} onChange={(e) => this.fixState(e)}/>
+                        <input placeholder="username here.." name="username" value={this.state.username} onChange={(e) => this.fixState(e)}/>
                         <h4>Password</h4>
-                        <input type="password" name="password" value={this.state.password} onChange={(e) => this.fixState(e)} placeholder="password goes here"/>
+                        <input type="password" name="password" value={this.state.password} onChange={(e) => this.fixState(e)} placeholder="password here..."/>
                         {/* <button type="submit" >submit</button> */}
                 </div>
                         <Button onClick={(e) => this.fetchUser(e)} circular icon="sign-in" />

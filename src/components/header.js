@@ -16,12 +16,14 @@ import {Button} from 'semantic-ui-react'
 export class Header extends Component {
     
     logOut = () =>{
+        // to log user out
         store.dispatch({type: "LOG_USER_OUT"})
         localStorage.clear()
         this.props.history.push('/welcome')
         alert("logged out")
     }
     toProjects = () =>{
+        // to display all projects
         store.dispatch({type: "CLEAN_PROJECT"})
         this.props.history.push('/')
     }

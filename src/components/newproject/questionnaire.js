@@ -22,6 +22,7 @@ export class Questionnaire extends Component {
     }
 
     fixState = (e) => {
+        // controlled form for project name.
         let name = e.target.name
         let value = e.target.value
         this.setState({
@@ -31,14 +32,8 @@ export class Questionnaire extends Component {
     }
 
     descState = (e) => {
-        let newCount = this.state.count - e.target.textLength
-        // if(e.target.textLength > 0){
-        //     newCount = this.state.count - 1
-        // } else {
-        //     newCount = this.state.count +1
-        // }
+        // controlled form for project description.
         this.setState({
-            // count: newCount,
             description: e.target.value
         })
     
@@ -47,6 +42,7 @@ export class Questionnaire extends Component {
    
 
     createProject = (e) =>{
+        // post request with new project information.
         e.preventDefault()
         let obj = {projectName: this.state.projectName, description: this.state.description, user_id: store.getState().currentUser.id }
          
@@ -74,6 +70,7 @@ export class Questionnaire extends Component {
     }
 
     addTodos = (e) =>{
+        // post request for created projects initial stories.
         e.preventDefault()
         
       
@@ -95,6 +92,7 @@ export class Questionnaire extends Component {
 
     }
     wordCount = () =>{
+        // calculating word count on project description section.
         let num = this.state.count - this.state.description.length
         if (num == 0){
             alert("140 characters")

@@ -5,15 +5,12 @@ import Login from './login'
 
 
 class Intro extends Component {
-    // class component because we will have state.
     state = {
         picked: false,
-        showingLogin: true
+        showingLogin: false
     }
-
-  
- 
     toLogin = () =>{
+        // state that displays login or register sections
         this.setState({picked: true, showing: 'login'})
     }
 
