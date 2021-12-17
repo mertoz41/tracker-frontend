@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Header from '../components/header'
 import Objectives from '../components/projectpage/objectives'
 import Progress from '../components/projectpage/progress'
-import pageStyles from './page.module.css'
 import Projectinfo from '../components/projectpage/projectinfo'
 import Stories from '../components/projectpage/stories'
 import {connect} from 'react-redux'
@@ -32,14 +31,14 @@ class Projectpage extends Component {
 
     
     return (
-        <div className={pageStyles.wrapper}>
+        <div >
             <Header />
-            <div className={pageStyles.content}>
+            <div className='projectSections'>
 
             
-                <div className={pageStyles.left}>
-                    <div className={pageStyles.first}>
-                        <Stories />
+                <div className='left'>
+                    <div className='first'>
+                    <Stories />
                     </div>
                     {this.props.shownStory ? 
                     <Objectives />
@@ -48,7 +47,7 @@ class Projectpage extends Component {
                     }
                    
                 </div>
-                <div className={pageStyles.right}>
+                <div className='right'>
                     {this.props.shownStory ? 
                     <div>
                     <Progress />

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import questionStyles from './questionnaire.module.css'
 import store from '../../redux/store'
 import {withRouter} from 'react-router'
-import projectStyles from '../projects.module.css'
 
 
 

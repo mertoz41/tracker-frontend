@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { useEffect } from 'react'
 import './App.css';
 import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import Welcome from './pages/welcome'
@@ -7,21 +7,22 @@ import store from './redux/store'
 import {connect} from 'react-redux'
 import Newprojectpage from './pages/newprojectpage'
 import Projectpage from './pages/projectpage'
+import { Helmet } from 'react-helmet'
 
 
 
 
-class App extends Component {
+function App({currentUser}){
  
+  useEffect(() => {
+    checkJwt()
+  }, [])
 
-  componentDidMount(){
-    this.checkJwt()
-     
-  }
 
-  checkJwt = () =>{
+  const checkJwt = () =>{
     // fetch for user information in case there is a token stored in localStorage.
-    if(localStorage.getItem('jwt')){
+    let token = localStorage.getItem('jwt')
+    if(token){
       fetch('http://localhost:3000/check', {
         method: 'GET',
         headers: {
@@ -38,12 +39,19 @@ class App extends Component {
 
 
 
-  render(){
+ 
     return (
+      <div className='container'>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Project Tracker</title>
+          <meta name="description" content="Nested component" />
+          <link rel='icon' type='image/png' href='favicon.ico' sizes="16x16" />
+        </Helmet>
       <BrowserRouter>
       <Switch>
         <Route exact path="/" render={() =>
-        this.props.currentUser ?
+        currentUser ?
         <Homepage />
         :
         <Redirect to="/welcome" />
@@ -51,7 +59,7 @@ class App extends Component {
 
       
         <Route exact path="/welcome" render={() =>
-        this.props.currentUser ? 
+        currentUser ? 
         <Redirect to="/" />
         :
         <Welcome/>
@@ -62,9 +70,10 @@ class App extends Component {
 
         </Switch>
       </BrowserRouter>
+      </div>
     );
 
-  }
+  
 }
 
 const mapStateToProps = (state) => {
