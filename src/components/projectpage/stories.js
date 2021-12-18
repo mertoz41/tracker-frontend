@@ -1,48 +1,53 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import storyStyles from './stories.module.css'
 import store from '../../redux/store'
 import {connect} from 'react-redux'
 import {Button} from 'semantic-ui-react'
 
-export class Stories extends Component {
-    state = {
-        description: "",
-        newStory: false
-    }
+const Stories = ({stories, shownProject, setStories, setShownStory, shownStory}) => {
+    const [newStory, setNewStory] = useState(false)
+    const [description, setDescription] = useState('')
+    const [editing, setEditing] = useState('')
 
-    createStory = (e) => {
+    const createStory = (e) => {
         // post request for creating a new story for a project.
         e.preventDefault()
-        let projectID = this.props.shownProject.id
         fetch('http://localhost:3000/stories', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({description: this.state.description, project_id: projectID})
+            body: JSON.stringify({description: description, project_id: shownProject.id})
         })
         .then(resp => resp.json())
         .then(resp => {
-            let shownProject = this.props.shownProject
-            let stories = shownProject.stories
-            stories.push(resp.new_story)
-            shownProject.stories = stories
+            let updatedStories = [resp.new_story, ...stories]
+            setStories(updatedStories)
+            setNewStory(false)
+            setDescription('')
+            // updateStories
+            // let shownProject = this.props.shownProject
+            // let stories = shownProject.stories
+            // stories.push(resp.new_story)
+            // shownProject.stories = stories
 
-            let updatedShownProject = {...shownProject}
+            // let updatedShownProject = {...shownProject}
 
-            store.dispatch({type: "ADD_STORY", shownProject: updatedShownProject})
+            // store.dispatch({type: "ADD_STORY", shownProject: updatedShownProject})
         })
-        this.setState({description: "", newStory: false})
+        // this.setState({description: "", newStory: false})
     }
-    displayStory = (story) =>{
+    const displayStory = (story) =>{
+        console.log(story)
+        setShownStory(story)
         // dispatch action to display selected story.
         // sort objectives, inprogress and completed here
-        let objectives = story.objectives.filter(obj => !obj.completed && !obj.in_progress)
-        let progress = story.objectives.filter(obj => obj.in_progress)
-        let completed = story.objectives.filter(obj => obj.completed)
-        store.dispatch({type: "SHOW_STORY", shownStory: story, objectives: objectives, progressObjects: progress, completedObjects: completed}) 
+        // let objectives = story.objectives.filter(obj => !obj.completed && !obj.in_progress)
+        // let progress = story.objectives.filter(obj => obj.in_progress)
+        // let completed = story.objectives.filter(obj => obj.completed)
+        // store.dispatch({type: "SHOW_STORY", shownStory: story, objectives: objectives, progressObjects: progress, completedObjects: completed}) 
     }
-    getPercentage = (story) => {
+    const getPercentage = (story) => {
         // story completion percentage calculation.
         if (story.objectives.length > 0){
             let completedObjs = story.objectives.filter(obj => obj.completed)
@@ -58,7 +63,7 @@ export class Stories extends Component {
         }
          
     }
-    editStory = (e, story) =>{
+    const editStory = (e, story) =>{
         // patch request with updated story description.
         e.preventDefault()
         story.description = this.state.textarea
@@ -86,7 +91,7 @@ export class Stories extends Component {
         })
         this.setState({editing: false, textarea: ''})
     }
-    deleteStory = (story) => {
+    const deleteStory = (story) => {
         // fetch to erase story
         // if shownStory is the deleted one, clear objectives section 
         
@@ -121,57 +126,55 @@ export class Stories extends Component {
 
  
 
-    render() {
         return (
-            <div className={storyStyles.container}>
-                <div className={storyStyles.header}>
-
-                    <div className={storyStyles.toadd}><h1 onClick={() => this.setState({newStory: !this.state.newStory})}>{this.state.newStory ? "Adding":"Add"}</h1></div>
-                    
-                    
+            <div className='storiesContainer'>
+                <div className='storiesHeader'>
+                    <div><h1 onClick={() => setNewStory(!newStory)}>{newStory ? "Adding":"New"}</h1></div>
                     <div><h1>BACKLOGS</h1></div>
+                    <div></div>
                 </div>
-                    {this.state.newStory ?
-                        <div className={storyStyles.new}>
-                            <textarea onChange={(e) => this.setState({description: e.target.value})} value={this.state.description} placeholder="new backlog goes here..."/>
-                            <Button onClick={(e) => this.createStory(e)} circular icon="plus"/>
-                        </div>
-                    :
-                    null
-                    }
+
+                {newStory ?
+                    <div>
+                        <textarea onChange={(e) => setDescription(e.target.value)} value={description} placeholder="new backlog goes here..."/>
+                        <Button onClick={(e) => createStory(e)} circular icon="plus"/>
+                    </div>
+                :
+                null
+                }
+                <div>
+                    {stories.length ? 
                 
-                <div className={storyStyles.stories}>
-                    {this.props.shownProject.stories ? 
-                    
-                        this.props.shownProject.stories.map((story, i) => {
+                        stories.map((story, i) => {
                             return(
-                                <div id={i}>
-                <div className={this.props.shownStory && this.props.shownStory.id == story.id ? storyStyles.active : storyStyles.story} id={story.id}>
-                                    <div className={storyStyles.words}>
-                                    {this.state.editing && this.props.shownStory.id == story.id?
-                                    <div className={storyStyles.edit}>
+                                <div className={shownStory && shownStory.id == story.id ? "selectedStory" : "story"} id={i}>
+                <div  id={story.id}>
+                                    <div>
+                                    {editing && shownStory.id == story.id?
+                                    <div >
                                         <textarea placeholder={story.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
                                         <Button onClick={(e) => this.editStory(e, story)} circular icon="save outline"/>
-                                    </div>
-                                    :
-                                    <h3 onClick={() => this.displayStory(story)}>{story.description}  </h3>
-                                    }
+                                        </div>
+                                        :
+                                        <h3 onClick={() => displayStory(story)}>{story.description}  </h3>
+                                }
                                     
                                     </div>
-                                    <div className={storyStyles.bottom}>
+                                    <div>
 
                                     
-                                    <div className={storyStyles.left}>
+                                    <div>
                                     <div><h4>{story.objectives.length} items</h4></div>
-                                    <div><h4>{this.getPercentage(story)} complete</h4></div>
+                                    {/* <div><h4>{this.getPercentage(story)} complete</h4></div> */}
                                     </div>
-                                    <div className={storyStyles.right}>
+                                    <div >
 
                                     
-                                    {this.props.shownStory && this.props.shownStory.id == story.id  ? 
-                                    <div className={storyStyles.buttons}>
-                                        <div><Button onClick={() => this.setState({editing: !this.state.editing})}circular icon="edit outline"/></div>
-                                        <div><Button onClick={() => this.deleteStory(story)} className={storyStyles.button} circular icon="trash alternate outline" /></div>
+                                    {shownStory && shownStory.id == story.id  ? 
+                                    <div>
+                                        <div><h3>edit</h3></div>
+
+                                        <div><h3>delete</h3></div>
                                     </div>
 
                                     :
@@ -191,13 +194,12 @@ export class Stories extends Component {
                 </div>
             </div>
         )
-    }
+    
 }
 const mapStateToProps = (state) =>{
     return{
         shownProject: state.shownProject,
         userProjects: state.userProjects,
-        shownStory: state.shownStory
     }
 }
 

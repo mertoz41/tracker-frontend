@@ -31,8 +31,8 @@ const Homepage = ({currentUser, userProjects}) => {
                     :
                     <div className='projects'>
 
-                        {userProjects.map(project => (
-                            <ProjectCard id={project.id} project={project} />
+                        {userProjects.map((project, i) => (
+                            <ProjectCard id={project.id} project={project} key={i}/>
                         )
                         
                 )}

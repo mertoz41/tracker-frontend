@@ -155,7 +155,7 @@ const Objectives = ({objectives, shownStory}) => {
 
 <div className={objectiveStyles.objectives}>
             <div>
-                {objectives.map(obj => {
+                {shownStory.objectives.map(obj => {
                     return(
                         <div>
                             {obj.in_progress?
@@ -201,7 +201,7 @@ const mapStateToProps = (state) =>{
     return{
         shownProject: state.shownProject,
         userProjects: state.userProjects,
-        shownStory: state.shownStory,
+        // shownStory: state.shownStory,
         objectives: state.objectives
     }
 }

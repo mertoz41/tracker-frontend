@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/header'
 import Objectives from '../components/projectpage/objectives'
 import Progress from '../components/projectpage/progress'
@@ -8,27 +8,24 @@ import {connect} from 'react-redux'
 import Completed from '../components/projectpage/completed'
 import Empty from '../components/projectpage/empty'
 
-class Projectpage extends Component {
-  
-    // separate 
+const Projectpage = ({shownProject, props}) => {
+    const [stories, setStories] = useState([])
+    const [selectedStory, setSelectedStory] = useState(null)
+    const [shownStory, setShownStory] = useState(null)
 
-    state = {
-        showingCompleted: true
-    } 
+    useEffect(() => {
+        getStories(shownProject.id)
+    }, [])
 
-    fixState = (sect) =>{
-        // updating state that displays completed or project info section.
-        if (sect == "comp") {
-            this.setState({showingCompleted: true})
-        } else {
-            this.setState({showingCompleted: false})
-        }
+    const getStories = id => {
+        fetch(`http://localhost:3000/projects/${id}`)
+        .then(resp => resp.json())
+        .then(resp => {
+            setStories(resp)
+        })
     }
-    
 
-    render(){
 
-    
     return (
         <div >
             <Header />
@@ -37,30 +34,24 @@ class Projectpage extends Component {
             
                 <div className='left'>
                     <div className='first'>
-                    <Stories />
+                    <Stories setShownStory={setShownStory} shownStory={shownStory} stories={stories} setStories={setStories}/>
                     </div>
-                    {this.props.shownStory ? 
-                    <Objectives />
+                    {shownStory ? 
+                    <Objectives shownStory={shownStory}/>
                     :
                     <Empty />
                     }
                    
                 </div>
                 <div className='right'>
-                    {this.props.shownStory ? 
+                    {/* {shownStory ? 
                     <div>
                     <Progress />
-                    {/* <Tabs fixState={this.fixState} showingCompleted={this.state.showingCompleted}/> */}
-                    {/* {this.state.showingCompleted ? 
-                    <Completed />
-                    :
-                    <Projectinfo/>
-        
-                    } */}
+                    
                     </div>
                     :
                     <Empty />
-                }
+                } */}
                 
 
             </div>
@@ -68,12 +59,12 @@ class Projectpage extends Component {
             
         </div>
     )
-    }
+    
 }
 
 const mapStateToProps = (state) => {
     return{
-        shownStory: state.shownStory
+        shownProject: state.shownProject
     }
 }
 

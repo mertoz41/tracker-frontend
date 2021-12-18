@@ -147,3 +147,41 @@
     border: 2px solid red;
     border-radius: 20px;
 }
+.storiesContainer{
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    height: 650px;
+    background-color: white;
+    text-align: center;
+    
+    /* border-radius: 20px; */
+    /* overflow: scroll; */
+    padding: 10px;
+}
+.storiesHeader{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom-style: solid;
+    border-bottom-color: #B0C4DE;
+}
+.storiesHeader div{
+    flex: 1;
+}
+.story{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-left-style: solid;
+    border-left-color: whitesmoke;
+    border-left-width: 10px;
+    background-color: whitesmoke;
+}
+.selectedStory{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-left-style: solid;
+    border-left-color: whitesmoke;
+    border-left-width: 10px;
+    background-color: red;
+}

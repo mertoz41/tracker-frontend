@@ -31,7 +31,7 @@ function App({currentUser}){
       })
       .then(resp => resp.json())
       .then(resp => {
-        console.log(resp)
+        // console.log(resp)
         store.dispatch({type: "LOG_USER_IN", currentUser: resp, userProjects: resp.projects})
       })
     }
