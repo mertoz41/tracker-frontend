@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import Completed from '../components/projectpage/completed'
 import Empty from '../components/projectpage/empty'
 
-const Projectpage = ({shownProject, props}) => {
+const Projectpage = ({shownProject}) => {
     const [stories, setStories] = useState([])
     const [selectedStory, setSelectedStory] = useState(null)
     const [shownStory, setShownStory] = useState(null)
@@ -21,9 +21,11 @@ const Projectpage = ({shownProject, props}) => {
         fetch(`http://localhost:3000/projects/${id}`)
         .then(resp => resp.json())
         .then(resp => {
+            // console.log(resp)
             setStories(resp)
         })
     }
+    // update stories when an objective is added
 
 
     return (
@@ -37,21 +39,21 @@ const Projectpage = ({shownProject, props}) => {
                     <Stories setShownStory={setShownStory} shownStory={shownStory} stories={stories} setStories={setStories}/>
                     </div>
                     {shownStory ? 
-                    <Objectives shownStory={shownStory}/>
+                    <Objectives shownStory={shownStory} stories={stories} setStories={setStories} setShownStory={setShownStory}/>
                     :
                     <Empty />
                     }
                    
                 </div>
                 <div className='right'>
-                    {/* {shownStory ? 
+                    {shownStory ? 
                     <div>
-                    <Progress />
+                    <Progress shownStory={shownStory}/>
                     
                     </div>
                     :
                     <Empty />
-                } */}
+                }
                 
 
             </div>

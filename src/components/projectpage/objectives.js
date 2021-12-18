@@ -4,11 +4,12 @@ import {connect} from 'react-redux'
 import store from '../../redux/store'
 import {Button} from 'semantic-ui-react'
 
-const Objectives = ({objectives, shownStory}) => {
+const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
     const [adding, setAdding] = useState(false)
     const [description, setDescription] = useState('')
     const [editing, setEditing] = useState(false)
-
+    const [selectedObjective, setSelectedObjective] = useState(null)
+    // console.log(shownStory)
  
 
     const addObjective = (e) =>{
@@ -27,9 +28,16 @@ const Objectives = ({objectives, shownStory}) => {
         })
         .then(resp => resp.json())
         .then(resp => {
-            let updatedObjectives = [...objectives, resp.objective]
+            // 
+            let foundStory = stories.find(stori => stori.id === shownStory.id)
+            let index = stories.indexOf(foundStory)
+            let filteredStories = stories.filter(stori => stori.id !== foundStory.id)
 
-            store.dispatch({type: "UPDATE_OBJECTIVES", objectives: updatedObjectives})
+            let updatedStory = {...foundStory, objectives: [resp.objective, ...foundStory.objectives]}
+
+            filteredStories.splice(index, 0, updatedStory)
+            setStories(filteredStories)
+            setShownStory(updatedStory)
             setAdding(false)
             setDescription('')
         })
@@ -60,70 +68,82 @@ const Objectives = ({objectives, shownStory}) => {
 
 
     const editObjective = (e, obj) =>{
+        // only shown story needs to be updated
+        let foundObj = shownStory.objectives.find(obje => obje.id === obj.id)
+        let index = shownStory.objectives.indexOf(foundObj)
+        let filteredObjectives = shownStory.objectives.filter(obje => obje.id !== obj.id)
+        let updatedObjective = {...obj, description: description}
+        filteredObjectives.splice(index, 0 ,updatedObjective)
+        let updatedShownStory = {...shownStory, objectives: filteredObjectives}
+        setShownStory(updatedShownStory)
         // patch request to update objectives description prop. 
         e.preventDefault()
-        obj.description = this.state.textarea
-        let updatedObj = {...obj}
-        fetch(`http://localhost:3000/edittododesc/${updatedObj.id}`, {
+        // obj.description = this.state.textarea
+        // let updatedObj = {...obj}
+        fetch(`http://localhost:3000/edittododesc/${obj.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(updatedObj)
+            body: JSON.stringify({description: description})
         })
-        .then(resp => resp.json())
-        .then(resp => {
-            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
-        })
-        this.setState({editing: false, textarea: ''})
+        // .then(resp => resp.json())
+        // .then(resp => {
+        //     store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
+        // })
+        // this.setState({editing: false, textarea: ''})
 
     }
 
     const progressFunc = (obj) => {
+        // only shown story needs to be updated
+        let foundObjective = shownStory.objectives.find(obje => obje.id === obj.id)
+        let updatedObjective = {...foundObjective, in_progress: true}
+        let filteredObjectives = shownStory.objectives.filter(obje => obje.id !== obj.id)
+        let updatedObjectives = [updatedObjective, ...filteredObjectives]
+        setShownStory({...shownStory, objectives: updatedObjectives})
         // patch request to update objectives progress prop.
-        obj.in_progress = !obj.in_progress
-        let updatedObj = {...obj}
+        // obj.in_progress = !obj.in_progress
+        // let updatedObj = {...obj}
          
-        fetch(`http://localhost:3000/progress/${obj.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedObj)
-        })
-        .then(resp => resp.json())
-        .then(resp => {
+        // fetch(`http://localhost:3000/progress/${obj.id}`, {
+        //     method: "PATCH",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(updatedObj)
+        // })
+        // .then(resp => resp.json())
+        // .then(resp => {
      
-            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
-        })
+        //     store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
+        // })
     }
     const deleteObjective = (obj) =>{
-        // delete request to delete objective.
         
+        // update shown story
+        let filteredObjs = shownStory.objectives.filter(obje => obje.id !== obj.id)
+        let updatedShownStory = {...shownStory, objectives: filteredObjs}
+        setShownStory(updatedShownStory)
+        // update stories
+        let foundStory = stories.find(stori => stori.id === shownStory.id)
+        let index = stories.indexOf(foundStory)
+        let filteredStories = stories.filter(stori => stori.id !== foundStory.id)
+        filteredStories.splice(index, 0, updatedShownStory)
+        setStories(filteredStories)
         fetch(`http://localhost:3000/objectives/${obj.id}`, {
             method: "DELETE"
         })
-        .then(resp => resp.json())
-        .then(resp => {
-            // update shown story
-            // let shownStory = this.props.shownStory
-            // let filteredObjectives = shownStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
-            // shownStory.objectives = filteredObjectives
-            // let updatedShownStory = {...shownStory}
-            // // update shown project
-            // let shownProject = this.props.shownProject
-            // let foundStory = shownProject.stories.find(story => story.id == shownStory.id)
-            // let index = shownProject.stories.indexOf(foundStory)
-            // let filteredStoryObjectives = foundStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
-            // foundStory.objectives = filteredStoryObjectives
-            // shownProject.stories.splice(index,1, foundStory)
-            // let updatedShownProject = {...shownProject}
-            
+    }
 
-            // store.dispatch({type: "DELETE_OBJECTIVE", shownStory: updatedShownStory, shownProject: updatedShownProject})
-             
-        })
-        // update userProjects
+    const selectObjective = obj => {
+        if (editing){
+            setEditing(!editing)
+        } else {
+            setSelectedObjective(obj)
+            setEditing(!editing)
+
+        }
     }
 
     
@@ -155,18 +175,18 @@ const Objectives = ({objectives, shownStory}) => {
 
 <div className={objectiveStyles.objectives}>
             <div>
-                {shownStory.objectives.map(obj => {
+                {shownStory.objectives.map((obj,i) => {
                     return(
-                        <div>
-                            {obj.in_progress?
-                            null
-                            :
+                        obj.in_progress?
+                        null
+                        :
+                        <div key={i}>
                             <div className={objectiveStyles.item}>
                                 
-                                {editing? 
+                                {editing && selectedObjective && selectedObjective.id === obj.id ? 
                                 <div className={objectiveStyles.edit}>
                                     <div><textarea placeholder={obj.description}/></div>
-                                    <div><Button onClick={(e) => this.editObjective(e, obj)} circular icon="save outline"/></div>
+                                    <div><Button onClick={(e) => editObjective(e, obj)} circular icon="save outline"/></div>
                                 </div>
                                     :
                                     <div className={objectiveStyles.left}>
@@ -174,19 +194,19 @@ const Objectives = ({objectives, shownStory}) => {
                                     </div>
                                 }
                                 <div className={objectiveStyles.right}>
-                                    <div onClick={() => this.progressFunc(obj)}><Button circular icon="hourglass outline"/></div>
+                                    <div onClick={() => progressFunc(obj)}><Button circular icon="hourglass outline"/></div>
                                     {obj.in_progress ?
                                     <div><Button onClick={() => this.checkComplete(obj)} /><h3>{obj.completed ? "close": "In progress"} </h3></div>
                                     : 
-                                    <div><Button onClick={() => this.setState({editing: !editing})}circular icon="edit outline"/></div>
+                                    <div><Button onClick={() => setEditing(!editing)}circular icon="edit outline"/></div>
                                     }
                                     <div><Button onClick={() => deleteObjective(obj)} circular icon="trash alternate outline"/></div>
                                 </div>
                               
                             </div>
-                            }
                             
                         </div>
+                            
                     )
                 })}
             </div>

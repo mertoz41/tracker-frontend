@@ -123,10 +123,9 @@ const Progress = ({shownStory}) => {
             <div className={progressStyles.items}>
             
             <div>
-            {objectives.map(obj => { 
-                
-                return(
-                    <div>
+            {shownStory.objectives.map((obj,i) => (
+                obj.in_progress ?
+                    <div key={i}>
                         <div className={objectiveStyles.working}>
                             <div className={objectiveStyles.left}>
                                 <h3>{obj.description}</h3>
@@ -144,8 +143,10 @@ const Progress = ({shownStory}) => {
                     </div>
                         
                         </div>
+                        :
+                        null
                 )
-            }
+            
             )
             }
             
@@ -160,7 +161,6 @@ const Progress = ({shownStory}) => {
 }
 const mapStateToProps = (state) => {
     return{
-        shownStory: state.shownStory,
         shownProject: state.shownProject
     }
 }
