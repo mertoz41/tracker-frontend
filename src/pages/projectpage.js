@@ -7,11 +7,10 @@ import Stories from '../components/projectpage/stories'
 import {connect} from 'react-redux'
 import Completed from '../components/projectpage/completed'
 import Empty from '../components/projectpage/empty'
-import Tabs from '../components/projectpage/tabs'
 
 class Projectpage extends Component {
   
-
+    // separate 
 
     state = {
         showingCompleted: true
@@ -51,13 +50,13 @@ class Projectpage extends Component {
                     {this.props.shownStory ? 
                     <div>
                     <Progress />
-                    <Tabs fixState={this.fixState} showingCompleted={this.state.showingCompleted}/>
-                    {this.state.showingCompleted ? 
+                    {/* <Tabs fixState={this.fixState} showingCompleted={this.state.showingCompleted}/> */}
+                    {/* {this.state.showingCompleted ? 
                     <Completed />
                     :
                     <Projectinfo/>
         
-                    }
+                    } */}
                     </div>
                     :
                     <Empty />

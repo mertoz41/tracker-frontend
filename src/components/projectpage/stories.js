@@ -3,7 +3,6 @@ import storyStyles from './stories.module.css'
 import store from '../../redux/store'
 import {connect} from 'react-redux'
 import {Button} from 'semantic-ui-react'
-import Story from './story'
 
 export class Stories extends Component {
     state = {
@@ -37,7 +36,11 @@ export class Stories extends Component {
     }
     displayStory = (story) =>{
         // dispatch action to display selected story.
-        store.dispatch({type: "SHOW_STORY", shownStory: story}) 
+        // sort objectives, inprogress and completed here
+        let objectives = story.objectives.filter(obj => !obj.completed && !obj.in_progress)
+        let progress = story.objectives.filter(obj => obj.in_progress)
+        let completed = story.objectives.filter(obj => obj.completed)
+        store.dispatch({type: "SHOW_STORY", shownStory: story, objectives: objectives, progressObjects: progress, completedObjects: completed}) 
     }
     getPercentage = (story) => {
         // story completion percentage calculation.
@@ -145,7 +148,7 @@ export class Stories extends Component {
                                 <div id={i}>
                 <div className={this.props.shownStory && this.props.shownStory.id == story.id ? storyStyles.active : storyStyles.story} id={story.id}>
                                     <div className={storyStyles.words}>
-                                    {this.state.editing ?
+                                    {this.state.editing && this.props.shownStory.id == story.id?
                                     <div className={storyStyles.edit}>
                                         <textarea placeholder={story.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
                                         <Button onClick={(e) => this.editStory(e, story)} circular icon="save outline"/>

@@ -132,3 +132,18 @@
     /* top: 40px; */
 
 }
+.progressHeader{
+    display: flex;
+    justify-content: space-between;
+}
+.selectedProgSect{
+    padding: 5px;
+    background-color: red;
+    border: 2px solid red;
+    border-radius: 20px;
+}
+.progSect{
+    padding: 5px;
+    border: 2px solid red;
+    border-radius: 20px;
+}

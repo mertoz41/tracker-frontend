@@ -1,14 +1,20 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import progressStyles from './progress.module.css'
 import {connect} from 'react-redux'
 import objectiveStyles from './objectives.module.css'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
-import Item from './item'
-import DifItem from './difitem'
 
-class Progress extends Component {
-    deleteObjective = (obj) =>{
+const Progress = ({shownStory}) => {
+    const [editing, setEditing] = useState(false)
+    const [selectedSect, setSelectedSect] = useState('inProgress')
+    const [objectives, setObjectives] = useState([])
+    // console.log(shownStory)
+    useEffect(() => {
+        // let filtered = shownStory.objectives.filter(obj => obj.in_progress)
+        // setObjectives(filtered)
+    }, [])
+    const deleteObjective = (obj) =>{
         // delete request to delete an objective.
         fetch(`http://localhost:3000/objectives/${obj.id}`, {
             method: "DELETE"
@@ -35,7 +41,7 @@ class Progress extends Component {
         })
         // update userProjects
     }
-    checkComplete = (obj) => {
+    const checkComplete = (obj) => {
         // patch request to update objective completion prop.
         obj.completed = !obj.completed 
         let updatedObj = {...obj}
@@ -56,7 +62,7 @@ class Progress extends Component {
         })
         
     }
-    addToProgress = (obj) => {
+    const addToProgress = (obj) => {
         // patch request to update objects progress prop.
         obj.in_progress = !obj.in_progress
         let updatedObj = {...obj}
@@ -74,26 +80,69 @@ class Progress extends Component {
             store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
         })
     }
-    render() {
+    const progressFunc = (obj) => {
+        // patch request to update objective progress prop.
+        obj.in_progress = !obj.in_progress
+        let updatedObj = {...obj}
+         
+        fetch(`http://localhost:3000/progress/${obj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedObj)
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+     
+            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
+        })
+    }
+    const filterObjectives = type => {
+        setSelectedSect(type)
+        if (type == 'inProgress'){
+            let filteredList = shownStory.objectives.filter(obj => obj.in_progress)
+            setObjectives(filteredList)
+        } else if (type == 'completed'){
+            let filteredList = shownStory.objectives.filter(obj => obj.completed)
+            setObjectives(filteredList)
+
+        } else {
+
+        }
+    }
 
     
     return (
         <div className={progressStyles.container}>
-            <div className={progressStyles.header}>
-
-            <h1>IN PROGRESS</h1>
+            <div className='progressHeader'>
+                <div className={selectedSect == 'inProgress' ? 'selectedProgSect' :'progSect'} onClick={() => filterObjectives('inProgress')}><h2>in progress</h2></div>
+                <div className={selectedSect == 'completed' ? 'selectedProgSect' :'progSect'} onClick={() => filterObjectives('completed')}><h2>completed</h2></div>
+                <div className={selectedSect == 'settings' ? 'selectedProgSect' :'progSect'} onClick={() => filterObjectives('settings')}><h2>settings</h2></div>
             </div>
             <div className={progressStyles.items}>
-            {this.props.shownStory ? 
-            <div >
-            {this.props.shownStory.objectives.map(obj => { 
+            
+            <div>
+            {objectives.map(obj => { 
                 
                 return(
                     <div>
-                        {obj.in_progress && obj.completed == false ? 
-                        <DifItem obj={obj} id={obj.id} for={"progress"}/>
-                        : 
-                        null}
+                        <div className={objectiveStyles.working}>
+                            <div className={objectiveStyles.left}>
+                                <h3>{obj.description}</h3>
+                            </div>
+                            <div className={objectiveStyles.right}>
+                                <div onClick={() => progressFunc(obj)}><Button circular icon="hourglass end"/></div>
+                            {obj.in_progress ?
+                            <div><Button onClick={() => checkComplete(obj)} circular icon={obj.completed ? "close": "checkmark"} /></div>
+                            : 
+                            <div><Button onClick={() => setEditing(!editing)}circular icon="edit outline"/></div>
+                            }
+                            <div><Button onClick={() => deleteObjective(obj)} circular icon="trash alternate outline"/></div>
+                        </div>
+                      
+                    </div>
+                        
                         </div>
                 )
             }
@@ -101,14 +150,12 @@ class Progress extends Component {
             }
             
             </div>
-            :
-            null
-            }
+            
             </div>
             
         </div>
     )
-}
+
 
 }
 const mapStateToProps = (state) => {

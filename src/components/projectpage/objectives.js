@@ -1,23 +1,24 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import objectiveStyles from './objectives.module.css'
 import {connect} from 'react-redux'
 import store from '../../redux/store'
-import Item from './item'
 import {Button} from 'semantic-ui-react'
 
-class Objectives extends Component {
-    
-    state = {
-        description: '',
-        adding: false
+const Objectives = ({objectives, shownStory}) => {
+    const [adding, setAdding] = useState(false)
+    const [description, setDescription] = useState('')
+    const [editing, setEditing] = useState(false)
+    // state = {
+    //     description: '',
+    //     adding: false
         
-    }
-    fixDesc = (e) => {
+    // }
+    const fixDesc = (e) => {
         // controlled form for new objective.
         this.setState({description: e.target.value})
     }
 
-    addObjective = (e) =>{
+    const addObjective = (e) =>{
         // post request with new objective information. 
         e.preventDefault()
         let obj = {
@@ -45,77 +46,172 @@ class Objectives extends Component {
     }
 
   
+    const checkComplete = (obj) => {
+        // patch request to update objective completion prop.
+        obj.completed = !obj.completed 
+        let updatedObj = {...obj}
+        fetch(`http://localhost:3000/objectives/${updatedObj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedObj)
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+     
+            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
+             
+            // update shownStory.objectives array
 
+        })
+        
+    }
+
+
+    const editObjective = (e, obj) =>{
+        // patch request to update objectives description prop. 
+        e.preventDefault()
+        obj.description = this.state.textarea
+        let updatedObj = {...obj}
+        fetch(`http://localhost:3000/edittododesc/${updatedObj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedObj)
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
+        })
+        this.setState({editing: false, textarea: ''})
+
+    }
+
+    const progressFunc = (obj) => {
+        // patch request to update objectives progress prop.
+        obj.in_progress = !obj.in_progress
+        let updatedObj = {...obj}
+         
+        fetch(`http://localhost:3000/progress/${obj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedObj)
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+     
+            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
+        })
+    }
+    const deleteObjective = (obj) =>{
+        // delete request to delete objective.
+        fetch(`http://localhost:3000/objectives/${obj.id}`, {
+            method: "DELETE"
+        })
+        .then(resp => resp.json())
+        .then(resp => {
+            // update shown story
+            let shownStory = this.props.shownStory
+            let filteredObjectives = shownStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
+            shownStory.objectives = filteredObjectives
+            let updatedShownStory = {...shownStory}
+            // update shown project
+            let shownProject = this.props.shownProject
+            let foundStory = shownProject.stories.find(story => story.id == shownStory.id)
+            let index = shownProject.stories.indexOf(foundStory)
+            let filteredStoryObjectives = foundStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
+            foundStory.objectives = filteredStoryObjectives
+            shownProject.stories.splice(index,1, foundStory)
+            let updatedShownProject = {...shownProject}
+            
+
+            store.dispatch({type: "DELETE_OBJECTIVE", shownStory: updatedShownStory, shownProject: updatedShownProject})
+             
+        })
+        // update userProjects
+    }
 
     
 
-    render(){
-         
     return (
         <div className={objectiveStyles.container}>
             <div className={objectiveStyles.header}>
-                {this.props.shownStory ? 
-            <div className={objectiveStyles.toadd}><h1 onClick={() => this.setState({adding: !this.state.adding})}>{this.state.adding ? "Adding":"Add"}</h1></div>
-            :
-            null
-            }
+                
+            <div className={objectiveStyles.toadd}><h1 onClick={() => setAdding(!adding)}>{adding ? "Adding":"Add"}</h1></div>
+           
                 <div><h1> TO DOs</h1></div>
-                {this.props.shownStory && this.props.shownStory.objectives.length > 0 ?
+                
                 <Button className={objectiveStyles.clear} onClick={() => store.dispatch({type: "CLEAR_STORY"})} circular icon="window close outline"/>
-                :
-                null
-                }
             </div>
             
 
-            {this.props.shownStory ?
-            
-
+          
             <div>
-            {this.state.adding ?
+            {adding ?
             <div className={objectiveStyles.new}>
-            <textarea placeholder="To-do goes here.." onChange={(e) => this.fixDesc(e)} value={this.state.description} />
+            <textarea placeholder="To-do goes here.." onChange={(e) => this.fixDesc(e)} value={description} />
             <Button onClick={(e) => this.addObjective(e)} circular icon="plus"/>
             </div>
             :
             null
             }
             </div>
-            :
-            null
-            }   
-
+            
 
 <div className={objectiveStyles.objectives}>
-            {this.props.shownStory && this.props.shownStory.objectives.length > 0 ? 
             <div>
-                {this.props.shownStory.objectives.map(obj => {
+                {objectives.map(obj => {
                     return(
                         <div>
                             {obj.in_progress?
                             null
                             :
-                            <Item obj={obj} id={obj.id} />
+                            <div className={objectiveStyles.item}>
+                                
+                                {editing? 
+                                <div className={objectiveStyles.edit}>
+                                    <div><textarea placeholder={obj.description}/></div>
+                                    <div><Button onClick={(e) => this.editObjective(e, obj)} circular icon="save outline"/></div>
+                                </div>
+                                    :
+                                    <div className={objectiveStyles.left}>
+                                    <h3>{obj.description}</h3>
+                                    </div>
+                                }
+                                <div className={objectiveStyles.right}>
+                                    <div onClick={() => this.progressFunc(obj)}><Button circular icon="hourglass outline"/></div>
+                                    {obj.in_progress ?
+                                    <div><Button onClick={() => this.checkComplete(obj)} /><h3>{obj.completed ? "close": "In progress"} </h3></div>
+                                    : 
+                                    <div><Button onClick={() => this.setState({editing: !editing})}circular icon="edit outline"/></div>
+                                    }
+                                    <div><Button onClick={() => this.deleteObjective(obj)} circular icon="trash alternate outline"/></div>
+                                </div>
+                              
+                            </div>
                             }
                             
                         </div>
                     )
                 })}
             </div>
-            :
-            null 
-            }
+            
             </div>
         </div>
     )
-    }
+    
 }
 
 const mapStateToProps = (state) =>{
     return{
         shownProject: state.shownProject,
         userProjects: state.userProjects,
-        shownStory: state.shownStory
+        shownStory: state.shownStory,
+        objectives: state.objectives
     }
 }
 export default connect(mapStateToProps)(Objectives)

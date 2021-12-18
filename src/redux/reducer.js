@@ -2,7 +2,10 @@ const initialState = {
     currentUser: null,
     shownProject: null,
     userProjects: [],
-    shownStory: {id: 1}
+    shownStory: {id: 1},
+    completedObjects: [],
+    progressObjects: [],
+    objectives: []
 }
 
 function reducer(state = initialState, action ){
@@ -30,7 +33,7 @@ function reducer(state = initialState, action ){
         case "UPDATED_PROJECT_DESCRIPTION":
             return {...state, shownProject: action.shownProject, userProjects: action.userProjects};
         case "SHOW_STORY":
-            return {...state, shownStory: action.shownStory};
+            return {...state, shownStory: action.shownStory, objectives: action.objectives, progressObjects: action.progressObjects, completedObjects: action.completedObjects};
         case "CLEAR_STORY":
             return {...state, shownStory: null}
         case "DELETE_STORY":

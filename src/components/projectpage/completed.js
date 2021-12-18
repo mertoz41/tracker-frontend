@@ -4,7 +4,7 @@ import completedStyles from './completed.module.css'
 import objectiveStyles from './objectives.module.css'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
-import DifItem from './difitem'
+// import DifItem from './difitem'
 
 
 class Completed extends Component {
@@ -18,7 +18,7 @@ class Completed extends Component {
             {this.props.shownStory ?
             <div>
             
-            {this.props.shownStory.objectives.map(obj => { 
+            {/* {this.props.shownStory.objectives.map(obj => { 
                 
                 return(
                     <div>
@@ -30,7 +30,7 @@ class Completed extends Component {
                 )
             }
             )
-            }
+            } */}
             </div>
             
             :
