@@ -8,22 +8,15 @@ const Objectives = ({objectives, shownStory}) => {
     const [adding, setAdding] = useState(false)
     const [description, setDescription] = useState('')
     const [editing, setEditing] = useState(false)
-    // state = {
-    //     description: '',
-    //     adding: false
-        
-    // }
-    const fixDesc = (e) => {
-        // controlled form for new objective.
-        this.setState({description: e.target.value})
-    }
+
+ 
 
     const addObjective = (e) =>{
         // post request with new objective information. 
         e.preventDefault()
         let obj = {
-            description: this.state.description,
-            story_id: this.props.shownStory.id
+            description: description,
+            story_id: shownStory.id
         }
         fetch('http://localhost:3000/objectives', {
             method: "POST",
@@ -34,15 +27,12 @@ const Objectives = ({objectives, shownStory}) => {
         })
         .then(resp => resp.json())
         .then(resp => {
-            // shownStory adjustment
-            let shownStory = this.props.shownStory
-            shownStory.objectives.push(resp.objective)
-            let updatedShownStory = {...shownStory}
-             
-            store.dispatch({type: "ADD_OBJECTIVE", shownStory: updatedShownStory})
+            let updatedObjectives = [...objectives, resp.objective]
 
+            store.dispatch({type: "UPDATE_OBJECTIVES", objectives: updatedObjectives})
+            setAdding(false)
+            setDescription('')
         })
-        this.setState({adding: !this.state.adding, description: ''})
     }
 
   
@@ -109,27 +99,28 @@ const Objectives = ({objectives, shownStory}) => {
     }
     const deleteObjective = (obj) =>{
         // delete request to delete objective.
+        
         fetch(`http://localhost:3000/objectives/${obj.id}`, {
             method: "DELETE"
         })
         .then(resp => resp.json())
         .then(resp => {
             // update shown story
-            let shownStory = this.props.shownStory
-            let filteredObjectives = shownStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
-            shownStory.objectives = filteredObjectives
-            let updatedShownStory = {...shownStory}
-            // update shown project
-            let shownProject = this.props.shownProject
-            let foundStory = shownProject.stories.find(story => story.id == shownStory.id)
-            let index = shownProject.stories.indexOf(foundStory)
-            let filteredStoryObjectives = foundStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
-            foundStory.objectives = filteredStoryObjectives
-            shownProject.stories.splice(index,1, foundStory)
-            let updatedShownProject = {...shownProject}
+            // let shownStory = this.props.shownStory
+            // let filteredObjectives = shownStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
+            // shownStory.objectives = filteredObjectives
+            // let updatedShownStory = {...shownStory}
+            // // update shown project
+            // let shownProject = this.props.shownProject
+            // let foundStory = shownProject.stories.find(story => story.id == shownStory.id)
+            // let index = shownProject.stories.indexOf(foundStory)
+            // let filteredStoryObjectives = foundStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
+            // foundStory.objectives = filteredStoryObjectives
+            // shownProject.stories.splice(index,1, foundStory)
+            // let updatedShownProject = {...shownProject}
             
 
-            store.dispatch({type: "DELETE_OBJECTIVE", shownStory: updatedShownStory, shownProject: updatedShownProject})
+            // store.dispatch({type: "DELETE_OBJECTIVE", shownStory: updatedShownStory, shownProject: updatedShownProject})
              
         })
         // update userProjects
@@ -153,8 +144,8 @@ const Objectives = ({objectives, shownStory}) => {
             <div>
             {adding ?
             <div className={objectiveStyles.new}>
-            <textarea placeholder="To-do goes here.." onChange={(e) => this.fixDesc(e)} value={description} />
-            <Button onClick={(e) => this.addObjective(e)} circular icon="plus"/>
+            <textarea placeholder="To-do goes here.." onChange={(e) => setDescription(e.target.value)} value={description} />
+            <Button onClick={(e) => addObjective(e)} circular icon="plus"/>
             </div>
             :
             null
@@ -189,7 +180,7 @@ const Objectives = ({objectives, shownStory}) => {
                                     : 
                                     <div><Button onClick={() => this.setState({editing: !editing})}circular icon="edit outline"/></div>
                                     }
-                                    <div><Button onClick={() => this.deleteObjective(obj)} circular icon="trash alternate outline"/></div>
+                                    <div><Button onClick={() => deleteObjective(obj)} circular icon="trash alternate outline"/></div>
                                 </div>
                               
                             </div>

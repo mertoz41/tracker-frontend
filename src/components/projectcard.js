@@ -51,7 +51,11 @@ export class Projectcard extends Component {
         return (
             <div className='card'  onMouseEnter={() => this.setState({isHovering: true})} onMouseLeave={() => this.setState({isHovering: false})}>
                         <h2 onClick={() => this.toProject(this.props.project)}>{this.props.project.title} </h2>
-                        <h3>{this.getPercentage(this.props.project)}</h3>
+                        {this.props.project.completion ?
+                        <h3>{this.props.project.completion.toFixed(2)}</h3>
+                        :
+                        null
+                            }
                         <div>
                         {this.state.isHovering ?
                         <Button onClick={() => this.deleteProject(this.props.project)} circular icon="trash alternate outline" />
