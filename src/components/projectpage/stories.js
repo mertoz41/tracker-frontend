@@ -7,7 +7,9 @@ import {Button} from 'semantic-ui-react'
 const Stories = ({stories, shownProject, setStories, setShownStory, shownStory}) => {
     const [newStory, setNewStory] = useState(false)
     const [description, setDescription] = useState('')
+    const [storiEdit, setStoriEdit] = useState('')
     const [editing, setEditing] = useState('')
+    const [selectedStory, setSelectedStory] = useState(null)
 
     const createStory = (e) => {
         // post request for creating a new story for a project.
@@ -38,7 +40,6 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
         // this.setState({description: "", newStory: false})
     }
     const displayStory = (story) =>{
-        console.log(story)
         setShownStory(story)
         // dispatch action to display selected story.
         // sort objectives, inprogress and completed here
@@ -63,25 +64,25 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
         }
          
     }
-    const editStory = (e, story) =>{
+    const editStory = (story, desc) =>{
         // patch request with updated story description.
-        e.preventDefault()
-        story.description = this.state.textarea
-        let updatedStory = {...story}
-        fetch(`http://localhost:3000/stories/${updatedStory.id}`,{
+        // // e.preventDefault()
+        // story.description = this.state.textarea
+        // let updatedStory = {...story}
+        fetch(`http://localhost:3000/stories/${story.id}`,{
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(updatedStory)
+            body: JSON.stringify({description: desc})
         })
         .then(resp => resp.json())
         .then(resp =>{
-            let shownProject = this.props.shownProject
-            let index = shownProject.stories.indexOf(shownProject.stories.find(story => story.id == resp.updated_story.id))
-            shownProject.stories.splice(index, 1, resp.updated_story)
-            let updatedShownProject = {...shownProject}
-            store.dispatch({type: "UPDATE_STORY", shownProject: updatedShownProject})
+            // let shownProject = this.props.shownProject
+            // let index = shownProject.stories.indexOf(shownProject.stories.find(story => story.id == resp.updated_story.id))
+            // shownProject.stories.splice(index, 1, resp.updated_story)
+            // let updatedShownProject = {...shownProject}
+            // store.dispatch({type: "UPDATE_STORY", shownProject: updatedShownProject})
 
 
             // update shownProject
@@ -124,6 +125,11 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
         })
     }
 
+   const selectStory = stori => {
+        setEditing(!editing)
+        setSelectedStory(stori)
+    }
+
  
 
         return (
@@ -150,10 +156,11 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
                                 <div className={shownStory && shownStory.id == story.id ? "selectedStory" : "story"} id={i}>
                 <div  id={story.id}>
                                     <div>
-                                    {editing && shownStory.id == story.id?
+                                    {editing && selectedStory && selectedStory.id == story.id?
                                     <div >
-                                        <textarea placeholder={story.description} value={this.state.textarea} onChange={(e) => this.setState({textarea: e.target.value})}/>
-                                        <Button onClick={(e) => this.editStory(e, story)} circular icon="save outline"/>
+                                        <textarea placeholder={story.description} value={storiEdit} onChange={(e) => setStoriEdit(e.target.value)}/>
+                                        <div onClick={() => editStory(story, storiEdit)}><h3>save</h3></div>
+                                        {/* <Button circular icon="save outline"/> */}
                                         </div>
                                         :
                                         <h3 onClick={() => displayStory(story)}>{story.description}  </h3>
@@ -172,7 +179,7 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
                                     
                                     {shownStory && shownStory.id == story.id  ? 
                                     <div>
-                                        <div><h3>edit</h3></div>
+                                        <div onClick={() => selectStory(story)}><h3>{editing ? 'editing' : 'edit'}</h3></div>
 
                                         <div><h3>delete</h3></div>
                                     </div>

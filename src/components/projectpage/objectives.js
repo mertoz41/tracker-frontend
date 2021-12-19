@@ -6,6 +6,7 @@ import {Button} from 'semantic-ui-react'
 const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjective, progressFunc}) => {
     const [adding, setAdding] = useState(false)
     const [description, setDescription] = useState('')
+    const [editDesc, setEditDesc] = useState('')
     const [editing, setEditing] = useState(false)
     const [selectedObjective, setSelectedObjective] = useState(null)
     // console.log(shownStory)
@@ -44,17 +45,16 @@ const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjec
 
 
 
-    const editObjective = (e, obj) =>{
+    const editObjective = (obj, desc) =>{
         // only shown story needs to be updated
         let foundObj = shownStory.objectives.find(obje => obje.id === obj.id)
         let index = shownStory.objectives.indexOf(foundObj)
         let filteredObjectives = shownStory.objectives.filter(obje => obje.id !== obj.id)
-        let updatedObjective = {...obj, description: description}
+        let updatedObjective = {...obj, description: desc}
         filteredObjectives.splice(index, 0 ,updatedObjective)
         let updatedShownStory = {...shownStory, objectives: filteredObjectives}
         setShownStory(updatedShownStory)
         // patch request to update objectives description prop. 
-        e.preventDefault()
         // obj.description = this.state.textarea
         // let updatedObj = {...obj}
         fetch(`http://localhost:3000/edittododesc/${obj.id}`, {
@@ -62,8 +62,10 @@ const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjec
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({description: description})
+            body: JSON.stringify({description: desc})
         })
+        setEditDesc('')
+        setEditing(false)
         // .then(resp => resp.json())
         // .then(resp => {
         //     store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
@@ -123,8 +125,12 @@ const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjec
                                 
                                 {editing && selectedObjective && selectedObjective.id === obj.id ? 
                                 <div>
-                                    <div><textarea placeholder={obj.description}/></div>
-                                    <div><h3>edit</h3></div>
+                                    <div><textarea onChange={(e) => setEditDesc(e.target.value)} placeholder={obj.description} value={editDesc}/></div>
+                                    {obj.description !== editDesc ?
+                                    <div onClick={() => editObjective(obj, editDesc)}><h3>save</h3></div>
+                                    :
+                                    null
+                                    }
                                 </div>
                                     :
                                     <div>
@@ -136,7 +142,7 @@ const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjec
                                         <h3>add to progress</h3>
                                         </div>
                                     
-                                    <div onClick={() => setEditing(!editing)}><h3>edit</h3></div>
+                                    <div onClick={() => selectObjective(obj)}><h3>{editing && selectedObjective && selectedObjective.id === obj.id ? 'editing' : 'edit'}</h3></div>
 
                                     
                                     <div onClick={() => deleteObjective(obj)}><h3>delete</h3></div>

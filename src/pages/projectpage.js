@@ -20,7 +20,7 @@ const Projectpage = ({shownProject}) => {
         fetch(`http://localhost:3000/projects/${id}`)
         .then(resp => resp.json())
         .then(resp => {
-            // console.log(resp)
+            console.log(resp)
             setStories(resp)
         })
     }
