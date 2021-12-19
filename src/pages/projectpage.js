@@ -48,7 +48,7 @@ const Projectpage = ({shownProject}) => {
                 <div className='right'>
                     {shownStory ? 
                     <div>
-                    <Progress shownStory={shownStory}/>
+                    <Progress shownStory={shownStory} setShownStory={setShownStory}/>
                     
                     </div>
                     :

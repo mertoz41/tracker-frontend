@@ -105,18 +105,16 @@ const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
         // patch request to update objectives progress prop.
         // obj.in_progress = !obj.in_progress
         // let updatedObj = {...obj}
-         
-        // fetch(`http://localhost:3000/progress/${obj.id}`, {
-        //     method: "PATCH",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(updatedObj)
-        // })
+        
+        fetch(`http://localhost:3000/progress/${obj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
         // .then(resp => resp.json())
         // .then(resp => {
      
-        //     store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
         // })
     }
     const deleteObjective = (obj) =>{
@@ -186,7 +184,7 @@ const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
                                 {editing && selectedObjective && selectedObjective.id === obj.id ? 
                                 <div className={objectiveStyles.edit}>
                                     <div><textarea placeholder={obj.description}/></div>
-                                    <div><Button onClick={(e) => editObjective(e, obj)} circular icon="save outline"/></div>
+                                    <div><h3>edit</h3></div>
                                 </div>
                                     :
                                     <div className={objectiveStyles.left}>
@@ -194,13 +192,15 @@ const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
                                     </div>
                                 }
                                 <div className={objectiveStyles.right}>
-                                    <div onClick={() => progressFunc(obj)}><Button circular icon="hourglass outline"/></div>
-                                    {obj.in_progress ?
-                                    <div><Button onClick={() => this.checkComplete(obj)} /><h3>{obj.completed ? "close": "In progress"} </h3></div>
-                                    : 
-                                    <div><Button onClick={() => setEditing(!editing)}circular icon="edit outline"/></div>
-                                    }
-                                    <div><Button onClick={() => deleteObjective(obj)} circular icon="trash alternate outline"/></div>
+                                    <div onClick={() => progressFunc(obj)}>
+                                        <h3>add to progress</h3>
+                                        </div>
+                                    
+                                    <div onClick={() => setEditing(!editing)}><h3>edit</h3></div>
+
+                                    
+                                    <div onClick={() => deleteObjective(obj)}><h3>delete</h3></div>
+
                                 </div>
                               
                             </div>
