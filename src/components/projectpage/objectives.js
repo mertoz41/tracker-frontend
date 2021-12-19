@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import objectiveStyles from './objectives.module.css'
 import {connect} from 'react-redux'
 import store from '../../redux/store'
 import {Button} from 'semantic-ui-react'
@@ -88,21 +87,21 @@ const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjec
     
 
     return (
-        <div className={objectiveStyles.container}>
-            <div className={objectiveStyles.header}>
+        <div className='storiesContainer'>
+            <div className="storiesHeader">
                 
-            <div className={objectiveStyles.toadd}><h1 onClick={() => setAdding(!adding)}>{adding ? "Adding":"Add"}</h1></div>
+            <div><h1 onClick={() => setAdding(!adding)}>{adding ? "Adding":"Add"}</h1></div>
            
                 <div><h1> TO DOs</h1></div>
                 
-                <Button className={objectiveStyles.clear} onClick={() => store.dispatch({type: "CLEAR_STORY"})} circular icon="window close outline"/>
+                <div><Button onClick={() => setShownStory(null)} circular icon="window close outline"/></div>
             </div>
             
 
           
             <div>
             {adding ?
-            <div className={objectiveStyles.new}>
+            <div>
             <textarea placeholder="To-do goes here.." onChange={(e) => setDescription(e.target.value)} value={description} />
             <Button onClick={(e) => addObjective(e)} circular icon="plus"/>
             </div>
@@ -112,7 +111,7 @@ const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjec
             </div>
             
 
-<div className={objectiveStyles.objectives}>
+<div>
             <div>
                 {shownStory.objectives.map((obj,i) => {
                     return(
@@ -120,19 +119,19 @@ const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjec
                         null
                         :
                         <div key={i}>
-                            <div className={objectiveStyles.item}>
+                            <div className='item'>
                                 
                                 {editing && selectedObjective && selectedObjective.id === obj.id ? 
-                                <div className={objectiveStyles.edit}>
+                                <div>
                                     <div><textarea placeholder={obj.description}/></div>
                                     <div><h3>edit</h3></div>
                                 </div>
                                     :
-                                    <div className={objectiveStyles.left}>
+                                    <div>
                                     <h3>{obj.description}</h3>
                                     </div>
                                 }
-                                <div className={objectiveStyles.right}>
+                                <div>
                                     <div onClick={() => progressFunc(obj)}>
                                         <h3>add to progress</h3>
                                         </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import progressStyles from './progress.module.css'
 import {connect} from 'react-redux'
-import objectiveStyles from './objectives.module.css'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
 
@@ -58,11 +57,11 @@ const Progress = ({shownStory, setShownStory, deleteObjective, progressFunc}) =>
             {shownStory.objectives.map((obj,i) => (
                 selectedSect == 'inProgress' && obj.in_progress ?
                     <div key={i}>
-                        <div className={objectiveStyles.working}>
-                            <div className={objectiveStyles.left}>
+                        <div >
+                            <div >
                                 <h3>{obj.description}</h3>
                             </div>
-                            <div className={objectiveStyles.right}>
+                            <div >
                                 <div onClick={() => progressFunc(obj)}><h3>undo progress</h3></div>
                                 <div onClick={() => markComplete(obj)}><h3>complete</h3></div>
                             <div><Button onClick={() => deleteObjective(obj)} circular icon="trash alternate outline"/></div>
@@ -74,11 +73,11 @@ const Progress = ({shownStory, setShownStory, deleteObjective, progressFunc}) =>
                         :
                         selectedSect == 'completed' && obj.completed ?
                         <div key={i}>
-                        <div className={objectiveStyles.working}>
-                            <div className={objectiveStyles.left}>
+                        <div >
+                            <div >
                                 <h3>{obj.description}</h3>
                             </div>
-                            <div className={objectiveStyles.right}>
+                            <div >
                                 <div onClick={() => markComplete(obj)}><h3>undo complete</h3></div>
                                 {/* <div onClick={() => checkComplete(obj)}><h3>complete</h3></div> */}
                             <div><Button onClick={() => deleteObjective(obj)} circular icon="trash alternate outline"/></div>

@@ -5,7 +5,6 @@ import Progress from '../components/projectpage/progress'
 import Projectinfo from '../components/projectpage/projectinfo'
 import Stories from '../components/projectpage/stories'
 import {connect} from 'react-redux'
-import Completed from '../components/projectpage/completed'
 import Empty from '../components/projectpage/empty'
 
 const Projectpage = ({shownProject}) => {
