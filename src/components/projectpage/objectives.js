@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import store from '../../redux/store'
 import {Button} from 'semantic-ui-react'
 
-const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
+const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjective, progressFunc}) => {
     const [adding, setAdding] = useState(false)
     const [description, setDescription] = useState('')
     const [editing, setEditing] = useState(false)
@@ -28,7 +28,7 @@ const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
         })
         .then(resp => resp.json())
         .then(resp => {
-            // 
+    
             let foundStory = stories.find(stori => stori.id === shownStory.id)
             let index = stories.indexOf(foundStory)
             let filteredStories = stories.filter(stori => stori.id !== foundStory.id)
@@ -43,28 +43,6 @@ const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
         })
     }
 
-  
-    const checkComplete = (obj) => {
-        // patch request to update objective completion prop.
-        obj.completed = !obj.completed 
-        let updatedObj = {...obj}
-        fetch(`http://localhost:3000/objectives/${updatedObj.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedObj)
-        })
-        .then(resp => resp.json())
-        .then(resp => {
-     
-            store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
-             
-            // update shownStory.objectives array
-
-        })
-        
-    }
 
 
     const editObjective = (e, obj) =>{
@@ -95,44 +73,7 @@ const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
 
     }
 
-    const progressFunc = (obj) => {
-        // only shown story needs to be updated
-        let foundObjective = shownStory.objectives.find(obje => obje.id === obj.id)
-        let updatedObjective = {...foundObjective, in_progress: true}
-        let filteredObjectives = shownStory.objectives.filter(obje => obje.id !== obj.id)
-        let updatedObjectives = [updatedObjective, ...filteredObjectives]
-        setShownStory({...shownStory, objectives: updatedObjectives})
-        // patch request to update objectives progress prop.
-        // obj.in_progress = !obj.in_progress
-        // let updatedObj = {...obj}
-        
-        fetch(`http://localhost:3000/progress/${obj.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        // .then(resp => resp.json())
-        // .then(resp => {
-     
-        // })
-    }
-    const deleteObjective = (obj) =>{
-        
-        // update shown story
-        let filteredObjs = shownStory.objectives.filter(obje => obje.id !== obj.id)
-        let updatedShownStory = {...shownStory, objectives: filteredObjs}
-        setShownStory(updatedShownStory)
-        // update stories
-        let foundStory = stories.find(stori => stori.id === shownStory.id)
-        let index = stories.indexOf(foundStory)
-        let filteredStories = stories.filter(stori => stori.id !== foundStory.id)
-        filteredStories.splice(index, 0, updatedShownStory)
-        setStories(filteredStories)
-        fetch(`http://localhost:3000/objectives/${obj.id}`, {
-            method: "DELETE"
-        })
-    }
+
 
     const selectObjective = obj => {
         if (editing){
@@ -175,7 +116,7 @@ const Objectives = ({stories, shownStory, setStories, setShownStory}) => {
             <div>
                 {shownStory.objectives.map((obj,i) => {
                     return(
-                        obj.in_progress?
+                        obj.in_progress || obj.completed?
                         null
                         :
                         <div key={i}>

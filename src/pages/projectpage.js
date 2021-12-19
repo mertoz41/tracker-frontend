@@ -25,6 +25,37 @@ const Projectpage = ({shownProject}) => {
             setStories(resp)
         })
     }
+
+    const deleteObjective = (obj) =>{
+        
+        // update shown story
+        let filteredObjs = shownStory.objectives.filter(obje => obje.id !== obj.id)
+        let updatedShownStory = {...shownStory, objectives: filteredObjs}
+        setShownStory(updatedShownStory)
+        // update stories
+        let foundStory = stories.find(stori => stori.id === shownStory.id)
+        let index = stories.indexOf(foundStory)
+        let filteredStories = stories.filter(stori => stori.id !== foundStory.id)
+        filteredStories.splice(index, 0, updatedShownStory)
+        setStories(filteredStories)
+        fetch(`http://localhost:3000/objectives/${obj.id}`, {
+            method: "DELETE"
+        })
+    }
+    const progressFunc = (obj) => {
+        // only shown story needs to be updated
+        let foundObjective = shownStory.objectives.find(obje => obje.id === obj.id)
+        let updatedObjective = {...foundObjective, in_progress: !foundObjective.in_progress}
+        let filteredObjectives = shownStory.objectives.filter(obje => obje.id !== obj.id)
+        let updatedObjectives = [updatedObjective, ...filteredObjectives]
+        setShownStory({...shownStory, objectives: updatedObjectives})
+        fetch(`http://localhost:3000/progress/${obj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
     // update stories when an objective is added
 
 
@@ -39,7 +70,7 @@ const Projectpage = ({shownProject}) => {
                     <Stories setShownStory={setShownStory} shownStory={shownStory} stories={stories} setStories={setStories}/>
                     </div>
                     {shownStory ? 
-                    <Objectives shownStory={shownStory} stories={stories} setStories={setStories} setShownStory={setShownStory}/>
+                    <Objectives progressFunc={progressFunc} deleteObjective={deleteObjective} shownStory={shownStory} stories={stories} setStories={setStories} setShownStory={setShownStory}/>
                     :
                     <Empty />
                     }
@@ -48,7 +79,7 @@ const Projectpage = ({shownProject}) => {
                 <div className='right'>
                     {shownStory ? 
                     <div>
-                    <Progress shownStory={shownStory} setShownStory={setShownStory}/>
+                    <Progress progressFunc={progressFunc} deleteObjective={deleteObjective} shownStory={shownStory} setShownStory={setShownStory}/>
                     
                     </div>
                     :

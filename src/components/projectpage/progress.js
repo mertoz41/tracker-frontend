@@ -5,7 +5,7 @@ import objectiveStyles from './objectives.module.css'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
 
-const Progress = ({shownStory, setShownStory}) => {
+const Progress = ({shownStory, setShownStory, deleteObjective, progressFunc}) => {
     const [editing, setEditing] = useState(false)
     const [selectedSect, setSelectedSect] = useState('inProgress')
     const [objectives, setObjectives] = useState([])
@@ -14,39 +14,10 @@ const Progress = ({shownStory, setShownStory}) => {
         // let filtered = shownStory.objectives.filter(obj => obj.in_progress)
         // setObjectives(filtered)
     }, [])
-    const deleteObjective = (obj) =>{
-        // delete request to delete an objective.
-        fetch(`http://localhost:3000/objectives/${obj.id}`, {
-            method: "DELETE"
-        })
-        .then(resp => resp.json())
-        .then(resp => {
-            // update shown story
-            let shownStory = this.props.shownStory
-            let filteredObjectives = shownStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
-            shownStory.objectives = filteredObjectives
-            let updatedShownStory = {...shownStory}
-            // update shown project
-            let shownProject = this.props.shownProject
-            let foundStory = shownProject.stories.find(story => story.id == shownStory.id)
-            let index = shownProject.stories.indexOf(foundStory)
-            let filteredStoryObjectives = foundStory.objectives.filter(obj => obj.description !== resp.deleted_objective.description)
-            foundStory.objectives = filteredStoryObjectives
-            shownProject.stories.splice(index,1, foundStory)
-            let updatedShownProject = {...shownProject}
-            
-
-            store.dispatch({type: "DELETE_OBJECTIVE", shownStory: updatedShownStory, shownProject: updatedShownProject})
-             
-        })
-        // update userProjects
-    }
-    const checkComplete = (obj) => {
-        // patch request to update objective completion prop.
-        // obj.completed = !obj.completed 
-        // let updatedObj = {...obj}
+   
+    const markComplete = (obj) => {
         let foundObjective = shownStory.objectives.find(obje => obje.id === obj.id)
-        let updatedObjective = {...foundObjective, complete: true, in_progress: false}
+        let updatedObjective = {...foundObjective, completed: !obj.completed, in_progress: !obj.in_progress}
         let filteredObjectives = shownStory.objectives.filter(obje => obje.id !== obj.id)
         let updatedObjectives = [updatedObjective, ...filteredObjectives]
         setShownStory({...shownStory, objectives: updatedObjectives})
@@ -56,32 +27,9 @@ const Progress = ({shownStory, setShownStory}) => {
                 "Content-Type": "application/json"
             }
         })
-        // .then(resp => resp.json())
-        // .then(resp => {
-      
-        //     store.dispatch({type: "UPDATE_OBJ", shownStory: resp.updated_objective})
-             
-        //     // update shownStory.objectives array
-
-        // })
         
     }
    
-    const progressFunc = (obj) => {
-
-        let foundObjective = shownStory.objectives.find(obje => obje.id === obj.id)
-        let updatedObjective = {...foundObjective, in_progress: false}
-        let filteredObjectives = shownStory.objectives.filter(obje => obje.id !== obj.id)
-        let updatedObjectives = [updatedObjective, ...filteredObjectives]
-        setShownStory({...shownStory, objectives: updatedObjectives})
-        fetch(`http://localhost:3000/progress/${obj.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
-    }
     const filterObjectives = type => {
         setSelectedSect(type)
         if (type == 'inProgress'){
@@ -116,7 +64,7 @@ const Progress = ({shownStory, setShownStory}) => {
                             </div>
                             <div className={objectiveStyles.right}>
                                 <div onClick={() => progressFunc(obj)}><h3>undo progress</h3></div>
-                                <div onClick={() => checkComplete(obj)}><h3>complete</h3></div>
+                                <div onClick={() => markComplete(obj)}><h3>complete</h3></div>
                             <div><Button onClick={() => deleteObjective(obj)} circular icon="trash alternate outline"/></div>
                         </div>
                       
@@ -131,7 +79,7 @@ const Progress = ({shownStory, setShownStory}) => {
                                 <h3>{obj.description}</h3>
                             </div>
                             <div className={objectiveStyles.right}>
-                                <div onClick={() => progressFunc(obj)}><h3>undo complete</h3></div>
+                                <div onClick={() => markComplete(obj)}><h3>undo complete</h3></div>
                                 {/* <div onClick={() => checkComplete(obj)}><h3>complete</h3></div> */}
                             <div><Button onClick={() => deleteObjective(obj)} circular icon="trash alternate outline"/></div>
                         </div>
