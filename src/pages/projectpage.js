@@ -20,8 +20,10 @@ const Projectpage = ({shownProject}) => {
         fetch(`http://localhost:3000/projects/${id}`)
         .then(resp => resp.json())
         .then(resp => {
-            console.log(resp)
-            setStories(resp)
+            let sorted = resp.sort((a,b) => (
+                new Date(b.created_at) - new Date(a.created_at)
+            ))
+            setStories(sorted)
         })
     }
 

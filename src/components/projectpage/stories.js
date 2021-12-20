@@ -65,6 +65,15 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
          
     }
     const editStory = (story, desc) =>{
+        let foundStori = stories.find(stori => stori.id === story.id)
+        let index = stories.indexOf(foundStori)
+        let filteredStories = stories.filter(stori => stori.id !== story.id)
+        let updatedStori = {...foundStori, description: desc}
+        filteredStories.splice(index, 0, updatedStori)
+        setStories(filteredStories)
+        setEditing(!editing)
+        setStoriEdit('')
+        // update stories
         // patch request with updated story description.
         // // e.preventDefault()
         // story.description = this.state.textarea
@@ -76,21 +85,21 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
             },
             body: JSON.stringify({description: desc})
         })
-        .then(resp => resp.json())
-        .then(resp =>{
-            // let shownProject = this.props.shownProject
-            // let index = shownProject.stories.indexOf(shownProject.stories.find(story => story.id == resp.updated_story.id))
-            // shownProject.stories.splice(index, 1, resp.updated_story)
-            // let updatedShownProject = {...shownProject}
-            // store.dispatch({type: "UPDATE_STORY", shownProject: updatedShownProject})
+        // .then(resp => resp.json())
+        // .then(resp =>{
+        //     // let shownProject = this.props.shownProject
+        //     // let index = shownProject.stories.indexOf(shownProject.stories.find(story => story.id == resp.updated_story.id))
+        //     // shownProject.stories.splice(index, 1, resp.updated_story)
+        //     // let updatedShownProject = {...shownProject}
+        //     // store.dispatch({type: "UPDATE_STORY", shownProject: updatedShownProject})
 
 
-            // update shownProject
-            // update shownStory if its on display
+        //     // update shownProject
+        //     // update shownStory if its on display
 
 
-        })
-        this.setState({editing: false, textarea: ''})
+        // })
+        // this.setState({editing: false, textarea: ''})
     }
     const deleteStory = (story) => {
         // fetch to erase story
