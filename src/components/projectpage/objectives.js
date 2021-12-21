@@ -89,7 +89,7 @@ const Objectives = ({stories, shownStory, setStories, setShownStory, deleteObjec
     
 
     return (
-        <div className='storiesContainer'>
+        <div className='sectionContainer'>
             <div className="storiesHeader">
                 
             <div><h1 onClick={() => setAdding(!adding)}>{adding ? "Adding":"Add"}</h1></div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import progressStyles from './progress.module.css'
 import {connect} from 'react-redux'
 import {Button} from 'semantic-ui-react'
 import store from '../../redux/store'
@@ -45,13 +44,13 @@ const Progress = ({shownStory, setShownStory, deleteObjective, progressFunc}) =>
 
     
     return (
-        <div className={progressStyles.container}>
+        <div className='sectionContainer'>
             <div className='progressHeader'>
                 <div className={selectedSect == 'inProgress' ? 'selectedProgSect' :'progSect'} onClick={() => filterObjectives('inProgress')}><h2>in progress</h2></div>
                 <div className={selectedSect == 'completed' ? 'selectedProgSect' :'progSect'} onClick={() => filterObjectives('completed')}><h2>completed</h2></div>
                 <div className={selectedSect == 'settings' ? 'selectedProgSect' :'progSect'} onClick={() => filterObjectives('settings')}><h2>settings</h2></div>
             </div>
-            <div className={progressStyles.items}>
+            <div>
             
             <div>
             {shownStory.objectives.map((obj,i) => (

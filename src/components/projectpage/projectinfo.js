@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import infoStyles from './projectinfo.module.css'
 import {connect} from 'react-redux'
 import store from '../../redux/store'
 import {Button} from 'semantic-ui-react'
@@ -57,10 +56,10 @@ class Projectinfo extends Component {
 
     render() {
         return (
-            <div className={infoStyles.container}>
+            <div>
              
-                <div className={infoStyles.content}>
-                <div className={infoStyles.buttons}><Button onClick={() => this.setState({edit: !this.state.edit})}circular icon="edit outline"/></div>
+                <div>
+                <div><Button onClick={() => this.setState({edit: !this.state.edit})}circular icon="edit outline"/></div>
 
 
                 
@@ -68,12 +67,12 @@ class Projectinfo extends Component {
                 <div>
                     
                     {this.state.edit ?
-                    <div className={infoStyles.edit}>
+                    <div>
                     <textarea onChange={(e) => this.fixEdit(e)} value={this.state.editing} placeholder={this.props.shownProject.description}/>
                     <Button onClick={(e) => this.edit(e, this.state.editing)} circular icon="save outline"/>
                     </div>
                     :
-                    <div className={infoStyles.description}>
+                    <div>
                     
                         <p>{this.props.shownProject.description}</p>
                     </div>

@@ -5,7 +5,6 @@ import Progress from '../components/projectpage/progress'
 import Projectinfo from '../components/projectpage/projectinfo'
 import Stories from '../components/projectpage/stories'
 import {connect} from 'react-redux'
-import Empty from '../components/projectpage/empty'
 
 const Projectpage = ({shownProject}) => {
     const [stories, setStories] = useState([])
@@ -64,31 +63,48 @@ const Projectpage = ({shownProject}) => {
         <div >
             <Header />
             <div className='projectSections'>
+                <div className='experiment'>
+                    {/* <h2>EPXIEMRNT</h2> */}
+                <Stories setShownStory={setShownStory} shownStory={shownStory} stories={stories} setStories={setStories}/>
+                </div>
+                <div className='experiment'>
+                {/* <h2>EPXIEMRNT</h2> */}
+                {shownStory ? 
+                <Objectives progressFunc={progressFunc} deleteObjective={deleteObjective} shownStory={shownStory} stories={stories} setStories={setStories} setShownStory={setShownStory}/>
+                :
+                <div className='emptyContainer' >
+                    </div>
+        
+ 
+                }
+
+                </div>
+                <div className='experiment'>
+                    {/* <h2>EPXIEMRNT</h2> */}
+
+                {shownStory ? 
+                <div>
+                <Progress progressFunc={progressFunc} deleteObjective={deleteObjective} shownStory={shownStory} setShownStory={setShownStory}/>
+                
+                </div>
+                :
+                <div className='emptyContainer' >
+                    </div>
+        
+    
+            }
+                </div>
 
             
-                <div className='left'>
+                {/* <div className='left'>
                     <div className='first'>
-                    <Stories setShownStory={setShownStory} shownStory={shownStory} stories={stories} setStories={setStories}/>
                     </div>
-                    {shownStory ? 
-                    <Objectives progressFunc={progressFunc} deleteObjective={deleteObjective} shownStory={shownStory} stories={stories} setStories={setStories} setShownStory={setShownStory}/>
-                    :
-                    <Empty />
-                    }
                    
                 </div>
                 <div className='right'>
-                    {shownStory ? 
-                    <div>
-                    <Progress progressFunc={progressFunc} deleteObjective={deleteObjective} shownStory={shownStory} setShownStory={setShownStory}/>
-                    
-                    </div>
-                    :
-                    <Empty />
-                }
                 
-
-            </div>
+                
+            </div> */}
             </div>
             
         </div>

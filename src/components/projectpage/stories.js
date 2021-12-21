@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import storyStyles from './stories.module.css'
 import store from '../../redux/store'
 import {connect} from 'react-redux'
 import {Button} from 'semantic-ui-react'
@@ -104,34 +103,38 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
     const deleteStory = (story) => {
         // fetch to erase story
         // if shownStory is the deleted one, clear objectives section 
-        
-        if (story.id == this.props.shownStory.id) {
-            store.dispatch({type: "CLEAR_STORY"})
+        let updatedStories = stories.filter(stori => stori.id !== story.id)
+        setStories(updatedStories)
+        if (shownStory.id == story.id){
+            setShownStory(null)
         }
+        // if (story.id == this.props.shownStory.id) {
+        //     store.dispatch({type: "CLEAR_STORY"})
+        // }
 
         fetch(`http://localhost:3000/stories/${story.id}`,{
             method: "DELETE"
         })
-        .then(resp => resp.json())
-        .then(resp => {
-            // update shown project
-            let shownProject = this.props.shownProject
-            let filteredStories = shownProject.stories.filter(story => story.id !== resp.deleted_story.id)
-            shownProject.stories = filteredStories
-            let updatedProject = {...shownProject}
+        // .then(resp => resp.json())
+        // .then(resp => {
+        //     // update shown project
+        //     let shownProject = this.props.shownProject
+        //     let filteredStories = shownProject.stories.filter(story => story.id !== resp.deleted_story.id)
+        //     shownProject.stories = filteredStories
+        //     let updatedProject = {...shownProject}
 
-            // update userProjects
-            let userProjects = this.props.userProjects
-            let found = userProjects.find(project => project.title == shownProject.title)
-            let index = userProjects.indexOf(found)
-            found.stories = filteredStories
-            userProjects.splice(index, 1, found)
+        //     // update userProjects
+        //     let userProjects = this.props.userProjects
+        //     let found = userProjects.find(project => project.title == shownProject.title)
+        //     let index = userProjects.indexOf(found)
+        //     found.stories = filteredStories
+        //     userProjects.splice(index, 1, found)
 
-            let updatedUserProjects = [...userProjects]
+        //     let updatedUserProjects = [...userProjects]
 
         
-            store.dispatch({type: "DELETE_STORY", shownProject: updatedProject, userProjects: updatedUserProjects})
-        })
+        //     store.dispatch({type: "DELETE_STORY", shownProject: updatedProject, userProjects: updatedUserProjects})
+        // })
     }
 
    const selectStory = stori => {
@@ -142,7 +145,7 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
  
 
         return (
-            <div className='storiesContainer'>
+            <div className='sectionContainer'>
                 <div className='storiesHeader'>
                     <div><h1 onClick={() => setNewStory(!newStory)}>{newStory ? "Adding":"New"}</h1></div>
                     <div><h1>BACKLOGS</h1></div>
@@ -190,7 +193,7 @@ const Stories = ({stories, shownProject, setStories, setShownStory, shownStory})
                                     <div>
                                         <div onClick={() => selectStory(story)}><h3>{editing ? 'editing' : 'edit'}</h3></div>
 
-                                        <div><h3>delete</h3></div>
+                                        <div onClick={() => deleteStory(story)}><h3>delete</h3></div>
                                     </div>
 
                                     :
