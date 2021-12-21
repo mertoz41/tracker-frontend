@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Header from '../components/header'
-import Questionnaire from '../components/newproject/questionnaire'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router'
 import ProjectCard from '../components/projectcard'
+import Questionnaire from '../components/questionnaire'
 
 const Homepage = ({currentUser, userProjects}) => {
  

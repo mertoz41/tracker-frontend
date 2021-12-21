@@ -64,11 +64,9 @@ const Projectpage = ({shownProject}) => {
             <Header />
             <div className='projectSections'>
                 <div className='experiment'>
-                    {/* <h2>EPXIEMRNT</h2> */}
                 <Stories setShownStory={setShownStory} shownStory={shownStory} stories={stories} setStories={setStories}/>
                 </div>
                 <div className='experiment'>
-                {/* <h2>EPXIEMRNT</h2> */}
                 {shownStory ? 
                 <Objectives progressFunc={progressFunc} deleteObjective={deleteObjective} shownStory={shownStory} stories={stories} setStories={setStories} setShownStory={setShownStory}/>
                 :
@@ -80,7 +78,6 @@ const Projectpage = ({shownProject}) => {
 
                 </div>
                 <div className='experiment'>
-                    {/* <h2>EPXIEMRNT</h2> */}
 
                 {shownStory ? 
                 <div>
@@ -94,17 +91,6 @@ const Projectpage = ({shownProject}) => {
     
             }
                 </div>
-
-            
-                {/* <div className='left'>
-                    <div className='first'>
-                    </div>
-                   
-                </div>
-                <div className='right'>
-                
-                
-            </div> */}
             </div>
             
         </div>

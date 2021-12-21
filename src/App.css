@@ -10,29 +10,29 @@
     width: 60%;
     height: auto;
     margin: 0 auto;
-    
 }
 .experiment{
     flex: 1;
     /* background-color: yellow; */
     margin: 20px;
-    overflow: scroll;
+    /* overflow: scroll; */
 
 
 }
 .card{
-    position: relative;
-    width: 250px;
+    width: 60%;
+    margin: 0 auto;
     text-align: center;
     background-color: white;
     border-radius: 10px;
-    float: left;
-    margin-left: 30px;
-    margin-top: 40px;
-    padding-top: 35px;
-    margin-bottom: 15px;
-    box-shadow: 0px 4px 10px 10px whitesmoke;
-    border: 5px solid #B0C4DE;
+    margin-top: 10px;
+    padding: 10pxmain;
+    /* padding-top: 3px; */
+    
+    /* float: left;
+    margin-bottom: 15px; */
+    /* box-shadow: 0px 4px 10px 10px whitesmoke; */
+    /* border: 5px solid #B0C4DE; */
 
 }
 .progressContainer{
@@ -84,9 +84,18 @@
     flex-direction: column;
 }
 .projects{
-    background-color: white;
-    border: 2px solid black;
-    height: 300px;
+    background-color: darkgray;
+    /* border: 2px solid black; */
+    border-radius: 20px;
+    height: 500px;
+}
+.middleContent{
+    background-color: yellow;
+    text-align: center;
+
+}
+.middleContent p{
+    margin-top: 15px;
 }
 .mainHeader{
     display: flex;
@@ -181,12 +190,13 @@
 .sectionContainer{
     /* flex: 1; */
     position: relative;
-    background-color: darkgray;
+    /* background-color: darkgray; */
     border-radius: 20px;
     text-align: center;
     padding: 10px;
+    overflow: scroll;
+    max-height: 600px;
 }
-
 
 
 
@@ -224,15 +234,31 @@
     margin-bottom: 20px;
     padding: 10px;
     border-left-style: solid;
-    border-left-color: whitesmoke;
+    border-left-color: darkgray;
     border-left-width: 10px;
-    background-color: whitesmoke;
+    background-color: darkgray;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.descriptionSide{
+    text-align: left;
+}
+.storiEdit{
+    background-color: transparent;
+    display: flex;
 }
 .selectedStory{
     margin-bottom: 20px;
     padding: 10px;
     border-left-style: solid;
-    border-left-color: whitesmoke;
+    border-left-color: rgb(53, 231, 178);
     border-left-width: 10px;
-    background-color: red;
+    background-color: rgb(53, 231, 178);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 20px;
+
 }

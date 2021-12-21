@@ -5,7 +5,6 @@ import Welcome from './pages/welcome'
 import Homepage from './pages/homepage'
 import store from './redux/store'
 import {connect} from 'react-redux'
-import Newprojectpage from './pages/newprojectpage'
 import Projectpage from './pages/projectpage'
 import { Helmet } from 'react-helmet'
 
@@ -31,7 +30,6 @@ function App({currentUser}){
       })
       .then(resp => resp.json())
       .then(resp => {
-        // console.log(resp)
         store.dispatch({type: "LOG_USER_IN", currentUser: resp, userProjects: resp.projects})
       })
     }
@@ -64,7 +62,6 @@ function App({currentUser}){
         :
         <Welcome/>
         }/>
-        <Route exact path="/new-project" render={() => <Newprojectpage />}/>
 
         <Route exact path="/projects/:name" render={() => <Projectpage />}/>
 
